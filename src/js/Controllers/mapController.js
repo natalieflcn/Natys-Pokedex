@@ -80,11 +80,13 @@ export const controlMapLoadEntries = async function () {
     mapEntriesView.renderSpinner();
 
     const pokemonBatch = getCaughtPokemon();
+    const sortedPokemonBatch = sortPokemon(pokemonBatch, getMapSortBy());
 
     console.log(getCaughtPokemon());
     // console.log('controlMAPLKADENTRIES');
     // console.log(pokemonBatch);
-    if (!query && pokemonBatch.length > 0) mapEntriesView.render(pokemonBatch);
+    if (!query && pokemonBatch.length > 0)
+      mapEntriesView.render(sortedPokemonBatch);
     else if (!query && pokemonBatch.length < 1)
       controlAppError(
         new Error('Pokemon Not Found'),
@@ -181,6 +183,12 @@ const controlMapClickEntry = function (pokemonName) {
   console.log(marker);
   map.panTo(marker.getPosition());
   console.log(pokemonName);
+
+  infoWindow.close();
+
+  const pokemonData = controlMapCreateInfoWindowContent(pokemonName);
+
+  mapView.openInfoWindow(pokemonData, infoWindow, map, marker);
 };
 
 const controlMapDeleteEntry = async function (pokemonName) {
@@ -225,6 +233,8 @@ const controlMapEditEntry = function (pokemonName) {
 
 // controlMapEditMarker = function () {};
 const controlMapRenderSort = function (sort) {
+  console.log('running controlmaprendersort');
+  console.log('render ', sort);
   switch (sort) {
     case 'name':
       sortView.toggleMapSortName();
@@ -243,6 +253,7 @@ const controlMapRenderSort = function (sort) {
 
 const controlMapSortBtn = async function (sort) {
   // console.log(sort);
+  console.log('running controlmapsortbtn');
 
   const currentURL = navResolveSortParams(window.location.pathname);
 
@@ -260,6 +271,7 @@ const controlMapSortBtn = async function (sort) {
 };
 
 const controlMapSortLoad = function () {
+  console.log('running controlmapsortload');
   const route = window.location.pathname;
 
   const currentURL = navResolveSortParams(route);
@@ -267,6 +279,7 @@ const controlMapSortLoad = function () {
   window.history.replaceState({ page: route }, '', currentURL);
 
   const sort = currentURL.searchParams.get('sort');
+  console.log('sortload', sort);
   controlMapRenderSort(sort);
 };
 
@@ -434,7 +447,18 @@ const controlMapMarkerClick = function (pokemonName) {
   console.log(marker);
   map.panTo(marker.getPosition());
   mapEntriesView.toggleActiveEntry(pokemonName);
-  console.log(pokemonName);
+
+  // TODO get pokemonData, set infowindow content, open window
+  const { pokemonId, pokemonTypes, pokemonLocation } =
+    controlMapCreateInfoWindowContent(pokemonName);
+  // mapView.setInfoWindowContent(
+  //   pokemonName,
+  //   pokemonId,
+  //   pokemonTypes,
+  //   pokemonLocation,
+  //   infoWindow,
+  // );
+  // mapView.openInfoWindow(infoWindow, map, marker);
 };
 
 const controlMapLoadMarkers = function () {
@@ -531,6 +555,8 @@ const controlMapInitGoogleMaps = async function () {
 
         mapView.addHandlerCreateMapMarker(map, controlMapCreateMapMarker);
         controlMapLoadMarkers();
+
+        // mapView.addHandlerCloseInfoWindow(map, infoWindow);
       },
       function () {
         alert(
