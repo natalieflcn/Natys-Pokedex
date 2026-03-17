@@ -36,9 +36,31 @@ class MapView extends View {
   }
 
   addHandlerMarkerClick(marker, handler) {
-    marker.addListener('click', e => {
+    marker.addListener('click', function () {
       const pokemonName = marker.title;
       handler(pokemonName);
+    });
+  }
+
+  addHandlerInfoWindow(map, marker, infoWindow, pokemonData) {
+    console.log('addinfowindow added');
+
+    const { pokemonName, pokemonId, pokemonTypes, pokemonLocation } =
+      pokemonData;
+
+    marker.addListener('click', function () {
+      infoWindow.setContent(
+        `<p class="map__infowindow--name">${pokemonName} <span class="pokemon__id">#${pokemonId}</span></p>
+        
+        <div class="map__infowindow--types">
+          <p class="pokemon__type map__infowindow--type" style="background-color:var(--type--${pokemonTypes[0]})">${pokemonTypes[0]}<p>
+        </div>
+        
+        <hr>
+        
+        <p style="">${pokemonLocation}</p>`,
+      );
+      infoWindow.open(map, marker);
     });
   }
 

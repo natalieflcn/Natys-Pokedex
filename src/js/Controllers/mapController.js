@@ -53,6 +53,7 @@ import { controlSearchPokemonPanel } from './searchController.js';
 
 let map;
 let mapsLoaded = false;
+let infoWindow;
 
 export const controlMapLoadSummary = function () {
   const caughtSummary = getCaughtPokemon().length;
@@ -365,6 +366,12 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
       icon: image,
     });
 
+    // TODO add method here
+    console.log(
+      'controlmapcreatemarker abnout to run controlmapcreateinfowindow',
+    );
+    mapView.addHandlerInfoWindow(map, marker, infoWindow, pokemonName);
+
     mapView.addHandlerMarkerClick(marker, controlMapMarkerClick);
 
     // console.log(getAllMarkers());
@@ -389,6 +396,29 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
   formView.updateFormLocation(location);
 };
 
+// const controlMapCreateInfoWindow = function (marker, pokemonName) {
+//   console.log('controlmapcreateinfowindow running');
+//   const infoWindow = new google.maps.InfoWindow({
+//     content: `<p>${pokemonName}</p>`,
+//   });
+
+//   mapView.addInfoWindow(map, marker, infoWindow, pokemonName);
+// };
+
+const controlMapCreateInfoWindowContent = function (pokemonName) {
+  const pokemon = getCaughtPokemon().find(
+    pokemon => pokemon.name === pokemonName,
+  );
+
+  const pokemonData = {
+    pokemonName: pokemon.name,
+    pokemonId: pokemon.id,
+    pokemonTypes: pokemon.types,
+    pokemonLocation: pokemon.location,
+  };
+
+  return pokemonData;
+};
 const controlMapMarkerClick = function (pokemonName) {
   console.log(pokemonName);
 
@@ -430,6 +460,10 @@ const controlMapLoadMarkers = function () {
     addMarkerObject(currMarker);
 
     mapView.addHandlerMarkerClick(currMarker, controlMapMarkerClick);
+
+    const pokemonData = controlMapCreateInfoWindowContent(marker.name);
+
+    mapView.addHandlerInfoWindow(map, currMarker, infoWindow, pokemonData);
 
     // const lat = marker.coordinates.latitude;
     // const lng = marker.coordinates.longitude;
@@ -490,7 +524,10 @@ const controlMapInitGoogleMaps = async function () {
           zoom: 14,
           styles: MAP_STYLES,
           mapTypeControl: false,
+          clickableIcons: false,
         });
+
+        infoWindow = new google.maps.InfoWindow();
 
         mapView.addHandlerCreateMapMarker(map, controlMapCreateMapMarker);
         controlMapLoadMarkers();

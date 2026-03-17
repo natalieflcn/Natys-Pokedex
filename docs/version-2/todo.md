@@ -327,11 +327,12 @@
   - [x] After deleting entry, need to toggle controlSearchPanel to display updated Caught status
   - [x] Fix error rendering on Caught Screen when there's no Caught Pokémon
   - [x] When querying for Pokémon, the location is not rendered
+  - [x] Render types on map entries in Map module
 
 - [x] BUG: Queries are aborting early
 - [x] BUG: Caught Pokémon summary not updating
 
-## Week: March 15 - March 21
+## Week: March 17 - March 21
 
 ### Goals
 
@@ -344,4 +345,6 @@
   - [ ] Snorlax (404 Error)
   - [ ] Naty with Pokémon (General Error)
 - [ ] Re-deploy to Netlify
+- [ ] BUG: Sorting buttons on Map module no longer working TODO 1
 - [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
+- [ ] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
