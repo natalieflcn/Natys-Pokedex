@@ -1681,8 +1681,13 @@ body {
   display: flex;
 }
 
+.gm-style .gm-style-iw-d {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
 .gm-style .gm-style-iw-c {
-  padding-top: 1rem !important;
+  padding: 0.25rem 0.5rem 0.5rem !important;
   color: var(--screen-color--dark);
   font-family: 'Gameboy';
   line-height: 1rem;
@@ -1690,18 +1695,35 @@ body {
   text-align: center;
 }
 
+.gm-style-iw-ch {
+  padding: 0 !important;
+  height: 0 !important;
+  min-width: 240px !important;
+}
 .map__infowindow--name {
   padding: 0.8rem 0 0.25rem;
+  position: relative;
+  bottom: 5px;
 }
 
 .map__infowindow--types {
   display: flex;
   justify-content: center;
+  gap: 0.25rem;
+  font-size: 0.4rem;
+  position: relative;
+  bottom: 5px;
 }
 .gm-style .pokemon__id {
+  position: relative;
   padding: 0.25rem 0.25rem 0.2rem;
+  bottom: 3px;
+  box-shadow: 1px 0px 5px 1px var(--secondary-color--red-gradient--3);
 }
 
+.map__infowindow--location {
+  font-size: 0.5rem;
+}
 .map__infowindow--type {
   display: flex;
   align-items: center;
@@ -1710,10 +1732,21 @@ body {
   width: 4rem;
 }
 .gm-ui-hover-effect {
-  /* top: 0px !important;
-  right: 0px !important; */
-  /* width: 20px !important;
-  height: 20px !important; */
+  /* top: 0px !important;*/
+  /* top: 15px !important; */
+  /* right: 15px !important; */
+  left: 5px;
+  transform: scale(0.8);
+  /* top: 1px !important; */
+  width: 20px !important;
+  height: 20px !important;
+  /* right: 2px !important; */
+}
+
+.gm-ui-hover-effect span {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
 }
 /* Media Queries -- for Tablets, Mobile Devices */
 

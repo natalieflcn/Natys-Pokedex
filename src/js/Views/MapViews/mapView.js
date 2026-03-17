@@ -53,12 +53,12 @@ class MapView extends View {
         `<p class="map__infowindow--name">${pokemonName} <span class="pokemon__id">#${pokemonId}</span></p>
         
         <div class="map__infowindow--types">
-          <p class="pokemon__type map__infowindow--type" style="background-color:var(--type--${pokemonTypes[0]})">${pokemonTypes[0]}<p>
+          <p class="pokemon__type map__infowindow--type" style="background-color:var(--type--${pokemonTypes[0]})">${pokemonTypes[0]}<p>${pokemonTypes[1] ? `<p class="pokemon__type map__infowindow--type" style="background-color:var(--type--${pokemonTypes[1]})">${pokemonTypes[1]}<p>` : ''}
         </div>
         
         <hr>
         
-        <p style="">${pokemonLocation}</p>`,
+        <p class="map__infowindow--location">${pokemonLocation}</p>`,
       );
       infoWindow.open(map, marker);
     });
