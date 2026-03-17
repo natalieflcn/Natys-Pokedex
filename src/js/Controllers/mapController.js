@@ -37,6 +37,7 @@ import {
   getMapSortBy,
   // getMarkers,
   getSavedMarkerReferences,
+  hydrateLocation,
   hydrateQueryBatch,
   // getSavedMarkers,
   removeMarkerObject,
@@ -383,7 +384,6 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
     console.log(
       'controlmapcreatemarker abnout to run controlmapcreateinfowindow',
     );
-    mapView.addHandlerInfoWindow(map, marker, infoWindow, pokemonName);
 
     mapView.addHandlerMarkerClick(marker, controlMapMarkerClick);
 
@@ -407,6 +407,20 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
   // console.log(location);
 
   formView.updateFormLocation(location);
+
+  const pokemonData = controlMapCreateInfoWindowContent(pokemonName);
+  const hydratedPokemonData = hydrateLocation(pokemonData, location);
+
+  console.log(hydratedPokemonData);
+
+  mapView.addHandlerInfoWindow(
+    map,
+    getAllMarkerObjects().find(marker => marker.title === pokemonName),
+    infoWindow,
+    hydratedPokemonData,
+  );
+
+  console.log(pokemonData);
 };
 
 // const controlMapCreateInfoWindow = function (marker, pokemonName) {

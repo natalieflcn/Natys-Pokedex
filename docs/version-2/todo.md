@@ -346,7 +346,7 @@
   - [ ] Naty with Pokémon (General Error)
 - [ ] Re-deploy to Netlify
 
-- [ ] BUG: Sorting buttons on Map module no longer working TODO 1
+- [x] BUG: Sorting buttons on Map module no longer working TODO 1
 - [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
-- [ ] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
+- [x] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
 - [ ] BUG: Error loading infoWindow for newly-added Pokémon

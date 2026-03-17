@@ -79,6 +79,12 @@ export const hydrateQueryBatch = function (queryBatch, pokemonBatch) {
   return queryBatch;
 };
 
+export const hydrateLocation = function (pokemon, location) {
+  console.log(pokemon);
+  pokemon.pokemonLocation = location;
+  return pokemon;
+};
+
 const init = function () {
   const storageMapMarkers = localStorage.getItem('markers');
 
