@@ -349,4 +349,4 @@
 - [x] BUG: Sorting buttons on Map module no longer working TODO 1
 - [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
 - [x] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
-- [ ] BUG: Error loading infoWindow for newly-added Pokémon
+- [x] BUG: Error loading infoWindow for newly-added Pokémon
