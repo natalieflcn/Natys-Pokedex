@@ -10,7 +10,6 @@ import {
   getHasMorePokemonResults,
   getLoadedReferences,
   getPokemonCurrentBatch,
-  getPokemonLoading,
   getPokemonResults,
   getPokemonSortBy,
   loadNextPokemon,
@@ -25,35 +24,24 @@ import {
   getHasMoreQueryResults,
   getQuery,
   getQueryCurrentBatch,
-  getQueryLoading,
-  getQueryRedirect,
   getQueryResults,
   loadQueryBatch,
   resetQueryState,
-  setQuery,
-  setQueryRedirect,
   startPokemonQuery,
   storeQueryResults,
   updateHasMoreQueryResults,
 } from '../models/queryModel.js';
 import {
   addCaughtPokemon,
-  getCaughtPokemon,
   removeCaughtPokemon,
 } from '../models/caughtModel.js';
 import {
   addFavoritePokemon,
-  getFavoritePokemon,
   removeFavoritePokemon,
 } from '../models/favoriteModel.js';
 import { getPokemon, loadPokemon } from '../models/panelModel.js';
 import pokemonState from '../models/state/pokemonState.js';
-import caughtState from '../models/state/caughtState.js';
-import favoriteState from '../models/state/favoriteState.js';
-import {
-  navResolveSortParams,
-  navSanitizeSort,
-} from '../services/navService.js';
+import { navSanitizeSort } from '../services/navService.js';
 import {
   getPokemonPagination,
   loadGuaranteedBatch,
@@ -66,12 +54,8 @@ import sortView from '../views/SearchViews/sortView.js';
 import panelView from '../views/SearchViews/panelView.js';
 import paginationView from '../views/SearchViews/paginationView.js';
 import { capitalize, debounce } from '../helpers.js';
-import panelState from '../models/state/panelState.js';
-import queryState from '../models/state/queryState.js';
 import { controlAppError } from './appController.js';
-import { controlProfilePokemonResults } from './profileController.js';
 import {
-  controlMapDeleteMarker,
   controlMapLoadEntries,
   controlMapLoadSummary,
   controlMapRedirect,
@@ -117,42 +101,27 @@ const controlSearchResults = async function () {
     if (query) {
       requestId = startPokemonQuery();
 
-      // if (redirectedFromProfile) {
-      //   setQueryRedirect(false);
-      //   // await controlSearchPokemonPanel();
-      // } else {
       window.history.replaceState({ page: `search` }, '', `/search`);
-      // }
 
       storeQueryResults(query, pokemonState.allPokemonReferences);
 
       await loadGuaranteedBatch(requestId, loadQueryBatch, signal);
-      // await loadQueryBatch(requestId);
 
       pokemonResults = getQueryResults();
       hasMoreResults = getHasMoreQueryResults();
-      // console.log(pokemonResults, hasMoreResults);
     } else {
       requestId = startPokemonRequest();
 
-      // window.history.replaceState({ page: `search` }, '', `/search`);
-
-      // await controlSearchPokemonPanel();
       await loadGuaranteedBatch(requestId, loadPokemonBatch, signal);
-      // await loadPokemonBatch(requestId);
 
-      // console.log(pokemonState.results);
       pokemonResults = getPokemonResults();
-      // console.log(pokemonResults);
 
       hasMoreResults = getHasMorePokemonResults();
-      // console.log(pokemonResults);
     }
 
     if (pokemonResults.length < 1) {
       resultsView._clear();
       throw new Error('Pokemon Not Found');
-      // resultsView.renderError();
     }
 
     if (hasMoreResults) {
@@ -161,20 +130,15 @@ const controlSearchResults = async function () {
 
     resultsView.render(pokemonResults);
 
-    //testing
-
     if (pokemonName) resultsView.scrollIntoView(pokemonName);
 
     resultsView.scrollIntoView;
   } catch (err) {
     resultsView.unobserveSentinel();
-    // console.log('controlsearchresults line 156 calling error');
-    // console.log(err);
-    // console.log('request aborted');
+
     if (err.name === 'AbortError') return;
 
     controlAppError(err, resultsView);
-    // console.error(err);
   }
 };
 
@@ -193,14 +157,12 @@ const controlSearchInfiniteScroll = async function () {
 
   if (query) {
     requestId = startPokemonQuery();
-    // loading = getQueryLoading();
     hasMoreResults = getHasMoreQueryResults();
     loadBatch = loadQueryBatch;
     updateHasMoreResults = updateHasMoreQueryResults;
     getCurrentBatch = getQueryCurrentBatch;
   } else {
     requestId = startPokemonRequest();
-    // loading = getPokemonLoading();
     hasMoreResults = getHasMorePokemonResults();
     loadBatch = loadPokemonBatch;
     updateHasMoreResults = updateHasMorePokemonResults;
@@ -219,6 +181,7 @@ const controlSearchInfiniteScroll = async function () {
   const currentBatch = getCurrentBatch();
 
   resultsView.removeSpinner();
+
   // There are no more results to be rendered
   if (!currentBatch || currentBatch.length === 0) {
     updateHasMoreResults();
@@ -233,8 +196,6 @@ const controlSearchInfiniteScroll = async function () {
 };
 
 export const controlSearchRenderSort = function (sort) {
-  // console.log('controlsearchrendersort, ' + sort);
-  // console.log(getPokemonSortBy());
   switch (sort || getPokemonSortBy()) {
     case 'name':
       sortView.toggleSearchSortName();
@@ -245,8 +206,6 @@ export const controlSearchRenderSort = function (sort) {
       sortView.toggleSearchSortId();
       break;
   }
-
-  // console.log('running controlsearchrendersort');
 };
 
 /**
@@ -257,7 +216,6 @@ export const controlSearchRenderSort = function (sort) {
 const controlSearchSortBtn = async function (sort) {
   const currentURL = new URL(window.location.href);
 
-  // console.log(sort);
   if (sort === 'name') {
     currentURL.searchParams.set('sort', sort);
     window.history.replaceState({}, '', currentURL);
@@ -266,10 +224,8 @@ const controlSearchSortBtn = async function (sort) {
     navSanitizeSort();
   }
 
-  // console.log('controlsearchsortbtn, ' + sort);
   setPokemonSortBy(sort);
-  // console.log(getPokemonSortBy());
-  // console.log('running controlsearchsortbtn');
+
   controlSearchRenderSort(sort);
   await controlSearchResults();
 };
@@ -278,18 +234,7 @@ export const controlSearchSortLoad = function () {
   const currentURL = new URL(window.location.href);
   const sort = currentURL.searchParams.get('sort');
 
-  // console.log('controlsearchsortload, ' + sort);
-  // console.log();
   if (!sort || sort !== 'name') navSanitizeSort();
-
-  // console.log('running controlsearchsortload');
-  // const route = window.location.href;
-
-  // const currentURL = navResolveSortParams(new URL(route));
-
-  // window.history.replaceState({ page: '/search' }, '', currentURL);
-
-  // const sort = currentURL.searchParams.get('sort');
 
   controlSearchRenderSort(sort);
 };
@@ -332,11 +277,6 @@ export const controlSearchPokemonPanel = async function () {
 
     await loadPokemon(pokemonName);
 
-    // if (window.location.pathname.split('/search/')[1] !== pokemonName) {
-    //   panelView._clear();
-    //   return;
-    // }
-
     // Render Pokémon panel
     const pokemon = getPokemon();
 
@@ -353,7 +293,6 @@ export const controlSearchPokemonPanel = async function () {
       loadMoreResults = getHasMorePokemonResults();
     }
 
-    // console.log(pokemonResults, loadMoreResults);
     const { prev, next } = getPokemonPagination(
       pokemon.name,
       pokemonResults,
@@ -364,17 +303,15 @@ export const controlSearchPokemonPanel = async function () {
     if (!prev && next) paginationView.disablePaginationBtn('prev');
     if (!next && prev) paginationView.disablePaginationBtn('next');
     if (!prev && !next) paginationView.removePaginationBtns();
-
-    // console.log(prev, next);
   } catch (err) {
     panelView._clear();
-    // console.log('controlpokemonpanel line 344 calling error');
+
     controlAppError(
       new Error('Pokemon Not Found'),
       panelView,
       `We couldn't load the Pokémon, ${capitalize(window.location.pathname.split('/search/')[1])}. Please try again.`,
     );
-    // panelView.renderError();
+
     console.error(err);
   }
 };
@@ -404,7 +341,6 @@ const controlSearchPagination = async function (direction) {
   let nextPokemon = loadNextPokemon(direction, pokemonResults);
 
   // Loading more Pokémon preview results (if the user navigates to a Pokémon that hasn't been rendered yet)
-
   if (!nextPokemon && loadMoreResults) {
     paginationView.enablePaginationBtn('next');
     panelView.renderSpinner();
@@ -412,14 +348,8 @@ const controlSearchPagination = async function (direction) {
     const numResults = pokemonResults.length;
 
     // Loading the next appropriate Pokémon batch
-    // if (query) await loadQueryBatch();
     if (query) await loadGuaranteedBatch(requestId, loadQueryBatch);
-    // else await loadPokemonBatch();
     else await loadGuaranteedBatch(requestId, loadPokemonBatch);
-
-    // Updating the Pokémon preview search results
-    // await controlSearchResults();
-    // resultsView.render(currentBatch, true, true);
 
     // Manually setting the next Pokémon to the first element of the updated Pokémon preview search results
     nextPokemon = pokemonResults[numResults];
@@ -450,20 +380,16 @@ const controlSearchCaughtBtn = function () {
   // To add/remove Caught status
   if (!pokemon.caught) {
     addCaughtPokemon(pokemon);
-    // console.log(caughtState.caughtPokemon);
     window.history.pushState({ page: `map` }, '', `/map`);
     controlMapRedirect();
   } else {
     removeCaughtPokemon(pokemon);
-
-    // controlMapDeleteMarker(pokemon);
     controlMapLoadEntries();
     controlMapLoadSummary();
+    controlSearchPokemonPanel();
   }
 
   panelView.toggleCaughtBtn();
-
-  // controlProfilePokemonResults();
 };
 
 // To add/remove Pokémon from our active Pokémon panel to our Favorite Pokémon
@@ -476,21 +402,12 @@ const controlSearchFavoriteBtn = function () {
   else removeFavoritePokemon(pokemon);
 
   panelView.toggleFavoriteBtn();
-  // controlProfilePokemonResults();
 };
 
 // To reset the navView and load the Search module when user is redirected from Profile module
 export const controlSearchRedirect = async function () {
-  // controlSearchLoadQuery();
-  // console.log(pokemon);
-  // queryView.setQuery(pokemon);
-  // setQuery(pokemon);
-
   navView.resetNav();
   navView.toggleNavSearch();
-
-  // resultsView.renderSpinner();
-  // panelView.renderSpinner();
 
   await controlSearchResults();
   await controlSearchPokemonPanel();
@@ -502,8 +419,6 @@ const initPokemonData = async function () {
   try {
     await storeAllPokemonReferences();
   } catch (err) {
-    // console.log(err);
-    // console.log('searchcontroller line 466 calling error');
     controlAppError(err, panelView);
     throw err;
   }
@@ -526,7 +441,6 @@ export const controlSearchInit = async function () {
 
   queryView.addHandlerQuery(debounce(controlSearchResults, 300));
   queryView.addHandlerChangePlaceholder();
-  // queryView.addHandlerLoadQuery(controlSearchLoadQuery);
 
   resultsView.addHandlerLoadResults(controlSearchResults);
 
@@ -536,7 +450,6 @@ export const controlSearchInit = async function () {
   previewView.addHandlerClickActivePreview(controlSearchClickPreview);
 
   panelView.addHandlerRenderPanel(controlSearchPokemonPanel);
-
   panelView.addHandlerCaughtBtn(controlSearchCaughtBtn);
   panelView.addHandlerFavoriteBtn(controlSearchFavoriteBtn);
 

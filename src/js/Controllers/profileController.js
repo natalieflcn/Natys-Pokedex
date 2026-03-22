@@ -35,6 +35,7 @@ import {
   navSanitizeSort,
 } from '../services/navService.js';
 import { controlSearchRedirect } from './searchController.js';
+import { controlAppError } from './appController.js';
 import profileView from '../views/ProfileViews/profileView.js';
 import previewView from '../views/ProfileViews/previewView.js';
 import savedPokemonView from '../views/ProfileViews/savedPokemonView.js';
@@ -42,7 +43,6 @@ import categoryView from '../views/ProfileViews/categoryView.js';
 import sortView from '../views/ProfileViews/sortView.js';
 import queryView from '../views/ProfileViews/queryView.js';
 import typesView from '../views/ProfileViews/typesView.js';
-import { controlAppError } from './appController.js';
 
 // GENERAL PROFILE CONTROLLER FUNCTIONS
 
@@ -98,12 +98,10 @@ export const controlProfilePokemonResults = async function () {
         ? await loadCaughtPokemon()
         : await loadFavoritePokemon();
 
-    // console.log(pokemonBatch);
     // Rendering all of the Caught/Favorite Pokémon results if there is no query
     if (!query && pokemonBatch.length > 0)
       savedPokemonView.render(pokemonBatch);
     else if (!query && pokemonBatch.length < 1) {
-      // console.log('controlprofilepokemon line 105 calling error');
       controlAppError(
         new Error('Pokemon Not Found'),
         savedPokemonView,
@@ -113,9 +111,6 @@ export const controlProfilePokemonResults = async function () {
       );
     }
 
-    // savedPokemonView.renderError();
-    // savedPokemonView._clear();
-
     // Rendering Pokémon query results
     if (query) {
       storeQueryResults(query, pokemonBatch);
@@ -124,8 +119,6 @@ export const controlProfilePokemonResults = async function () {
 
       if (queryBatch.length > 0) savedPokemonView.render(queryBatch);
       else {
-        // console.log('controlprofilepokemon line 125 calling error');
-
         controlAppError(
           new Error('Pokemon Not Found'),
           savedPokemonView,
@@ -134,19 +127,8 @@ export const controlProfilePokemonResults = async function () {
           } Pokémon from the Search module. `,
         );
       }
-
-      // savedPokemonView.renderError(
-      //   `We couldn't find that Pokémon! Add more ${
-      //     getCaughtRender() ? 'caught' : 'favorite'
-      //   } Pokémon from the Search module. `,
-      // );
-      // savedPokemonView._clear();
-      //TODO Render message that informs user to begin adding Pokemon to Profile
     }
   } catch (err) {
-    // savedPokemonView.renderError();
-    // console.log('controlprofilepokemon line 144 calling error');
-    // controlAppError(new Error('Pokemon Not Found'), savedPokemonView);
     controlAppError(err, savedPokemonView);
     console.error(err);
   }
@@ -182,7 +164,6 @@ export const controlProfileRenderCategory = async function (view) {
   switch (view) {
     case 'caught':
       categoryView.toggleCaughtCategory();
-      // profileView.toggleCaughtLabel();
 
       setCaughtRender(true);
       setFavoriteRender(false);
@@ -190,7 +171,6 @@ export const controlProfileRenderCategory = async function (view) {
 
     case 'favorites':
       categoryView.toggleFavoritesCategory();
-      // profileView.toggleFavoritesLabel();
 
       setCaughtRender(false);
       setFavoriteRender(true);
@@ -242,7 +222,6 @@ const controlProfileCategoryLoad = function () {
  * @param {string} sort - Sort mode ('name' or 'id')
  */
 const controlProfileRenderSort = function (sort) {
-  // console.log(sort);
   switch (sort) {
     case 'name':
       sortView.toggleProfileSortName();
@@ -264,7 +243,6 @@ const controlProfileRenderSort = function (sort) {
  * @param {string} sort - Sort mode ('name' or 'id')
  */
 const controlProfileSortBtn = async function (sort) {
-  // console.log(window.location.pathname);
   const currentURL = navResolveSortParams(window.location.pathname);
 
   if (sort === 'name') {
@@ -285,7 +263,6 @@ const controlProfileSortBtn = async function (sort) {
 export const controlProfileSortLoad = function () {
   const route = window.location.pathname;
 
-  // console.log(route);
   const currentURL = navResolveSortParams(route);
 
   window.history.replaceState({ page: route }, '', currentURL);
@@ -311,6 +288,4 @@ export const controlProfileInit = function () {
 
   sortView.addHandlerSortBtn(controlProfileSortBtn);
   sortView.addHandlerSortLoad(controlProfileSortLoad);
-
-  // typesView.addHandlerLoadTypes(controlProfileLoadTypes);
 };

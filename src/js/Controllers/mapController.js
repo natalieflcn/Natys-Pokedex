@@ -1,18 +1,17 @@
-import headerView from '../views/MapViews/headerView';
-import navView from '../views/NavViews/navView.js';
+/**
+ * Map Controller
+ * ---------------------
+ * Orchestrates Map module: determining the location of caught Pokémon with reverse geocode, loading Google Maps API, managing sorting state, handling queries, creating handlers for Google Map Marker and InfoWindow events, initializing all Pokémon Markers from local storage, editing and deleting Pokémon map entries.
+ *
+ * Emits actions to Map views but does not own state, perform data fetching, or manipulate the DOM.
+ */
+
 import {
   getCaughtPokemon,
   getLastCaughtPokemon,
-  loadCaughtPokemon,
   removeCaughtPokemon,
   setCaughtPokemonLocation,
-  setLastCaughtPokemonLocation,
 } from '../models/caughtModel';
-import formView from '../views/MapViews/formView.js';
-import { capitalize, isEmpty } from '../helpers.js';
-import mapEntriesView from '../views/MapViews/mapEntriesView.js';
-import deleteEntryView from '../views/MapViews/deleteEntryView.js';
-import editEntryView from '../views/MapViews/editEntryView.js';
 import {
   getQueryResults,
   loadQueryBatch,
@@ -20,60 +19,62 @@ import {
   startPokemonQuery,
   storeQueryResults,
 } from '../models/queryModel.js';
-import { controlAppError } from './appController.js';
-import queryView from '../views/MapViews/queryView.js';
-import sortView from '../views/MapViews/sortView.js';
 import {
-  navResolveSortParams,
-  navSanitizeSort,
-} from '../services/navService.js';
-import {
-  // addMarker,
   addMarkerObject,
   addSavedMarkerReference,
   editMarker,
   getAllMarkerObjects,
-  // getAllMarkers,
   getMapSortBy,
-  // getMarkers,
   getSavedMarkerReferences,
   hydrateLocation,
   hydrateQueryBatch,
-  // getSavedMarkers,
   removeMarkerObject,
-  // removeMarkerReference,
-  removeSavedMarker,
   removeSavedMarkerReference,
   setMapSortBy,
 } from '../models/mapModel.js';
+import {
+  navResolveSortParams,
+  navSanitizeSort,
+} from '../services/navService.js';
 import { sortPokemon } from '../services/pokemonService.js';
+import navView from '../views/NavViews/navView.js';
+import headerView from '../views/MapViews/headerView';
+import formView from '../views/MapViews/formView.js';
+import mapEntriesView from '../views/MapViews/mapEntriesView.js';
+import editEntryView from '../views/MapViews/editEntryView.js';
+import deleteEntryView from '../views/MapViews/deleteEntryView.js';
+import queryView from '../views/MapViews/queryView.js';
+import sortView from '../views/MapViews/sortView.js';
 import mapView from '../views/MapViews/mapView.js';
-import { MAP_STYLES } from '../config.js';
-import mapState from '../models/state/mapState.js';
+import { controlAppError } from './appController.js';
 import { controlSearchPokemonPanel } from './searchController.js';
+import { MAP_STYLES } from '../config.js';
+import { capitalize, isEmpty } from '../helpers.js';
 
 let map;
-let mapsPromise;
 let infoWindow;
-let mapsLoaded = false;
 
+// GENERAL MAP FUNCTIONS
+
+// Dynamically renders the number of caught Pokémon in Map module
 export const controlMapLoadSummary = function () {
   const caughtSummary = getCaughtPokemon().length;
   headerView.render(caughtSummary || '0');
 };
 
+// Loads the map module and open the map entry form (from the Search module) when a newly caught Pokémon is being added
 export const controlMapRedirect = function () {
   setTimeout(() => {
     navView.resetNav();
     navView.toggleNavMap();
     controlMapNewEntry();
     formView.scrollIntoView();
-  }, 200); // 3000 milliseconds = 3 seconds
-
-  //   navView.resetNav();
-  //   navView.toggleNavMap();
+  }, 200);
 };
 
+// MAP ENTRY FUNCTIONS
+
+// Loads all (or queried) map entries of Caught Pokémon
 export const controlMapLoadEntries = async function () {
   try {
     resetQueryState();
@@ -84,9 +85,7 @@ export const controlMapLoadEntries = async function () {
     const pokemonBatch = getCaughtPokemon();
     const sortedPokemonBatch = sortPokemon(pokemonBatch, getMapSortBy());
 
-    // console.log(getCaughtPokemon());
-    // console.log('controlMAPLKADENTRIES');
-    // console.log(pokemonBatch);
+    // Loading all Caught Pokémon map entries
     if (!query && pokemonBatch.length > 0)
       mapEntriesView.render(sortedPokemonBatch);
     else if (!query && pokemonBatch.length < 1)
@@ -96,14 +95,13 @@ export const controlMapLoadEntries = async function () {
         "You haven't caught any Pokémon yet! Start catching Pokémon from the Search module.",
       );
 
+    // Loading query results if there is a query
     if (query) {
       storeQueryResults(query, pokemonBatch);
       await loadQueryBatch(requestId);
       const queryBatch = getQueryResults();
-      // console.log(queryBatch);
       const hydratedQueryBatch = hydrateQueryBatch(queryBatch, pokemonBatch);
 
-      // console.log(queryBatch);
       if (hydrateQueryBatch.length > 0) {
         const sortedQueryBatch = sortPokemon(
           hydratedQueryBatch,
@@ -125,69 +123,56 @@ export const controlMapLoadEntries = async function () {
   }
 };
 
-const controlMapLogEntry = function () {
-  //   const pokemon = getLastCaughtPokemon();
-  //   pokemon.location = 'Unknown Location';
+// Opening the form and pre-populating the map entry fields with the respective Pokémon data
+export const controlMapNewEntry = function () {
+  const { name, id } = controlMapCalculateFormData();
+  formView.clearForm();
+  formView.showMapForm();
+  formView.updateFormNameAndId(name, id);
+};
 
+// Calculating the respective Pokémon data for the form
+const controlMapCalculateFormData = function () {
+  const { name, id } = getLastCaughtPokemon();
+  return { name: capitalize(name), id };
+};
+
+// Logging a new map entry with the current marker coordinates
+const controlMapLogEntry = function () {
   const formData = formView.getFormData();
-  console.log(formData);
   const name = formData['pokemon-name'];
   const location = formData['pokemon-location'] || 'Unknown Location';
-  // console.log(name);
-  // console.log(location);
-  // setLastCaughtPokemonLocation(location || 'Unknown Location');
-
-  // console.log('CONTROLMAPLOGENTRY');
-  // console.log(location);
   const coordinates = mapView.getCurrentMarker();
-  // console.log(coordinates);
 
-  // console.log(name, location, coordinates);
   setCaughtPokemonLocation(name, location, coordinates);
 
-  // formView.clearForm();
   formView.hideMapForm();
-  // mapView.clearCurrentMarker();
-  // formView.clearCurrentMarker(); //MAYBE
 
-  // DECIDE HERE -- WHETHER ADDING A MARKER OR EDITING A MARKER
-  if (isEmpty(coordinates)) {
-    // console.log('coordinastes i empty');
-  }
+  // Adding a marker if marker doesn't already exist
   if (
     !isEmpty(coordinates) &&
     !getSavedMarkerReferences().some(marker => marker.name === name)
   ) {
     addSavedMarkerReference(coordinates, name);
   }
-  // console.log(mapState.savedMarkers);
+
   controlMapLoadEntries();
   controlMapLoadSummary();
   mapView.clearCurrentMarker();
 };
 
-export const controlMapNewEntry = function () {
-  const { name, id } = controlMapCalculateFormData();
-  // console.log('controlmap' + name);
-  formView.clearForm();
-  formView.showMapForm();
-  formView.updateFormNameAndId(name, id);
-};
-
-const controlMapCalculateFormData = function () {
-  const { name, id } = getLastCaughtPokemon();
-
-  return { name: capitalize(name), id };
-};
-
+/**
+ * Opening the InfoWindow object with the respective data when a map entry is clicked
+ *
+ * @param {string} pokemonName - Name of Pokémon from clicked map entry
+ */
 const controlMapClickEntry = function (pokemonName) {
   const markerObjects = getAllMarkerObjects();
   const marker = markerObjects.find(marker => marker.title === pokemonName);
 
   if (!marker) return;
-  // console.log(marker);
+
   map.panTo(marker.getPosition());
-  // console.log(pokemonName);
 
   infoWindow.close();
 
@@ -196,6 +181,30 @@ const controlMapClickEntry = function (pokemonName) {
   mapView.openInfoWindow(pokemonData, infoWindow, map, marker);
 };
 
+/**
+ * Editing the map entry of respective Pokémon
+ *
+ * @param {string} pokemonName - Name of Pokémon from map entry being edited
+ */
+const controlMapEditEntry = function (pokemonName) {
+  const id = getCaughtPokemon().find(
+    pokemon => pokemon.name === pokemonName,
+  ).id;
+  const location = getCaughtPokemon().find(
+    pokemon => pokemon.name === pokemonName,
+  ).location;
+
+  formView.showMapForm();
+  formView.updateFormNameAndId(pokemonName, id);
+  formView.updateFormLocation(location);
+  formView.scrollIntoView();
+};
+
+/**
+ * Deleting the map entry of respective Pokémon
+ *
+ * @param {string} pokemonName - Name of Pokémon from map entry being deleted
+ */
 const controlMapDeleteEntry = async function (pokemonName) {
   const removePokemon = getCaughtPokemon().find(
     pokemon => pokemon.name === pokemonName,
@@ -205,41 +214,24 @@ const controlMapDeleteEntry = async function (pokemonName) {
   );
 
   if (!isEmpty(removeMarker)) {
-    // console.log('this shit is still running');
     controlMapDeleteMarker(removePokemon);
   }
 
   removeCaughtPokemon(removePokemon);
   await controlSearchPokemonPanel();
 
-  // console.log(removePokemon);
-  // if (getSavedMarkerReferences().some(marker => marker.name === pokemonName))
-
   controlMapLoadSummary();
   controlMapLoadEntries();
 };
 
-const controlMapEditEntry = function (pokemonName) {
-  const id = getCaughtPokemon().find(
-    pokemon => pokemon.name === pokemonName,
-  ).id;
-  const location = getCaughtPokemon().find(
-    pokemon => pokemon.name === pokemonName,
-  ).location;
+// MAP SORT FUNCTIONS
 
-  // console.log(pokemonName);
-  formView.showMapForm();
-  formView.updateFormNameAndId(pokemonName, id);
-  formView.updateFormLocation(location);
-  formView.scrollIntoView();
-
-  // TODO ADD LOCATION INTO FORM
-};
-
-// controlMapEditMarker = function () {};
+/**
+ * Rendering the sorting mode of map module.
+ *
+ * @param {string} sort - Sort mode ('name' or 'id' or 'date')
+ */
 const controlMapRenderSort = function (sort) {
-  // console.log('running controlmaprendersort');
-  // console.log('render ', sort);
   switch (sort) {
     case 'name':
       sortView.toggleMapSortName();
@@ -256,10 +248,12 @@ const controlMapRenderSort = function (sort) {
   }
 };
 
+/**
+ * Handles sort button click and keeps URL search params in sync with sorting mode
+ *
+ * @param {string} sort - Sort mode ('name' or 'id' or 'date')
+ */
 const controlMapSortBtn = async function (sort) {
-  // console.log(sort);
-  // console.log('running controlmapsortbtn');
-
   const currentURL = navResolveSortParams(window.location.pathname);
 
   if (sort === 'name' || sort === 'id') {
@@ -276,7 +270,6 @@ const controlMapSortBtn = async function (sort) {
 };
 
 const controlMapSortLoad = function () {
-  // console.log('running controlmapsortload');
   const route = window.location.pathname;
 
   const currentURL = navResolveSortParams(route);
@@ -284,153 +277,30 @@ const controlMapSortLoad = function () {
   window.history.replaceState({ page: route }, '', currentURL);
 
   const sort = currentURL.searchParams.get('sort');
-  // console.log('sortload', sort);
   controlMapRenderSort(sort);
 };
 
-const controlMapLoadScript = function () {
-  if (window._googleMapsPromise) return window._googleMapsPromise;
+// MAP MARKER FUNCTIONS
 
-  window._googleMapsPromise = new Promise((resolve, reject) => {
-    // ✅ Already fully loaded
-    if (window.google?.maps?.Map) {
-      return resolve();
-    }
-
-    // ✅ Script already in DOM → WAIT, don’t reload
-    const existingScript = document.querySelector(
-      'script[src*="maps.googleapis.com/maps/api/js"]',
-    );
-
-    if (existingScript) {
-      const waitForMaps = () => {
-        if (window.google?.maps?.Map) resolve();
-        else setTimeout(waitForMaps, 50);
-      };
-      waitForMaps();
-      return;
-    }
-
-    // ✅ Load script ONCE
-    const script = document.createElement('script');
-    const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
-    script.async = true;
-    script.defer = true;
-
-    script.onload = () => {
-      const waitForMaps = () => {
-        if (window.google?.maps?.Map) resolve();
-        else setTimeout(waitForMaps, 50);
-      };
-      waitForMaps();
-    };
-
-    script.onerror = reject;
-
-    document.head.appendChild(script);
-  });
-
-  return window._googleMapsPromise;
-  // if (mapsPromise) return mapsPromise;
-
-  // mapsPromise = new Promise((resolve, reject) => {
-  //   if (window.google?.maps?.Map) return resolve();
-
-  //   const script = document.createElement('script');
-  //   const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
-  //   script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
-  //   script.async = true;
-  //   script.defer = true;
-
-  //   script.onload = resolve;
-  //   script.onerror = reject;
-
-  //   document.head.appendChild(script);
-  // });
-
-  // return mapsPromise;
-
-  // return new Promise((resolve, reject) => {
-  //   if (mapsLoaded) return resolve();
-  //   const script = document.createElement('script');
-  //   const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
-  //   script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly`;
-  //   script.defer = true;
-  //   script.onload = () => {
-  //     mapsLoaded = true;
-  //     resolve();
-  //   };
-
-  //   script.onerror = reject;
-  //   document.head.appendChild(script);
-  // });
-};
-
-const controlMapClearNullMarkers = function () {
-  const allMarkerObjects = getAllMarkerObjects();
-  const savedMarkerReferences = getSavedMarkerReferences();
-
-  if (isEmpty(allMarkerObjects)) return;
-
-  // console.log('ALL MARKERS');
-  // console.log(allMarkerObjects);
-
-  // console.log('SAVED MARKERS');
-  // console.log(savedMarkerReferences);
-
-  // allMarkers.forEach(marker =>
-  //   savedMarkers
-  //     .some(
-  //       savedMarker =>
-  //         savedMarker.coordinates.latitude !== marker.coordinates.latitude &&
-  //         savedMarker.coordinates.longitude !== marker.coordinates.longitude,
-  //     )
-  //     .forEach(nullMarker => nullMarker.setMap(null)),
-  // );
-
-  // const filteredArray = allMarkers.filter(marker =>
-  //   savedMarkers.some(
-  //     savedMarker =>
-  //       savedMarker.coordinates.latitude === marker.coordinates.latitude &&
-  //       savedMarker.coordinates.longitude === marker.coordinates.longitude,
-  //   ),
-  // );
-
-  // console.log('FILTERED ARRAY');
-  allMarkerObjects.filter(marker => {
-    const exists = savedMarkerReferences.some(
-      savedMarker =>
-        savedMarker.coordinates.latitude === marker.position.lat() &&
-        savedMarker.coordinates.longitude === marker.position.lng(),
-    );
-
-    if (!exists) {
-      marker.setMap(null);
-      // allMarkers.splice(allMarkers.indexOf(marker), 1);
-      removeMarkerObject(marker);
-    }
-
-    return exists;
-  });
-
-  // console.log(filteredArray);
-};
-
+/**
+ * Creates marker on the map with coordinates that was clicked by the user.
+ *
+ * @param {number} latitude - Latitude of marker
+ * @param {number} longitude - Longitude of marker
+ */
 const controlMapCreateMapMarker = async function (latitude, longitude) {
   if (!formView.isFormOpen()) return;
-  // console.log(latitude, longitude);
 
   controlMapClearNullMarkers();
-  // mapView.clearCurrentMarker();
+
   if (!latitude && !longitude) return;
   const pokemonName = formView.getFormName();
 
+  // If marker belongs to a Pokémon already (not a newly created marker), then edit the existing marker's coordinates
   if (getSavedMarkerReferences().some(marker => marker.name === pokemonName)) {
-    // console.log('editing pokemon is running');
     editMarker(pokemonName, latitude, longitude);
+
+    // Otherwise, create a new Google Maps marker
   } else {
     const image = getCaughtPokemon().find(
       pokemon => pokemon.name === pokemonName,
@@ -443,106 +313,106 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
       icon: image,
     });
 
-    // TODO add method here
-    // console.log(
-    //   'controlmapcreatemarker abnout to run controlmapcreateinfowindow',
-    // );
-
     mapView.addHandlerMarkerClick(marker, controlMapMarkerClick);
 
-    // console.log(getAllMarkers());
     addMarkerObject(marker);
   }
 
+  // Google Geocode API
   const geocoder = new google.maps.Geocoder();
 
+  // Using the Geocoder to reverse geocode the coordinates into an address
   const geocode = await geocoder.geocode({
     location: { lat: latitude, lng: longitude },
   });
 
-  // console.log(geocode);
   const location =
     geocode.results.find(
       result =>
         result.types?.includes('neighborhood') ||
         result.types?.includes('administrative_area_level_2'),
     )?.formatted_address || 'Unknown Location';
-  // console.log(location);
 
   formView.updateFormLocation(location);
 
   const pokemonData = controlMapCreateInfoWindowContent(pokemonName);
   const hydratedPokemonData = hydrateLocation(pokemonData, location);
 
-  // console.log(hydratedPokemonData);
-
+  // Adding the InfoWindow handler to the marker
   mapView.addHandlerInfoWindow(
     map,
     getAllMarkerObjects().find(marker => marker.title === pokemonName),
     infoWindow,
     hydratedPokemonData,
   );
-
-  // console.log(pokemonData);
 };
 
-// const controlMapCreateInfoWindow = function (marker, pokemonName) {
-//   console.log('controlmapcreateinfowindow running');
-//   const infoWindow = new google.maps.InfoWindow({
-//     content: `<p>${pokemonName}</p>`,
-//   });
-
-//   mapView.addInfoWindow(map, marker, infoWindow, pokemonName);
-// };
-
-const controlMapCreateInfoWindowContent = function (pokemonName) {
-  const pokemon = getCaughtPokemon().find(
-    pokemon => pokemon.name === pokemonName,
-  );
-
-  const pokemonData = {
-    pokemonName: pokemon.name,
-    pokemonId: pokemon.id,
-    pokemonTypes: pokemon.types,
-    pokemonLocation: pokemon.location,
-  };
-
-  return pokemonData;
-};
+/**
+ * Handles click of Google Maps marker.
+ * When marker is clicked, map pans to marker and map entry is toggled active.
+ *
+ * @param {string} pokemonName - Name of target Pokémon
+ */
 const controlMapMarkerClick = function (pokemonName) {
-  // console.log(pokemonName);
-
-  const pokemon = getCaughtPokemon().find(
-    pokemon => pokemon.name === pokemonName,
-  );
-
   const markerObjects = getAllMarkerObjects();
   const marker = markerObjects.find(marker => marker.title === pokemonName);
 
-  // console.log(marker);
   if (!marker) return;
-  // console.log(marker);
+
   map.panTo(marker.getPosition());
   mapEntriesView.toggleActiveEntry(pokemonName);
-
-  // TODO get pokemonData, set infowindow content, open window
-  const { pokemonId, pokemonTypes, pokemonLocation } =
-    controlMapCreateInfoWindowContent(pokemonName);
-  // mapView.setInfoWindowContent(
-  //   pokemonName,
-  //   pokemonId,
-  //   pokemonTypes,
-  //   pokemonLocation,
-  //   infoWindow,
-  // );
-  // mapView.openInfoWindow(infoWindow, map, marker);
 };
 
+/**
+ * Clear null markers (unsaved marker objects) from allMarkerObjects.
+ * Only marker objects that have a marker reference in savedMarkerReferences will be preserved.
+ * Redundant clicks on the map by the user will not have a marker saved.
+ */
+const controlMapClearNullMarkers = function () {
+  const allMarkerObjects = getAllMarkerObjects();
+  const savedMarkerReferences = getSavedMarkerReferences();
+
+  if (isEmpty(allMarkerObjects)) return;
+
+  allMarkerObjects.filter(marker => {
+    const exists = savedMarkerReferences.some(
+      savedMarker =>
+        savedMarker.coordinates.latitude === marker.position.lat() &&
+        savedMarker.coordinates.longitude === marker.position.lng(),
+    );
+
+    if (!exists) {
+      marker.setMap(null);
+      removeMarkerObject(marker);
+    }
+
+    return exists;
+  });
+};
+
+/**
+ * Deletes map marker reference and marker object.
+ *
+ * @param {Object} pokemon - Pokémon to be deleted
+ */
+export const controlMapDeleteMarker = function (pokemon) {
+  if (pokemon.location === 'Unknown Location') return;
+
+  const removedSavedMarker = removeSavedMarkerReference(pokemon.name);
+  const targetLat = removedSavedMarker.coordinates.latitude;
+  const targetLng = removedSavedMarker.coordinates.longitude;
+
+  const markerObject = removeMarkerObject(targetLat, targetLng);
+
+  markerObject.setMap(null);
+};
+
+/**
+ * Loads map markers from local storage and adds them onto map.
+ */
 const controlMapLoadMarkers = function () {
-  // console.log('running controlMapLoadMarkers');
   const markers = getSavedMarkerReferences();
 
-  // console.log(markers);
   for (let marker of markers) {
     const image = getCaughtPokemon().find(
       pokemon => pokemon.name === marker.name,
@@ -565,61 +435,93 @@ const controlMapLoadMarkers = function () {
     const pokemonData = controlMapCreateInfoWindowContent(marker.name);
 
     mapView.addHandlerInfoWindow(map, currMarker, infoWindow, pokemonData);
-
-    // const lat = marker.coordinates.latitude;
-    // const lng = marker.coordinates.longitude;
-    // controlMapCreateMapMarker(lat, lng, true);
   }
-  // console.log(getAllMarkerObjects());
 };
 
-export const controlMapDeleteMarker = function (pokemon) {
-  // console.log(pokemon);
-  // console.log(`deleting ${pokemon.name} marker`);
+// MAP INFO WINDOW FUNCTION
 
-  // console.log(pokemon.location);
-  if (pokemon.location === 'Unknown Location') return;
+/**
+ * Generates InfoWindow content for the respective Pokemon
+ *
+ * @param {string} pokemonName - Name of target Pokémon
+ */
+const controlMapCreateInfoWindowContent = function (pokemonName) {
+  const pokemon = getCaughtPokemon().find(
+    pokemon => pokemon.name === pokemonName,
+  );
 
-  // find saved marker, delete
-  // const savedMarkers = getSavedMarkers();
-  // const savedMarker = savedMarkers.find(marker => marker.name === pokemon.name);
-  // console.log(savedMarker);
+  const pokemonData = {
+    pokemonName: pokemon.name,
+    pokemonId: pokemon.id,
+    pokemonTypes: pokemon.types,
+    pokemonLocation: pokemon.location,
+  };
 
-  // const targetLat = savedMarker.coordinates.latitude;
-  // const targetLng = savedMarker.coordinates.longitude;
-  // savedMarkers.splice(savedMarkers.indexOf(savedMarker), 1);
-
-  const removedSavedMarker = removeSavedMarkerReference(pokemon.name);
-  // console.log(removedSavedMarker);
-  const targetLat = removedSavedMarker.coordinates.latitude;
-  const targetLng = removedSavedMarker.coordinates.longitude;
-
-  // console.log(targetLat, targetLng, getSavedMarkerReferences());
-
-  // find all marker reference, delete
-  // const markerReferences = getAllMarkerObjects();
-  // const markerReference = markerReferences.find(
-  //   marker =>
-  //     marker.position.lat() === targetLat &&
-  //     marker.position.lng() === targetLng,
-  // );
-
-  const markerObject = removeMarkerObject(targetLat, targetLng);
-
-  // console.log(markerObject);
-  markerObject.setMap(null);
-  // markerReferences.splice(markerReferences.indexOf(markerReference), 1);
+  return pokemonData;
 };
 
+// GOOGLE MAPS API
+
+/**
+ * Dynamically loads the script for Google Maps API.
+ * Rendered dynamically to protect the secret from being exposed in client-side code.
+ */
+const controlMapLoadScript = function () {
+  if (window._googleMapsPromise) return window._googleMapsPromise;
+
+  window._googleMapsPromise = new Promise((resolve, reject) => {
+    // Already fully loaded
+    if (window.google?.maps?.Map) {
+      return resolve();
+    }
+
+    // Script already in DOM → WAIT, don’t reload
+    const existingScript = document.querySelector(
+      'script[src*="maps.googleapis.com/maps/api/js"]',
+    );
+
+    if (existingScript) {
+      const waitForMaps = () => {
+        if (window.google?.maps?.Map) resolve();
+        else setTimeout(waitForMaps, 50);
+      };
+      waitForMaps();
+      return;
+    }
+
+    // Load script ONCE
+    const script = document.createElement('script');
+    const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
+    script.async = true;
+    script.defer = true;
+
+    script.onload = () => {
+      const waitForMaps = () => {
+        if (window.google?.maps?.Map) resolve();
+        else setTimeout(waitForMaps, 50);
+      };
+      waitForMaps();
+    };
+
+    script.onerror = reject;
+
+    document.head.appendChild(script);
+  });
+
+  return window._googleMapsPromise;
+};
+
+/**
+ * Initializes Google Maps API Map.
+ */
 const controlMapInitGoogleMaps = async function () {
-  // console.log(process.env.GOOGLE_MAPS_API_KEY);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         const { longitude, latitude } = position.coords;
-        // console.log(longitude, latitude);
 
-        // refactor into mapView.js later
         map = new google.maps.Map(mapView.getMapElement(), {
           center: { lat: latitude, lng: longitude },
           zoom: 14,
@@ -632,8 +534,6 @@ const controlMapInitGoogleMaps = async function () {
 
         mapView.addHandlerCreateMapMarker(map, controlMapCreateMapMarker);
         controlMapLoadMarkers();
-
-        // mapView.addHandlerCloseInfoWindow(map, infoWindow);
       },
       function () {
         alert(
@@ -644,14 +544,16 @@ const controlMapInitGoogleMaps = async function () {
   }
 };
 
+/**
+ * Initializes Map Controller event handlers and attach them to Map Views
+ */
 export const controlMapInit = async function () {
-  // controlMapLoadEntries();
-  // mapEntriesView.addHandlerLoadEntries(controlMapLoadEntries);
+  // Loading Google Maps API
   await controlMapLoadScript();
-
   controlMapInitGoogleMaps();
+
+  // Attaching event handlers
   headerView.addHandlerLoadSummary(controlMapLoadSummary);
-  // controlMapLoadSummary();
   formView.addHandlerLogEntry(controlMapLogEntry);
   deleteEntryView.addHandlerDeleteBtn(controlMapDeleteEntry);
   editEntryView.addHandlerEditBtn(controlMapEditEntry);
@@ -660,6 +562,7 @@ export const controlMapInit = async function () {
   sortView.addHandlerSortBtn(controlMapSortBtn);
   sortView.addHandlerSortLoad(controlMapSortLoad);
 
+  // Initializing Map Module
   controlMapLoadSummary();
   controlMapLoadEntries();
 };
