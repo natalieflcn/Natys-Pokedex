@@ -3,11 +3,11 @@ import View from './View';
 class AboutView extends View {
   _parentEl = document.querySelector('.screen__border');
   _errorMessage = 'There was a problem loading the About module.';
-  //   _aboutHandlerAttached = false;
+
   /**
-   * Adds handler to Pokémon panel pagination buttons ('prev'/'next')
+   * Adds handler to About Module's Search/Map/Profile buttons
    *
-   * @param {Function} handler - Search controller callback (controlSearchPagination)
+   * @param {Function} handler - App controller callback (controlAboutBtns)
    */
   addHandlerAboutBtn(handler) {
     this._parentEl
@@ -26,6 +26,7 @@ class AboutView extends View {
       );
   }
 
+  // Ensures that the user starts the About Module from the top of the screens
   scrollToTop() {
     const screenTops = [
       this._parentEl.querySelector('.screen__1--about'),

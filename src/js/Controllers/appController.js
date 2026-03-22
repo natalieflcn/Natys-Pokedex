@@ -6,14 +6,13 @@
  * This controller does not own state, implement business logic, perform data fetching, or manipulate the DOM.
  */
 
-import { controlNavBtn, controlNavInit } from './navController';
+import { controlNavInit, controlNavBtn } from './navController';
 import { controlSearchInit } from './searchController';
+import { controlMapInit } from './mapController';
 import { controlProfileInit } from './profileController';
-import '../../css/style.css';
 import AboutView from '../views/AboutView';
 import resultsView from '../views/SearchViews/resultsView';
-import generalErrorView from '../views/ErrorViews/generalErrorView';
-import { controlMapInit } from './mapController';
+import '../../css/style.css';
 
 const controlAboutBtns = function (action) {
   switch (action) {
@@ -50,9 +49,6 @@ const controlAboutBtns = function (action) {
 };
 
 export const controlAppError = function (err, view, message) {
-  // console.log(err);
-  // console.log(err.message);
-  // console.log('running ControlAppERROR');
   switch (err.message) {
     case 'Pokemon Not Found':
       view.renderError(message || view._errorMessage);
@@ -95,9 +91,9 @@ const init = async function () {
     controlNavInit();
     await controlSearchInit();
     await controlMapInit();
-
     controlProfileInit();
     AboutView.addHandlerAboutBtn(controlAboutBtns);
+    
     window.appInitialized = true;
   } catch (err) {
     controlAppError(

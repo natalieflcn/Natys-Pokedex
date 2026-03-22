@@ -8,7 +8,11 @@ export default class View {
     this._parentEl.innerHTML = '';
   }
 
-  // Renders a Pokéball spinner to provide visual feedback while data is loading
+  /**
+   * Renders a Pokéball spinner to provide visual feedback while data is loading
+   *
+   * @param {boolean} append - Determines whether the view should be cleared before rendering spinner or if spinner should be appended
+   */
   renderSpinner = function (append = false) {
     const markup = `
     <div class="spinner__div">
@@ -64,6 +68,7 @@ export default class View {
     this._parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
+  // Manually removes spinner
   removeSpinner() {
     const spinner = this._parentEl.querySelector('.spinner__div');
     spinner?.remove();

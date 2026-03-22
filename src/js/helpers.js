@@ -8,11 +8,16 @@ const timeout = function (s) {
   });
 };
 
-// To consolidate fetching data and parsing the JSON response
+/**
+ * To consolidate fetching data and parsing the JSON response
+ *
+ * @param {string} url - URL to perform GET request on
+ * @param {Object} signal - AbortSignal, to aid in aborting stale requests
+ */
 export const AJAX = async function (url, signal) {
   try {
     // if (url.includes('pokemon')) {
-    //   throw new Error('HTTP_42');
+    //   throw new Error('HTTP_400');
     // }
 
     const fetchPromise = fetch(url, signal ? { signal } : {});
@@ -21,8 +26,6 @@ export const AJAX = async function (url, signal) {
     const data = await res.json();
 
     if (!res.ok) throw new Error(`HTTP_${res.status}`);
-
-    // ${data.message} (${res.status})
 
     return data;
   } catch (err) {
@@ -34,6 +37,11 @@ export const AJAX = async function (url, signal) {
   }
 };
 
+/**
+ * To evaluate whether an object is empty
+ *
+ * @param {Object} obj - An object
+ */
 export const isEmpty = function (obj) {
   if (obj === null || typeof obj === 'undefined') {
     return true;
@@ -42,13 +50,22 @@ export const isEmpty = function (obj) {
   return Object.keys(obj).length === 0;
 };
 
-// To capitalize a word
+/**
+ * To capitalize a word
+ *
+ * @param {string} word - Word to be capitalized
+ */
 export const capitalize = function (word) {
   if (!word) return;
   return word[0].toUpperCase().concat(word.slice(1));
 };
 
-// To debounce a function
+/**
+ * To debounce a function, reducing rapid-fire events
+ *
+ * @param {Function} func - The function to debounce
+ * @param {number} delay - Number of milliseconds to wait before invoking function
+ */
 export const debounce = function (func, delay) {
   let timeoutId;
   return function (...args) {
@@ -59,13 +76,22 @@ export const debounce = function (func, delay) {
   };
 };
 
-// To extract ID (name) of Pokémon from the URL TODO move to helpers.js
+/**
+ * To extract ID (name) of Pokémon from the URL
+ *
+ * @param {string} url - URL that contains Pokemon ID
+ */
 export const extractPokemonId = function (url) {
   const id = url.match(/\/(\d+)\/?$/);
   return id ? Number(id[1]) : null;
 };
 
-// To store Caught Pokémon and Favorite Pokémon in Local Storage
+/**
+ * To extract ID (name) of Pokémon from the URL
+ *
+ * @param {string} type - The field that the data will be stored under
+ * @param {Object} data - The data that will be persisted in local storage
+ */
 export const persistData = function (type, data) {
   localStorage.setItem(type, JSON.stringify(data));
 };

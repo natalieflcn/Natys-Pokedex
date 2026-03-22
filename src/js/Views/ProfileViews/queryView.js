@@ -42,6 +42,7 @@ class QueryView extends View {
     this._parentEl.value = '';
   }
 
+  // Changes placeholder text of input field when screen size changes, if applicable
   changePlaceholderText() {
     const windowWidth = window.innerWidth;
 
@@ -52,6 +53,7 @@ class QueryView extends View {
     }
   }
 
+  // Attaches handler to input field to change placeholder text when window is resized
   addHandlerChangePlaceholder() {
     this.changePlaceholderText();
     window.addEventListener('resize', this.changePlaceholderText.bind(this));

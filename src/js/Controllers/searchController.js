@@ -178,9 +178,6 @@ const controlSearchResults = async function () {
   }
 };
 
-const debouncedControlSearchResults = function () {
-  debounce(controlSearchResults);
-};
 // To determine the scroll position of the client and to load more data, if necessary
 const controlSearchInfiniteScroll = async function () {
   if (infiniteScrollLocked) return;

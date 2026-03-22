@@ -32,7 +32,7 @@ import lightsView from '../views/NavViews/lightsView';
 import resultsView from '../views/SearchViews/resultsView';
 import { capitalize } from '../helpers';
 import aboutView from '../views/AboutView';
-import pageNotFoundView from '../views/ErrorViews/pageNotFoundView';
+import pageNotFoundView from '../views/pageNotFoundView';
 
 /**
  * Renders module with appropriate data (based on the URL path)

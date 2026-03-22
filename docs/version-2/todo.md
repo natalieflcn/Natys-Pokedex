@@ -346,7 +346,9 @@
   - [ ] Naty with Pokémon (General Error)
 - [ ] Re-deploy to Netlify
 
-- [x] BUG: Sorting buttons on Map module no longer working TODO 1
+- [x] BUG: Sorting buttons on Map module no longer working
 - [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
 - [x] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
 - [x] BUG: Error loading infoWindow for newly-added Pokémon
+- [ ] BUG: Toggling Caught button doesn't automatically reflect in Pokémon Panel
+- [x] BUG: When there are no Caught/Favorite Pokémon, typesView progress bars render NaN% and visually have progress

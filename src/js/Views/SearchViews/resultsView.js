@@ -17,6 +17,11 @@ class ResultsView extends View {
   _sentinel = document.querySelector('.search__sentinel');
   _observer = null;
 
+  /**
+   * Calls handler function (to load Pokémon search results) when View loads.
+   *
+   * @param {Function} handler - Search controller callback (controlSearchResults)
+   */
   addHandlerLoadResults(handler) {
     this._parentEl.addEventListener('load', handler);
   }
@@ -47,6 +52,11 @@ class ResultsView extends View {
     this._observer.unobserve(this._sentinel);
   }
 
+  /**
+   * Scrolls to the currently active Pokémon.
+   *
+   * @param {string} pokemonName - Name of Pokémon who should be currently active
+   */
   scrollIntoView(pokemonName) {
     const pokemon = this._parentEl.querySelector(`.search__preview--active`);
 
@@ -63,6 +73,7 @@ class ResultsView extends View {
       block: 'center',
     });
   }
+
   _generateMarkup() {
     // Map an array of previewViews to be rendered and appended to resultsView
     return this._data.map(result => previewView.render(result, false)).join('');

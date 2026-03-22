@@ -50,6 +50,9 @@ class PaginationView extends View {
       .classList.remove('btn--disabled');
   }
 
+  /**
+   * Removes pagination button in the event that a single Pokémon is being rendered outside of a collection
+   */
   removePaginationBtns() {
     this._parentEl
       .querySelectorAll('.search__btn--prev, .search__btn--next')

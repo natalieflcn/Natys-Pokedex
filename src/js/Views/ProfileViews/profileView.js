@@ -7,7 +7,6 @@
  */
 
 import View from '../View.js';
-import { PROFILE_IMG, PROFILE_NAME, PROFILE_BIO } from '../../config.js';
 
 class ProfileView extends View {
   _parentEl = document.querySelector('.profile__header');
@@ -24,12 +23,9 @@ class ProfileView extends View {
 
   _generateMarkup() {
     return `
-    
-          
-              
               <div class="profile__header--details">
                 
-                <h2 class="heading">${PROFILE_NAME}'s Pokédex</h2>
+                <h2 class="heading">Naty's Pokédex</h2>
 
                 <div class="profile__header--labels">
                   <p class="profile__header--label" data-view="caught">
@@ -50,14 +46,6 @@ class ProfileView extends View {
                <div class="profile__header--bio bio profile__header--full-text">Grew up catching Pokémon in the Bronx, now training my Pokémon and ready for battle in Dyckman.</div>
                 
               </div>
-          
-             
-            
-            
-            
-    
-                
-            
             `;
   }
 }

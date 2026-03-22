@@ -18,7 +18,7 @@ class QueryView extends View {
    * - 'keydown' to prevent default submission
    * - 'load' to attach controller handler
    *
-   * @param {Function} handler - Profile controller callback (debouncedControlSearchResults)
+   * @param {Function} handler - Search controller callback (controlSearchResults)
    */
   addHandlerQuery(handler) {
     ['popstate', 'load'].forEach(e => window.addEventListener(e, handler));
@@ -32,19 +32,12 @@ class QueryView extends View {
     });
   }
 
-  addHandlerLoadQuery(handler) {
-    ['popstate', 'load'].forEach(e => window.addEventListener(e, handler));
-  }
-
   // Returns the current value of the search input field
   getQuery() {
     return this._parentEl.value;
   }
 
-  setQuery(query) {
-    this._parentEl.value = query;
-  }
-
+  // Changes placeholder text of input field when screen size changes, if applicable
   changePlaceholderText() {
     const windowWidth = window.innerWidth;
 
@@ -55,6 +48,7 @@ class QueryView extends View {
     }
   }
 
+  // Attaches handler to input field to change placeholder text when window is resized
   addHandlerChangePlaceholder() {
     this.changePlaceholderText();
     window.addEventListener('resize', this.changePlaceholderText.bind(this));
