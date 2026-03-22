@@ -125,7 +125,7 @@ export const loadPokemonBatch = async function (
 
     // Fetch Pokémon name, ID, and img to later create Pokémon previews (this stores an array of promises)
     const pokemonBatchDetails = loadBatchDetails(pokemonBatch, signal);
-    // console.log(pokemonBatchDetails);
+
     if (isStalePokemonRequest(requestId)) return;
 
     // Resolves the aforementioned array of promises and creates Pokémon preview objects
@@ -136,9 +136,8 @@ export const loadPokemonBatch = async function (
     // Removes the invalid (null, non-existent) entries from the array of Pokémon preview obejcts
     const validPokemonPreviews = filterPokemonPreviews(pokemonPreviews);
 
-    // console.log(validPokemonPreviews);
     addPokemonToState(validPokemonPreviews);
-    // console.log(validPokemonPreviews.length);
+
     updateHasMorePokemonResults();
 
     pokemonState.offset += batchSize;

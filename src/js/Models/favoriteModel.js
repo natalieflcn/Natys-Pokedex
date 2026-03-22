@@ -42,11 +42,19 @@ export const getFavoriteRender = () => favoriteState.profile.render;
 
 export const getFavoriteSortBy = () => favoriteState.profile.sortBy;
 
-// Sets render to 'true' or 'false' depending on active category
+/**
+ * Sets render to 'true' or 'false' depending on active category
+ *
+ * @param {Boolean} value - True or False
+ */
 export const setFavoriteRender = value =>
   (favoriteState.profile.render = value);
 
-// Sets sort value to 'name' or 'id' depending on value maintained in favoriteState
+/**
+ * Sets sort value to 'name' or 'id' depending on value maintained in favoriteState
+ *
+ * @param {string} value - 'name' or 'id'
+ */
 export const setFavoriteSortBy = sort => (favoriteState.profile.sortBy = sort);
 
 // To load sorted Favorite Pokémon (favoriteState)
@@ -114,6 +122,10 @@ export const removeFavoritePokemon = function (pokemon) {
   updateTypesPokemonFavorited();
 };
 
+/**
+ * Resets the typesFavorited counters to 0 for all Pokémon types.
+ * Called internally by updateTypesPokemonFavorited.
+ */
 const resetTypesPokemonFavorited = function () {
   favoriteState.typesFavorited = {
     Normal: 0,
@@ -137,6 +149,7 @@ const resetTypesPokemonFavorited = function () {
   };
 };
 
+// To update the types of Pokémon favorited for the Profile
 export const updateTypesPokemonFavorited = function () {
   resetTypesPokemonFavorited();
 

@@ -10,9 +10,9 @@
 
 import caughtState from './state/caughtState';
 import { resetQueryState } from './queryModel';
+import { getMapSortBy } from './mapModel';
 import { sortPokemon } from '../services/pokemonService';
 import { persistData } from '../helpers';
-import { getMapSortBy } from './mapModel';
 
 /**
  * ======================
@@ -46,12 +46,27 @@ export const getCaughtRender = () => caughtState.profile.render;
 
 export const getCaughtSortBy = () => caughtState.profile.sortBy;
 
-// Sets render to 'true' or 'false' depending on active category
+/**
+ * Sets render to 'true' or 'false' depending on active category
+ *
+ * @param {Boolean} value - True or False
+ */
 export const setCaughtRender = value => (caughtState.profile.render = value);
 
-// Sets sort value to 'name' or 'id' depending on value maintained in caughtState
+/**
+ * Sets sort value to 'name' or 'id' depending on value maintained in caughtState
+ *
+ * @param {string} value - 'name' or 'id'
+ */
 export const setCaughtSortBy = sort => (caughtState.profile.sortBy = sort);
 
+/**
+ * Sets location property on caught Pokémon.
+ *
+ * @param {string} pokemonName - Name of Pokémon
+ * @param {string} newLocation - Formatted location
+ * @param {Object} latLng - Coordinates
+ */
 export const setCaughtPokemonLocation = function (
   pokemonName,
   newLocation,
@@ -61,20 +76,11 @@ export const setCaughtPokemonLocation = function (
     currPokemon => currPokemon.name === pokemonName,
   );
 
-  // console.log(pokemon, pokemonName, newLocation, coordinates);
   pokemon.location = newLocation;
   pokemon.latLng = coordinates;
 
-  // console.log('cAUGHT MODEL');
-  // console.log(newLocation);
-  // console.log(caughtState.caughtPokemon);
-  // console.log(caughtState.caughtPokemon);
   persistData('caughtPokemon', caughtState.caughtPokemon);
 };
-
-export const setLastCaughtPokemonLocation = location =>
-  (caughtState.caughtPokemon[caughtState.caughtPokemon.length - 1].location =
-    location);
 
 // To load sorted Caught Pokémon (caughtState)
 export const loadCaughtPokemon = async function () {
@@ -84,10 +90,9 @@ export const loadCaughtPokemon = async function () {
 
   const caughtPokemonPreviews = [];
 
-  //do url checking mdoule here
-
   const module = window.location.pathname.split('/').at(1);
 
+  // Sorting by MapSortBy if user is in Map module
   if (module === 'map') {
     const caughtPokemon = sortPokemon(
       caughtState.caughtPokemon,
@@ -98,11 +103,9 @@ export const loadCaughtPokemon = async function () {
       const { name, id, img, location, latLng } = pokemon;
       caughtPokemonPreviews.push({ name, id, img, location, latLng });
     }
-    // console.log(caughtPokemonPreviews);
+
     return caughtPokemonPreviews;
   } else {
-    // console.log(module, sortBy);
-
     const caughtPokemon = sortPokemon(
       caughtState.caughtPokemon,
       getCaughtSortBy(),
@@ -133,7 +136,6 @@ export const addCaughtPokemon = function (newPokemon) {
 
   caughtState.caughtPokemon.push(newPokemon);
 
-  // console.log(caughtState.caughtPokemon);
   persistData('caughtPokemon', caughtState.caughtPokemon);
   updateTypesPokemonCaught();
 };

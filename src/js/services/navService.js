@@ -14,9 +14,9 @@ import {
   setCaughtSortBy,
 } from '../models/caughtModel';
 import { getFavoriteSortBy, setFavoriteSortBy } from '../models/favoriteModel';
-import { BASE_POKEDEX_URL } from '../config';
 import { getPokemon } from '../models/panelModel';
 import { getMapSortBy, setMapSortBy } from '../models/mapModel';
+import { BASE_POKEDEX_URL } from '../config';
 
 /**
  * Resolves pages identifiers to application routes.
@@ -32,6 +32,7 @@ export const navResolveRoute = function (page) {
     return `/profile/${category}`;
   }
 
+  // Resolves the /search route to have its appropriate subroute if a user is viewing Pokémon details
   if (page === 'search' && Object.keys(getPokemon()).length !== 0) {
     return `/search/${getPokemon().name.toLowerCase()}`;
   }
@@ -69,24 +70,18 @@ export const navSanitizeSort = function () {
 export const navResolveSortParams = function (route) {
   const currentURL = new URL(route.toString(), BASE_POKEDEX_URL);
 
-  // console.log(route);
   let sortBy;
 
-  // console.log(route);
   if (route.startsWith('/search')) sortBy = getPokemonSortBy();
   else if (route === '/profile/caught') sortBy = getCaughtSortBy();
   else if (route === '/profile/favorites') sortBy = getFavoriteSortBy();
-  if (route === '/map') sortBy = getMapSortBy();
+  else if (route === '/map') sortBy = getMapSortBy();
 
-  // console.log(sortBy);
   if (sortBy === 'name') currentURL.searchParams.set('sort', 'name');
   else if (sortBy === 'id' && route === '/map')
     currentURL.searchParams.set('sort', 'id');
   else navSanitizeSort();
 
-  // console.log(currentURL);
-  // console.log(sortBy);
-  // console.log(getPokemonSortBy());
   return currentURL;
 };
 
@@ -96,9 +91,7 @@ export const navHydrateSortParams = function () {
   const sort = currentURL.searchParams.get('sort');
   const currentRoute = window.location.pathname;
 
-  // console.log(currentURL, currentRoute, sort);
   if (sort !== 'name' && sort !== 'id' && sort !== 'date') {
-    // if (currentRoute === '/search' || currentRoute.startsWith('/profile'))
     navSanitizeSort();
     return;
   }
@@ -110,27 +103,8 @@ export const navHydrateSortParams = function () {
     if (sort !== 'name' && sort !== 'id') return;
   }
 
-  // console.log(sort);
-
   if (currentRoute.startsWith('/search')) setPokemonSortBy(sort);
   if (currentRoute.startsWith('/profile/caught')) setCaughtSortBy(sort);
   if (currentRoute.startsWith('/profile/favorites')) setFavoriteSortBy(sort);
   if (currentRoute.startsWith('/map')) setMapSortBy(sort);
-
-  // switch (currentRoute) {
-  //   case '/profile/caught':
-  //   case '/profile/favorites':
-  //     setCaughtSortBy(sort);
-  //     setFavoriteSortBy(sort);
-  //     break;
-
-  //   case '/search':
-  //     setPokemonSortBy(sort);
-  //     break;
-
-  //   case '/map':
-  //     setMapSortBy(sort);
-  //     break;
-  // }
-  // console.log(getPokemonSortBy(), getCaughtSortBy(), getFavoriteSortBy());
 };

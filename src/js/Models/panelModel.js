@@ -67,18 +67,6 @@ export const createPokemonObject = async function (data) {
   const stats = data[0].stats.map(stat => [stat.stat.name, stat.base_stat]);
   const moves = [];
 
-  // for (const move of data[0].moves.slice(13, 19)) {
-  //   const moveType = await AJAX(`${MOVE_TYPE_URL}${move.move.name}`);
-
-  //   moves.push([
-  //     move.move.name
-  //       .split('-')
-  //       .map(word => capitalize(word))
-  //       .join(' '),
-  //     capitalize(moveType.type.name),
-  //   ]);
-  // }
-
   const selectedMoves = data[0].moves.slice(13, 19);
 
   const moveData = await Promise.all(

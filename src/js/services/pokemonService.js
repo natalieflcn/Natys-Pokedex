@@ -11,11 +11,9 @@ import { AJAX, capitalize } from '../helpers';
 import { LIMIT, MAIN_API_URL } from '../config';
 import {
   getHasMorePokemonResults,
-  getPokemonSortBy,
   loadPokemonBatch,
 } from '../models/pokemonModel.js';
 import { getHasMoreQueryResults } from '../models/queryModel';
-import queryState from '../models/state/queryState';
 
 /**
  * ======================
@@ -83,7 +81,15 @@ const createPokemonPreviewObject = function (name, details) {
   };
 };
 
-//TODO Write documentation
+/**
+ * Loads Pokémon details for the next batch of Pokémon in the specified set. Maps each Pokémon into an array of PokemonPreview objects to be created.
+ * Loads a guaranteed batch of Pokémon previews.
+ * If any API calls fail to fetch data, this will continue while there are more results to load and until it reaches the desired batch size.
+ *
+ * @param {number} requestId - Id of request being made
+ * @param {Function} loadBatch - Function to load Pokémon batch (loadPokemonBatch or loadQueryBatch)
+ * @param {Object} signal - AbortSignal, to aid in aborting stale requests
+ */
 export const loadGuaranteedBatch = async function (
   requestId,
   loadBatch,
@@ -97,7 +103,6 @@ export const loadGuaranteedBatch = async function (
 
   while (pokemonPreviews.length < LIMIT && hasMoreResults()) {
     try {
-      // let currentBatchSize =
       const batchSize = LIMIT - pokemonPreviews.length;
 
       const loadedPokemon = await loadBatch(requestId, batchSize, signal);
@@ -155,6 +160,7 @@ export const loadPokemonPreviews = async pokemonRequests => {
  */
 export const filterPokemonPreviews = pokemonPreviews =>
   pokemonPreviews.filter(Boolean);
+
 /**
  * Sorts the specified Pokémon set according to the sort search parameters defined in the URL.
  *
@@ -189,16 +195,9 @@ export const getPokemonPagination = function (
   pokemonResults,
   loadMoreResults,
 ) {
-  // console.log(pokemonName, pokemonResults, loadMoreResults);
-
   if (!pokemonResults.some(pokemon => pokemon.name === pokemonName)) {
     return { prev: false, next: false };
   }
-
-  // If the current Pokémon panel is a result from manual-url navigation or Profile module redirect
-  // if (!pokemonResults.some(pokemon => pokemon.name === pokemonName)) {
-  //   return { prev: false, next: false };
-  // }
 
   let prev = true,
     next = true;

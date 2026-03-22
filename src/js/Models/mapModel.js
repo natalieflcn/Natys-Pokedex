@@ -1,5 +1,5 @@
-import { persistData } from '../helpers';
 import mapState from './state/mapState';
+import { persistData } from '../helpers';
 
 export const getMapSortBy = () => mapState.sortBy;
 
