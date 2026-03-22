@@ -1,3 +1,11 @@
+/**
+ * Map Views – Query View
+ * ---------------------
+ * Responsible for rendering Pokémon Map module input where user can query for Caught Pokémon and managing query-related DOM interactions.
+ *
+ * Emits events to the mapController but does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 
 class QueryView extends View {
@@ -5,12 +13,12 @@ class QueryView extends View {
   _errorMessage = 'We could not find that Pokémon! Please try again.';
 
   /**
-   * Adds handler for profile input events:
+   * Adds handler for map input events:
    * - 'input' for live updates
    * - 'keydown' to prevent default submission
    * - 'load' to attach controller handler
    *
-   * @param {Function} handler - Profile controller callback (controlProfilePokemonResults)
+   * @param {Function} handler - Map controller callback (controlMapLoadEntries)
    */
   addHandlerQuery(handler) {
     ['popstate', 'load'].forEach(e => window.addEventListener(e, handler));
@@ -24,16 +32,17 @@ class QueryView extends View {
     });
   }
 
-  // Returns the current value of the profile input field
+  // Returns the current value of the map input field
   getQuery() {
     return this._parentEl.value;
   }
 
-  // Clears the profile input field
+  // Clears the map input field
   clearInput() {
     this._parentEl.value = '';
   }
 
+  // Changes placeholder text of input field when screen size changes, if applicable
   changePlaceholderText() {
     const windowWidth = window.innerWidth;
 
@@ -44,6 +53,7 @@ class QueryView extends View {
     }
   }
 
+  // Attaches handler to input field to change placeholder text when window is resized
   addHandlerChangePlaceholder() {
     this.changePlaceholderText();
     window.addEventListener('resize', this.changePlaceholderText.bind(this));

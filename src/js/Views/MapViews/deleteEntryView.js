@@ -1,3 +1,12 @@
+/**
+ * Maps Views - Delete Entry View
+ * ---------------------
+ * Responsible for rendering button that will allow the associated entry to be deleted.
+ *
+ * Emits events to mapController.
+ * Does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 
 class DeleteEntryView extends View {
@@ -5,9 +14,10 @@ class DeleteEntryView extends View {
   _errorMessage = 'There was an error deleting this entry.';
 
   /**
-   * Adds handler to profile category buttons
+   * Adds handler to entry 'delete' button.
+   * Returns Pokemon Name to the callback function.
    *
-   * @param {Function} handler - Profile controller callback (controlProfileCategoryBtn)
+   * @param {Function} handler - Map controller callback (controlMapDeleteEntry)
    */
   addHandlerDeleteBtn(handler) {
     this._parentEl.addEventListener('click', function (e) {
@@ -20,10 +30,6 @@ class DeleteEntryView extends View {
         .closest('.map__entry--options')
         .previousElementSibling.textContent.split('#')[0]
         .trim();
-
-      // const pokemon = btn.previousElementSibling.textContent
-      //   .split('#')[0]
-      //   .trim();
 
       handler(pokemon);
     });

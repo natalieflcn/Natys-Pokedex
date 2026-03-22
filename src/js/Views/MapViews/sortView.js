@@ -1,3 +1,11 @@
+/**
+ * Map Views – Sort View
+ * ---------------------
+ * Responsible for rendering Pokémon map sort controls and managing sort-related DOM interactions.
+ *
+ * Emits events to the mapController but does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 
 class SortView extends View {
@@ -5,9 +13,9 @@ class SortView extends View {
   _errorMessage = 'There was an error sorting Pokémon on the Map module.';
 
   /**
-   * Adds handler to search sort buttons
+   * Adds handler to map sort buttons
    *
-   * @param {Function} handler - Search controller callback (controlSearchSortBtn)
+   * @param {Function} handler - Map controller callback (controlMapSortBtn)
    */
   addHandlerSortBtn(handler) {
     this._parentEl.addEventListener('click', function (e) {
@@ -27,7 +35,7 @@ class SortView extends View {
   /**
    * Adds handler to load active sort button during browser navigation events
    *
-   * @param {Function} handler - Search controller callback (controlSearchSortLoad)
+   * @param {Function} handler - Map controller callback (controlMapSortLoad)
    */
   addHandlerSortLoad(handler) {
     ['popstate', 'load'].forEach(e => window.addEventListener(e, handler));

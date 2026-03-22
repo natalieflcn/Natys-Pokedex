@@ -1,3 +1,12 @@
+/**
+ * Maps Views - Map Entries View
+ * ---------------------
+ * Responsible for rendering the container where all map entries will be held.
+ *
+ * Emits events to mapController.
+ * Does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 import mapEntryView from './mapEntryView.js';
 
@@ -5,10 +14,13 @@ class mapEntriesView extends View {
   _parentEl = document.querySelector('.map__entry--container');
   _errorMessage = 'We could not load your Caught Pokémon. Please try again!';
 
-  // addHandlerLoadEntries(handler) {
-  //   this._parentEl.addEventListener('load', handler);
-  // }
-
+  /**
+   * Adds handler to each map entry.
+   * When entry is clicked, it will become toggled active.
+   * Returns the Pokémon name of associated entry to callback function.
+   *
+   * @param {Function} handler - Map controller callback (controlMapClickEntry)
+   */
   addHandlerClickEntry(handler) {
     this._parentEl.addEventListener('click', e => {
       const entry = e.target.closest('.map__entry');
@@ -21,6 +33,7 @@ class mapEntriesView extends View {
       if (currentlyActive && currentlyActive !== entry)
         currentlyActive.classList.remove('map__entry--active');
 
+      // Makes the current entry active
       entry.classList.add('map__entry--active');
 
       const pokemonName = entry
@@ -32,6 +45,11 @@ class mapEntriesView extends View {
     });
   }
 
+  /**
+   * Manually toggles a map entry to be active.
+   *
+   * @param {string} pokemonName - Name of Pokémon whose entry should be toggled active
+   */
   toggleActiveEntry(pokemonName) {
     // Removing currently active map entry, if it exists
     const currentlyActive = this._parentEl.querySelector('.map__entry--active');
@@ -45,15 +63,14 @@ class mapEntriesView extends View {
         .textContent.includes(pokemonName),
     );
 
-    // console.log(entriesArray);
-
+    // Removing active class on other entry, if applicable
     if (currentlyActive && currentlyActive !== entry)
       currentlyActive.classList.remove('map__entry--active');
 
-    // console.log(entry);
+    // Making map entry active
     entry.classList.add('map__entry--active');
 
-    // Scroll entry into view
+    // Scrolling map entry into view
     entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 

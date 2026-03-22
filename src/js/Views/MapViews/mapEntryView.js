@@ -1,3 +1,12 @@
+/**
+ * Maps Views - Map Entry View
+ * ---------------------
+ * Responsible for rendering map entry for Map Entries View.
+ *
+ * Emits events to mapController.
+ * Does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 
 class MapEntryView extends View {
@@ -5,7 +14,6 @@ class MapEntryView extends View {
   _errorMessage = 'There was an error loading this Caught Pokémon entry.';
 
   _generateMarkup() {
-    // console.log(this._data.types);
     return `
             <div class="map__entry ">
                 <img

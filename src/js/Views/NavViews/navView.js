@@ -134,6 +134,7 @@ class NavView extends View {
       .classList.add('btn--active', 'btn--disabled');
   }
 
+  // Adds active classes to Page Not Found module and displays Page Not Found module
   toggleNavPageNotFound() {
     this._parentEl
       .querySelectorAll(

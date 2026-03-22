@@ -1,3 +1,12 @@
+/**
+ * Maps Views - Header View
+ * ---------------------
+ * Responsible for rendering the number of Caught Pokémon on the Map module
+ *
+ * Emits events to mapController.
+ * Does not own state, perform data fetching, or implement business logic.
+ */
+
 import View from '../View.js';
 
 class HeaderView extends View {
@@ -5,15 +14,14 @@ class HeaderView extends View {
   _errorMessage = 'There was an error loading the number of Caught Pokémon.';
 
   /**
-   * Adds handler to trigger rendering of profile details during browser navigation events
+   * Adds handler to trigger rendering of number of Caught Pokémon
    *
-   * @param {Function} handler - Profile controller callback (controlProfileLoad)
+   * @param {Function} handler - Map controller callback (controlMapLoadSummary)
    */
   addHandlerLoadSummary(handler) {
     ['popstate', 'load'].forEach(e => window.addEventListener(e, handler));
   }
 
-  //change later when creating map controller
   _generateMarkup() {
     return `${this._data}`;
   }
