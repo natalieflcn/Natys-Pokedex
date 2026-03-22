@@ -80,8 +80,8 @@ export const hydrateQueryBatch = function (queryBatch, pokemonBatch) {
 };
 
 export const hydrateLocation = function (pokemon, location) {
-  console.log(pokemon);
   pokemon.pokemonLocation = location;
+  console.log(pokemon);
   return pokemon;
 };
 

@@ -168,13 +168,13 @@ const controlSearchResults = async function () {
     resultsView.scrollIntoView;
   } catch (err) {
     resultsView.unobserveSentinel();
-    console.log('controlsearchresults line 156 calling error');
-    console.log(err);
-    console.log('request aborted');
+    // console.log('controlsearchresults line 156 calling error');
+    // console.log(err);
+    // console.log('request aborted');
     if (err.name === 'AbortError') return;
 
     controlAppError(err, resultsView);
-    console.error(err);
+    // console.error(err);
   }
 };
 
@@ -505,9 +505,10 @@ const initPokemonData = async function () {
   try {
     await storeAllPokemonReferences();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     // console.log('searchcontroller line 466 calling error');
     controlAppError(err, panelView);
+    throw err;
   }
 };
 
@@ -515,7 +516,16 @@ const initPokemonData = async function () {
  * Initializes Search Controller event handlers and attach them to Search Views
  */
 export const controlSearchInit = async function () {
-  await initPokemonData();
+  try {
+    await initPokemonData();
+  } catch (err) {
+    controlAppError(
+      new Error('HTTP_400'),
+      resultsView,
+      `Something went wrong! Please refresh the page.`,
+    );
+    return;
+  }
 
   queryView.addHandlerQuery(debounce(controlSearchResults, 300));
   queryView.addHandlerChangePlaceholder();

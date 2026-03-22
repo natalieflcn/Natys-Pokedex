@@ -60,7 +60,7 @@ class MapView extends View {
   }
 
   addHandlerInfoWindow(map, marker, infoWindow, pokemonData) {
-    console.log('addinfowindow added');
+    // console.log('addinfowindow added');
 
     const { pokemonName, pokemonId, pokemonTypes, pokemonLocation } =
       pokemonData;
@@ -94,8 +94,8 @@ class MapView extends View {
   }
 
   openInfoWindow(pokemonData, infoWindow, map, marker) {
-    console.log('running');
-    console.log(infoWindow, map, marker);
+    // console.log('running');
+    // console.log(infoWindow, map, marker);
 
     const { pokemonName, pokemonId, pokemonTypes, pokemonLocation } =
       pokemonData;

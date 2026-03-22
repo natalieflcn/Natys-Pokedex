@@ -5,7 +5,7 @@ class MapEntryView extends View {
   _errorMessage = 'There was an error loading this Caught Pokémon entry.';
 
   _generateMarkup() {
-    console.log(this._data.types);
+    // console.log(this._data.types);
     return `
             <div class="map__entry ">
                 <img

@@ -45,12 +45,12 @@ class mapEntriesView extends View {
         .textContent.includes(pokemonName),
     );
 
-    console.log(entriesArray);
+    // console.log(entriesArray);
 
     if (currentlyActive && currentlyActive !== entry)
       currentlyActive.classList.remove('map__entry--active');
 
-    console.log(entry);
+    // console.log(entry);
     entry.classList.add('map__entry--active');
 
     // Scroll entry into view

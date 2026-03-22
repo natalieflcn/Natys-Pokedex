@@ -90,13 +90,22 @@ export const controlAppError = function (err, view, message) {
 const init = async function () {
   // Prevents app from duplication initialization during development (HMR)
   if (window.appInitialized) return;
-  window.appInitialized = true;
 
-  controlNavInit();
-  await controlSearchInit();
-  controlProfileInit();
-  controlMapInit();
-  AboutView.addHandlerAboutBtn(controlAboutBtns);
+  try {
+    controlNavInit();
+    await controlSearchInit();
+    await controlMapInit();
+
+    controlProfileInit();
+    AboutView.addHandlerAboutBtn(controlAboutBtns);
+    window.appInitialized = true;
+  } catch (err) {
+    controlAppError(
+      new Error('HTTP_400'),
+      resultsView,
+      `Something went wrong! Please refresh the page.`,
+    );
+  }
 };
 
 init();

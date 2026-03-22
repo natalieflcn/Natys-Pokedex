@@ -53,8 +53,9 @@ import mapState from '../models/state/mapState.js';
 import { controlSearchPokemonPanel } from './searchController.js';
 
 let map;
-let mapsLoaded = false;
+let mapsPromise;
 let infoWindow;
+let mapsLoaded = false;
 
 export const controlMapLoadSummary = function () {
   const caughtSummary = getCaughtPokemon().length;
@@ -83,7 +84,7 @@ export const controlMapLoadEntries = async function () {
     const pokemonBatch = getCaughtPokemon();
     const sortedPokemonBatch = sortPokemon(pokemonBatch, getMapSortBy());
 
-    console.log(getCaughtPokemon());
+    // console.log(getCaughtPokemon());
     // console.log('controlMAPLKADENTRIES');
     // console.log(pokemonBatch);
     if (!query && pokemonBatch.length > 0)
@@ -99,7 +100,7 @@ export const controlMapLoadEntries = async function () {
       storeQueryResults(query, pokemonBatch);
       await loadQueryBatch(requestId);
       const queryBatch = getQueryResults();
-      console.log(queryBatch);
+      // console.log(queryBatch);
       const hydratedQueryBatch = hydrateQueryBatch(queryBatch, pokemonBatch);
 
       // console.log(queryBatch);
@@ -129,7 +130,7 @@ const controlMapLogEntry = function () {
   //   pokemon.location = 'Unknown Location';
 
   const formData = formView.getFormData();
-  // console.log(formData);
+  console.log(formData);
   const name = formData['pokemon-name'];
   const location = formData['pokemon-location'] || 'Unknown Location';
   // console.log(name);
@@ -140,16 +141,18 @@ const controlMapLogEntry = function () {
   // console.log(location);
   const coordinates = mapView.getCurrentMarker();
   // console.log(coordinates);
+
+  // console.log(name, location, coordinates);
   setCaughtPokemonLocation(name, location, coordinates);
 
-  formView.clearForm();
+  // formView.clearForm();
   formView.hideMapForm();
   // mapView.clearCurrentMarker();
   // formView.clearCurrentMarker(); //MAYBE
 
   // DECIDE HERE -- WHETHER ADDING A MARKER OR EDITING A MARKER
   if (isEmpty(coordinates)) {
-    console.log('coordinastes i empty');
+    // console.log('coordinastes i empty');
   }
   if (
     !isEmpty(coordinates) &&
@@ -166,6 +169,7 @@ const controlMapLogEntry = function () {
 export const controlMapNewEntry = function () {
   const { name, id } = controlMapCalculateFormData();
   // console.log('controlmap' + name);
+  formView.clearForm();
   formView.showMapForm();
   formView.updateFormNameAndId(name, id);
 };
@@ -181,9 +185,9 @@ const controlMapClickEntry = function (pokemonName) {
   const marker = markerObjects.find(marker => marker.title === pokemonName);
 
   if (!marker) return;
-  console.log(marker);
+  // console.log(marker);
   map.panTo(marker.getPosition());
-  console.log(pokemonName);
+  // console.log(pokemonName);
 
   infoWindow.close();
 
@@ -201,14 +205,14 @@ const controlMapDeleteEntry = async function (pokemonName) {
   );
 
   if (!isEmpty(removeMarker)) {
-    console.log('this shit is still running');
+    // console.log('this shit is still running');
     controlMapDeleteMarker(removePokemon);
   }
 
   removeCaughtPokemon(removePokemon);
   await controlSearchPokemonPanel();
 
-  console.log(removePokemon);
+  // console.log(removePokemon);
   // if (getSavedMarkerReferences().some(marker => marker.name === pokemonName))
 
   controlMapLoadSummary();
@@ -223,7 +227,7 @@ const controlMapEditEntry = function (pokemonName) {
     pokemon => pokemon.name === pokemonName,
   ).location;
 
-  console.log(pokemonName);
+  // console.log(pokemonName);
   formView.showMapForm();
   formView.updateFormNameAndId(pokemonName, id);
   formView.updateFormLocation(location);
@@ -234,8 +238,8 @@ const controlMapEditEntry = function (pokemonName) {
 
 // controlMapEditMarker = function () {};
 const controlMapRenderSort = function (sort) {
-  console.log('running controlmaprendersort');
-  console.log('render ', sort);
+  // console.log('running controlmaprendersort');
+  // console.log('render ', sort);
   switch (sort) {
     case 'name':
       sortView.toggleMapSortName();
@@ -254,7 +258,7 @@ const controlMapRenderSort = function (sort) {
 
 const controlMapSortBtn = async function (sort) {
   // console.log(sort);
-  console.log('running controlmapsortbtn');
+  // console.log('running controlmapsortbtn');
 
   const currentURL = navResolveSortParams(window.location.pathname);
 
@@ -272,7 +276,7 @@ const controlMapSortBtn = async function (sort) {
 };
 
 const controlMapSortLoad = function () {
-  console.log('running controlmapsortload');
+  // console.log('running controlmapsortload');
   const route = window.location.pathname;
 
   const currentURL = navResolveSortParams(route);
@@ -280,30 +284,89 @@ const controlMapSortLoad = function () {
   window.history.replaceState({ page: route }, '', currentURL);
 
   const sort = currentURL.searchParams.get('sort');
-  console.log('sortload', sort);
+  // console.log('sortload', sort);
   controlMapRenderSort(sort);
 };
 
 const controlMapLoadScript = function () {
-  return new Promise((resolve, reject) => {
-    if (mapsLoaded) return resolve();
+  if (window._googleMapsPromise) return window._googleMapsPromise;
 
+  window._googleMapsPromise = new Promise((resolve, reject) => {
+    // ✅ Already fully loaded
+    if (window.google?.maps?.Map) {
+      return resolve();
+    }
+
+    // ✅ Script already in DOM → WAIT, don’t reload
+    const existingScript = document.querySelector(
+      'script[src*="maps.googleapis.com/maps/api/js"]',
+    );
+
+    if (existingScript) {
+      const waitForMaps = () => {
+        if (window.google?.maps?.Map) resolve();
+        else setTimeout(waitForMaps, 50);
+      };
+      waitForMaps();
+      return;
+    }
+
+    // ✅ Load script ONCE
     const script = document.createElement('script');
-
     const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
+    script.async = true;
     script.defer = true;
 
     script.onload = () => {
-      mapsLoaded = true;
-      resolve();
+      const waitForMaps = () => {
+        if (window.google?.maps?.Map) resolve();
+        else setTimeout(waitForMaps, 50);
+      };
+      waitForMaps();
     };
 
     script.onerror = reject;
 
     document.head.appendChild(script);
   });
+
+  return window._googleMapsPromise;
+  // if (mapsPromise) return mapsPromise;
+
+  // mapsPromise = new Promise((resolve, reject) => {
+  //   if (window.google?.maps?.Map) return resolve();
+
+  //   const script = document.createElement('script');
+  //   const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+  //   script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
+  //   script.async = true;
+  //   script.defer = true;
+
+  //   script.onload = resolve;
+  //   script.onerror = reject;
+
+  //   document.head.appendChild(script);
+  // });
+
+  // return mapsPromise;
+
+  // return new Promise((resolve, reject) => {
+  //   if (mapsLoaded) return resolve();
+  //   const script = document.createElement('script');
+  //   const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
+  //   script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly`;
+  //   script.defer = true;
+  //   script.onload = () => {
+  //     mapsLoaded = true;
+  //     resolve();
+  //   };
+
+  //   script.onerror = reject;
+  //   document.head.appendChild(script);
+  // });
 };
 
 const controlMapClearNullMarkers = function () {
@@ -312,11 +375,11 @@ const controlMapClearNullMarkers = function () {
 
   if (isEmpty(allMarkerObjects)) return;
 
-  console.log('ALL MARKERS');
-  console.log(allMarkerObjects);
+  // console.log('ALL MARKERS');
+  // console.log(allMarkerObjects);
 
-  console.log('SAVED MARKERS');
-  console.log(savedMarkerReferences);
+  // console.log('SAVED MARKERS');
+  // console.log(savedMarkerReferences);
 
   // allMarkers.forEach(marker =>
   //   savedMarkers
@@ -336,7 +399,7 @@ const controlMapClearNullMarkers = function () {
   //   ),
   // );
 
-  console.log('FILTERED ARRAY');
+  // console.log('FILTERED ARRAY');
   allMarkerObjects.filter(marker => {
     const exists = savedMarkerReferences.some(
       savedMarker =>
@@ -358,7 +421,7 @@ const controlMapClearNullMarkers = function () {
 
 const controlMapCreateMapMarker = async function (latitude, longitude) {
   if (!formView.isFormOpen()) return;
-  console.log(latitude, longitude);
+  // console.log(latitude, longitude);
 
   controlMapClearNullMarkers();
   // mapView.clearCurrentMarker();
@@ -366,7 +429,7 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
   const pokemonName = formView.getFormName();
 
   if (getSavedMarkerReferences().some(marker => marker.name === pokemonName)) {
-    console.log('editing pokemon is running');
+    // console.log('editing pokemon is running');
     editMarker(pokemonName, latitude, longitude);
   } else {
     const image = getCaughtPokemon().find(
@@ -381,9 +444,9 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
     });
 
     // TODO add method here
-    console.log(
-      'controlmapcreatemarker abnout to run controlmapcreateinfowindow',
-    );
+    // console.log(
+    //   'controlmapcreatemarker abnout to run controlmapcreateinfowindow',
+    // );
 
     mapView.addHandlerMarkerClick(marker, controlMapMarkerClick);
 
@@ -411,7 +474,7 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
   const pokemonData = controlMapCreateInfoWindowContent(pokemonName);
   const hydratedPokemonData = hydrateLocation(pokemonData, location);
 
-  console.log(hydratedPokemonData);
+  // console.log(hydratedPokemonData);
 
   mapView.addHandlerInfoWindow(
     map,
@@ -420,7 +483,7 @@ const controlMapCreateMapMarker = async function (latitude, longitude) {
     hydratedPokemonData,
   );
 
-  console.log(pokemonData);
+  // console.log(pokemonData);
 };
 
 // const controlMapCreateInfoWindow = function (marker, pokemonName) {
@@ -447,7 +510,7 @@ const controlMapCreateInfoWindowContent = function (pokemonName) {
   return pokemonData;
 };
 const controlMapMarkerClick = function (pokemonName) {
-  console.log(pokemonName);
+  // console.log(pokemonName);
 
   const pokemon = getCaughtPokemon().find(
     pokemon => pokemon.name === pokemonName,
@@ -456,9 +519,9 @@ const controlMapMarkerClick = function (pokemonName) {
   const markerObjects = getAllMarkerObjects();
   const marker = markerObjects.find(marker => marker.title === pokemonName);
 
-  console.log(marker);
+  // console.log(marker);
   if (!marker) return;
-  console.log(marker);
+  // console.log(marker);
   map.panTo(marker.getPosition());
   mapEntriesView.toggleActiveEntry(pokemonName);
 
@@ -476,10 +539,10 @@ const controlMapMarkerClick = function (pokemonName) {
 };
 
 const controlMapLoadMarkers = function () {
-  console.log('running controlMapLoadMarkers');
+  // console.log('running controlMapLoadMarkers');
   const markers = getSavedMarkerReferences();
 
-  console.log(markers);
+  // console.log(markers);
   for (let marker of markers) {
     const image = getCaughtPokemon().find(
       pokemon => pokemon.name === marker.name,
@@ -507,14 +570,14 @@ const controlMapLoadMarkers = function () {
     // const lng = marker.coordinates.longitude;
     // controlMapCreateMapMarker(lat, lng, true);
   }
-  console.log(getAllMarkerObjects());
+  // console.log(getAllMarkerObjects());
 };
 
 export const controlMapDeleteMarker = function (pokemon) {
-  console.log(pokemon);
-  console.log(`deleting ${pokemon.name} marker`);
+  // console.log(pokemon);
+  // console.log(`deleting ${pokemon.name} marker`);
 
-  console.log(pokemon.location);
+  // console.log(pokemon.location);
   if (pokemon.location === 'Unknown Location') return;
 
   // find saved marker, delete
@@ -527,11 +590,11 @@ export const controlMapDeleteMarker = function (pokemon) {
   // savedMarkers.splice(savedMarkers.indexOf(savedMarker), 1);
 
   const removedSavedMarker = removeSavedMarkerReference(pokemon.name);
-  console.log(removedSavedMarker);
+  // console.log(removedSavedMarker);
   const targetLat = removedSavedMarker.coordinates.latitude;
   const targetLng = removedSavedMarker.coordinates.longitude;
 
-  console.log(targetLat, targetLng, getSavedMarkerReferences());
+  // console.log(targetLat, targetLng, getSavedMarkerReferences());
 
   // find all marker reference, delete
   // const markerReferences = getAllMarkerObjects();
@@ -543,7 +606,7 @@ export const controlMapDeleteMarker = function (pokemon) {
 
   const markerObject = removeMarkerObject(targetLat, targetLng);
 
-  console.log(markerObject);
+  // console.log(markerObject);
   markerObject.setMap(null);
   // markerReferences.splice(markerReferences.indexOf(markerReference), 1);
 };
@@ -588,6 +651,7 @@ export const controlMapInit = async function () {
 
   controlMapInitGoogleMaps();
   headerView.addHandlerLoadSummary(controlMapLoadSummary);
+  // controlMapLoadSummary();
   formView.addHandlerLogEntry(controlMapLogEntry);
   deleteEntryView.addHandlerDeleteBtn(controlMapDeleteEntry);
   editEntryView.addHandlerEditBtn(controlMapEditEntry);
@@ -595,4 +659,7 @@ export const controlMapInit = async function () {
   queryView.addHandlerQuery(controlMapLoadEntries);
   sortView.addHandlerSortBtn(controlMapSortBtn);
   sortView.addHandlerSortLoad(controlMapSortLoad);
+
+  controlMapLoadSummary();
+  controlMapLoadEntries();
 };

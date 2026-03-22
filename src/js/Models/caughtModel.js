@@ -61,6 +61,7 @@ export const setCaughtPokemonLocation = function (
     currPokemon => currPokemon.name === pokemonName,
   );
 
+  // console.log(pokemon, pokemonName, newLocation, coordinates);
   pokemon.location = newLocation;
   pokemon.latLng = coordinates;
 

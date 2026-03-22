@@ -337,7 +337,7 @@
 ### Goals
 
 - [x] Create clickable pop-up marker text that displays Pokémon capture details
-- [ ] Make Map module responsive
+- [x] Make Map module responsive
 - [ ] Clean up code, organize modules and delete redundant code & comments
 - [ ] Create Pokémon GIFs on Procreate and replace temporary art
   - [ ] Naty (Profile Module)
