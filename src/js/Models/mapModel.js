@@ -140,8 +140,12 @@ export const hydrateQueryBatch = function (queryBatch, pokemonBatch) {
 const init = function () {
   const storageMapMarkers = localStorage.getItem('markers');
 
-  if (storageMapMarkers)
-    mapState.savedMarkerReferences = JSON.parse(storageMapMarkers);
+  if (localStorage.getItem('caughtPokemon')) {
+    if (storageMapMarkers)
+      mapState.savedMarkerReferences = JSON.parse(storageMapMarkers);
+  } else {
+    localStorage.setItem('markers', []);
+  }
 };
 
 init();

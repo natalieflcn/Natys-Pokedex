@@ -56,6 +56,8 @@ import paginationView from '../views/SearchViews/paginationView.js';
 import { capitalize, debounce } from '../helpers.js';
 import { controlAppError } from './appController.js';
 import {
+  controlMapDeleteEntry,
+  controlMapDeleteMarker,
   controlMapLoadEntries,
   controlMapLoadSummary,
   controlMapRedirect,
@@ -275,11 +277,13 @@ export const controlSearchPokemonPanel = async function () {
     // Load Pokémon (data) panel details
     panelView.renderSpinner();
 
+    console.log(pokemonName);
     await loadPokemon(pokemonName);
 
     // Render Pokémon panel
     const pokemon = getPokemon();
 
+    console.log(pokemon);
     // Configuring pagination buttons of Pokémon panel
     let pokemonResults, loadMoreResults;
 
@@ -372,7 +376,7 @@ const controlSearchPagination = async function (direction) {
 };
 
 // To add/remove Pokémon from our active Pokémon panel to our Caught Pokémon
-const controlSearchCaughtBtn = function () {
+const controlSearchCaughtBtn = async function () {
   // Retrieve Pokémon that is highlighted on the Pokémon Panel
 
   const pokemon = getPokemon();
@@ -382,11 +386,12 @@ const controlSearchCaughtBtn = function () {
     addCaughtPokemon(pokemon);
     window.history.pushState({ page: `map` }, '', `/map`);
     controlMapRedirect();
+    panelView.toggleCaughtBtn();
   } else {
     removeCaughtPokemon(pokemon);
+    controlMapDeleteMarker(pokemon);
     controlMapLoadEntries();
     controlMapLoadSummary();
-    controlSearchPokemonPanel();
   }
 
   panelView.toggleCaughtBtn();

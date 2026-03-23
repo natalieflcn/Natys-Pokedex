@@ -87,14 +87,15 @@ const init = async function () {
   // Prevents app from duplication initialization during development (HMR)
   if (window.appInitialized) return;
 
+  window.appInitialized = true;
+
   try {
     controlNavInit();
     await controlSearchInit();
     await controlMapInit();
     controlProfileInit();
     AboutView.addHandlerAboutBtn(controlAboutBtns);
-    
-    window.appInitialized = true;
+    // window.appInitialized = true;
   } catch (err) {
     controlAppError(
       new Error('HTTP_400'),

@@ -22,7 +22,7 @@ module.exports = {
     historyApiFallback: true,
     static: { directory: path.join(__dirname, 'dist') },
     open: true,
-    hot: true,
+    hot: false,
   },
   module: {
     rules: [

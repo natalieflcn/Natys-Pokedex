@@ -205,7 +205,7 @@ const controlMapEditEntry = function (pokemonName) {
  *
  * @param {string} pokemonName - Name of Pokémon from map entry being deleted
  */
-const controlMapDeleteEntry = async function (pokemonName) {
+export const controlMapDeleteEntry = async function (pokemonName) {
   const removePokemon = getCaughtPokemon().find(
     pokemon => pokemon.name === pokemonName,
   );
@@ -399,12 +399,14 @@ export const controlMapDeleteMarker = function (pokemon) {
   if (pokemon.location === 'Unknown Location') return;
 
   const removedSavedMarker = removeSavedMarkerReference(pokemon.name);
-  const targetLat = removedSavedMarker.coordinates.latitude;
-  const targetLng = removedSavedMarker.coordinates.longitude;
+
+  console.log(removedSavedMarker);
+  const targetLat = removedSavedMarker?.coordinates?.latitude;
+  const targetLng = removedSavedMarker?.coordinates?.longitude;
 
   const markerObject = removeMarkerObject(targetLat, targetLng);
 
-  markerObject.setMap(null);
+  if (markerObject) markerObject.setMap(null);
 };
 
 /**

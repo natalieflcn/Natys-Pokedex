@@ -338,7 +338,7 @@
 
 - [x] Create clickable pop-up marker text that displays Pokémon capture details
 - [x] Make Map module responsive
-- [ ] Clean up code, organize modules and delete redundant code & comments
+- [x] Clean up code, organize modules and delete redundant code & comments
 - [ ] Create Pokémon GIFs on Procreate and replace temporary art
   - [ ] Naty (Profile Module)
   - [ ] Naty (About Module)
@@ -350,5 +350,6 @@
 - [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
 - [x] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
 - [x] BUG: Error loading infoWindow for newly-added Pokémon
-- [ ] BUG: Toggling Caught button doesn't automatically reflect in Pokémon Panel
+- [x] BUG: Toggling Caught button doesn't automatically reflect in Pokémon Panel
+- [x] BUG: Application is running twice, even after HMR is disabled
 - [x] BUG: When there are no Caught/Favorite Pokémon, typesView progress bars render NaN% and visually have progress
