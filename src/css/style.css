@@ -1464,6 +1464,10 @@ body {
   align-items: center;
 }
 
+.about--li li {
+  line-height: 1rem;
+}
+
 .about--li:last-child {
   margin-bottom: 0.5rem;
 }
