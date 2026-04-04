@@ -339,17 +339,31 @@
 - [x] Create clickable pop-up marker text that displays Pokémon capture details
 - [x] Make Map module responsive
 - [x] Clean up code, organize modules and delete redundant code & comments
-- [ ] Create Pokémon GIFs on Procreate and replace temporary art
-  - [ ] Naty (Profile Module)
-  - [ ] Naty (About Module)
-  - [ ] Snorlax (404 Error)
-  - [ ] Naty with Pokémon (General Error)
-- [ ] Re-deploy to Netlify
 
 - [x] BUG: Sorting buttons on Map module no longer working
-- [ ] BUG: Sometimes controlSearchResults still doesn't run upon initial load
+- [x] BUG: Sometimes controlSearchResults still doesn't run upon initial load
 - [x] BUG: Navigating between browser history stack while Map has a sorting parameter applied, deletes Map from the history stack
 - [x] BUG: Error loading infoWindow for newly-added Pokémon
 - [x] BUG: Toggling Caught button doesn't automatically reflect in Pokémon Panel
 - [x] BUG: Application is running twice, even after HMR is disabled
 - [x] BUG: When there are no Caught/Favorite Pokémon, typesView progress bars render NaN% and visually have progress
+
+## Week: March 22 - March 30
+
+### Goals
+
+- [x] Create Pokémon GIFs on Procreate
+  - [x] Naty (Profile Module)
+  - [x] Naty (About Module)
+  - [x] Snorlax (404 Error)
+  - [x] Naty with Pokémon (General Error)
+
+## Week: April 4
+
+- [ ] Replace images on platform
+- [ ] Review code
+  - [ ] Clean up HTML template
+  - [ ] Organize CSS styles
+  - [ ] Optimize performance
+- [ ] Re-deploy to Netlify
+- [ ] Gather feedback from other users

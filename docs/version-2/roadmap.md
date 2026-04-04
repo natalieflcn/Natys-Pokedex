@@ -30,22 +30,22 @@
 
 - [ ] NICE-TO-HAVE: Add sorting by "Type" for the Search and Profile views
 - [x] Create an "About the Project" section for visitors to learn more
-- [ ] Create a custom Pokémon Trainer GIF for Profile view
+- [x] Create a custom Pokémon Trainer GIF for Profile view
 
 ### Phase 4: Implementing the Map Module
 
-- [~] Implement Google Maps library and develop the long-awaited Map module
+- [x] Implement Google Maps library and develop the long-awaited Map module
 
 ### Phase 5: Beta Release
 
-- [ ] Refactor front-end code for reusability and readability
-- [ ] Conduct user testing and gather feedback
+- [~] Refactor front-end code for reusability and readability
+- [~] Conduct user testing and gather feedback
 
 ### Phase 6: Final Release
 
-- [ ] Optimize performance of the Pokédex
-- [ ] Polish UI/UX of the Pokédex
-- [ ] Deploy the final version to Netlify
+- [~] Optimize performance of the Pokédex
+- [x] Polish UI/UX of the Pokédex
+- [~] Deploy the final version to Netlify
 
 ---
 

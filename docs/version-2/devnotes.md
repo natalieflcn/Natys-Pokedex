@@ -38,11 +38,11 @@
   - [ ] Hyperlink Pokémon type on Profile module to view all caught/favorited Pokémon of that type
   - [ ] When viewing a subset of a type of Pokémon, a 'View All' button should appear to allow user to return to viewing all caught/favorited Pokémon
   - [ ] Routing should reflect the types of Pokémon being accessed (i.e. profile/caught/fire)
-- [ ] Create personal Pokémon GIFS to use through application (Procreate)
+- [x] Create personal Pokémon GIFS to use through application (Procreate)
 
 ### Map Module
 
-- [~] Implement Google Maps library and render Caught Pokémon on a map
+- [x] Implement Google Maps library and render Caught Pokémon on a map
 - [x] Add location details to the entry panel
 - [x] When a user marks a Pokémon as "Caught" in the Search module, redirect them to the Map module to create a new entry
   - [x] Pre-fill the entry data with Pokémon name, Pokémon ID, date, and time
