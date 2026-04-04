@@ -366,4 +366,5 @@
   - [ ] Organize CSS styles
   - [ ] Optimize performance
 - [ ] Re-deploy to Netlify
+- [ ] Create README
 - [ ] Gather feedback from other users

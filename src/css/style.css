@@ -1442,9 +1442,8 @@ body {
   margin-bottom: 0.5rem;
 }
 .about__creator--img {
-  width: 6rem;
+  width: 8rem;
   height: 8rem;
-  margin-right: 1rem;
 }
 
 .about__heading {
@@ -1573,7 +1572,7 @@ body {
   width: 12rem;
   height: 12rem;
   align-self: center;
-  margin: 0.5rem 0;
+  /* margin: 0.5rem 0; */
 }
 
 .page-not-found__code {
