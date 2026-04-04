@@ -360,7 +360,7 @@
 
 ## Week: April 4
 
-- [ ] Replace images on platform
+- [x] Replace images on platform
 - [ ] Review code
   - [ ] Clean up HTML template
   - [ ] Organize CSS styles

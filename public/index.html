@@ -8,20 +8,18 @@
       href="https://fonts.cdnfonts.com/css/pokemon-solid"
       rel="stylesheet"
     />
-   
   </head>
 
   <body>
     <div class="container">
-      <!-- Header -->
+      <!-- Pokédex Header -->
       <header class="header">
         <h1 class="header__logo">
           <span class="header__logo--name">NATY</span>'s Pokédex
         </h1>
 
-        <!-- Nav Buttons -->
+        <!-- Navigation Menu Buttons -->
         <nav class="header__nav">
-          <!-- Desktop Buttons -->
           <button
             class="btn header__btn header__btn--search btn--blue btn--active"
             data-page="search"
@@ -29,8 +27,17 @@
             <span class="full-text">Search</span>
             <span class="short-text">Search</span>
             <span class="header__btn--icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                />
               </svg>
             </span>
           </button>
@@ -39,13 +46,24 @@
             class="btn header__btn header__btn--map btn--yellow"
             data-page="map"
           >
-           <span class="full-text">Map</span>
+            <span class="full-text">Map</span>
             <span class="short-text">Map</span>
             <span class="header__btn--icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-geo-alt"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                />
+                <path
+                  d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                />
+              </svg>
             </span>
           </button>
 
@@ -53,42 +71,34 @@
             class="btn header__btn header__btn--profile btn--green"
             data-page="profile"
           >
-             <span class="full-text">Profile</span>
+            <span class="full-text">Profile</span>
             <span class="short-text">Profile</span>
             <span class="header__btn--icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                />
+              </svg>
             </span>
           </button>
+
           <button
             class="btn header__btn header__btn--about btn--red"
             data-page="about"
           >
             ?
           </button>
-
-          <!-- Tablet Icon Buttons -->
-
-          <!-- Mobile Hamburger Button -->
-          <button class="btn header__btn header__btn--mobile btn--blue hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-list"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-              />
-            </svg>
-          </button>
         </nav>
       </header>
 
+      <!-- Pokédex Light Bulbs -->
       <div class="lights">
         <div class="lights__outer">
           <div
@@ -112,10 +122,11 @@
         <div class="divider__top"></div>
       </div>
 
-      <!-- Screen -->
+      <!-- Pokédex Screens -->
       <main class="screen__border">
+        <!-- Pokédex Left Screen -->
         <section class="screen__1">
-          <!-- SEARCH MODULE -->
+          <!-- Search Module -->
           <section class="screen__1--search hidden">
             <form class="form search__form">
               <input
@@ -135,6 +146,7 @@
                 >
                   Name
                 </button>
+
                 <button
                   class="btn search__btn--id btn--yellow btn--active"
                   data-sort="id"
@@ -145,20 +157,13 @@
             </form>
 
             <div class="search__preview--container">
-              <!-- <div class="search__preview search__preview--active">
-                <span class="pokemon__id search__preview--id">#10</span
-                ><img
-                  class="search__preview--img"
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                  alt=""
-                />
-                <p class="search__preview--name">Bulbasaur</p>
-              </div> -->
+              <!-- This is where Pokémon search results will be rendered. -->
             </div>
+
             <span class="search__sentinel"></span>
           </section>
 
-          <!-- MAP MODULE -->
+          <!-- Map Module -->
           <section class="screen__1--map hidden">
             <header class="map__header">
               <h2 class="heading">Caught Pokémon</h2>
@@ -177,254 +182,104 @@
                 placeholder="Search Caught Pokémon.."
                 autocomplete="off"
               />
-              <!-- <button class="btn btn--red">+ Add New Entry</button> -->
 
-              <div class="map__sort"> 
-              <label>Sort</label>
-              <div class="map__btns--sort">
-                <button class="btn map__btn--name btn--blue" data-sort="name">Name</button>
-                <button class="btn map__btn--id btn--yellow" data-sort="id">ID</button>
-                <button class="btn map__btn--date btn--green" data-sort="date">Date</button>
+              <div class="map__sort">
+                <label>Sort</label>
+                <div class="map__btns--sort">
+                  <button class="btn map__btn--name btn--blue" data-sort="name">
+                    Name
+                  </button>
+                  <button class="btn map__btn--id btn--yellow" data-sort="id">
+                    ID
+                  </button>
+                  <button
+                    class="btn map__btn--date btn--green"
+                    data-sort="date"
+                  >
+                    Date
+                  </button>
+                </div>
               </div>
             </div>
-            </div>
 
-            <!-- <div class="map__entry map__entry--new">
-              <form class="map__form">
-                <div class="map__form--row">
-                  <label for="pokemon-name">Name</label>
-                  <input
-                    class="input map__input--name map__input"
-                    type="text"
-                    name="pokemon-name"
-                    id="pokemon-name"
-                    placeholder="Pokémon Name"
-                    auto-complete="off"
-                  />
-                  <label for="pokemon-id">ID</label>
-                  <input
-                    class="input map__input--id map__input"
-                    type="number"
-                    name="pokemon-id"
-                    id="pokemon-id"
-                    placeholder="Pokémon ID"
-                    auto-complete="off"
-                  />
-                </div>
-                <div class="map__form--row">
-                  <label for="pokemon-location">Location</label>
-                  <input
-                    class="input map__input--location map__input"
-                    type="text"
-                    name="pokemon-location"
-                    id="pokemon-location"
-                    placeholder="Last Caught Pokémon in..."
-                    auto-complete="off"
-                  />
-                </div>
-              </form>
-              <button class="btn map__btn--submit btn--red">Log Entry</button>
-            </div> -->
-
-<div class="map__entry--form  hidden">
+            <div class="map__entry--form hidden">
               <form class="map__form">
                 <div class="map__form--row">
                   <div class="map__form--name">
-                  <label for="pokemon-name">Name</label>
-                  <input
-                    class="input map__input--name map__input"
-                    type="text"
-                    name="pokemon-name"
-                    id="pokemon-name"
-                    placeholder="Pokémon Name"
-                    readonly
-                    autocapitalize="none"
-                  />
+                    <label for="pokemon-name">Name</label>
+                    <input
+                      class="input map__input--name map__input"
+                      type="text"
+                      name="pokemon-name"
+                      id="pokemon-name"
+                      placeholder="Pokémon Name"
+                      readonly
+                      autocapitalize="none"
+                    />
                   </div>
+
                   <div class="map__form--id">
-                  <label for="pokemon-id">ID</label>
-                  <input
-                    class="input map__input--id map__input"
-                    type="number"
-                    name="pokemon-id"
-                    id="pokemon-id"
-                    placeholder="Pokémon ID"
-                    readonly
-                  />
-                </div></div>
+                    <label for="pokemon-id">ID</label>
+                    <input
+                      class="input map__input--id map__input"
+                      type="number"
+                      name="pokemon-id"
+                      id="pokemon-id"
+                      placeholder="Pokémon ID"
+                      readonly
+                    />
+                  </div>
+                </div>
+
                 <div class="map__form--row">
                   <div class="map__form--location">
-                  <label for="pokemon-location">Location</label>
-                  <input
-                    class="input map__input--location map__input"
-                    type="text"
-                    name="pokemon-location"
-                    id="pokemon-location"
-                    placeholder="Click on the Map..."
-                    autocomplete="off"
-                    readonly
-                  /></div>
+                    <label for="pokemon-location">Location</label>
+                    <input
+                      class="input map__input--location map__input"
+                      type="text"
+                      name="pokemon-location"
+                      id="pokemon-location"
+                      placeholder="Click on the Map..."
+                      autocomplete="off"
+                      readonly
+                    />
+                  </div>
                 </div>
               </form>
               <button class="btn map__btn--submit btn--red">Log Entry</button>
-            </div>  
+            </div>
 
             <div class="map__entry--container">
-              
-
-              <!-- <div class="map__entry ">
-                <img
-                  class="map__entry--img img__display"
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                  alt=""
-                />
-
-                <div class="map__entry--details">
-                  <header class="map__entry--header">
-                    <h2 class="map__entry--name">
-                      Bulbasaur<span class="map__entry--id pokemon__id"
-                        >#400</span
-                      >
-                    </h2>
-
-                    
-                      <button class="map__entry--delete">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                        </svg>
-                      </button>
-                     
-                  </header>
-
-                  <div class="map__entry--types">
-                    <p class="profile__stats--type pokemon__type">Grass</p>
-                    <p class="profile__stats--type pokemon__type">Poison</p>
-                  </div>
-
-                  <div class="map__entry--caught">
-                    <p>Last Caught in</p>
-                    <p class="map__entry--location">Dyckman, NY</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="map__entry map__entry--active">
-                <img
-                  class="map__entry--img img__display"
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                  alt=""
-                />
-
-                <div class="map__entry--details">
-                  <header class="map__entry--header">
-                    <h2 class="map__entry--name">
-                      Bulbasaur<span class="map__entry--id pokemon__id"
-                        >#400</span
-                      >
-                    </h2>
-
-                    
-                      <button class="map__entry--delete">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                        </svg>
-                      </button>
-                   
-                  </header>
-
-                  <div class="map__entry--types">
-                    <p class="profile__stats--type pokemon__type">Grass</p>
-                    <p class="profile__stats--type pokemon__type">Poison</p>
-                  </div>
-
-                  <div class="map__entry--caught">
-                    <p>Last Caught in</p>
-                    <p class="map__entry--location">Dyckman, NY</p>
-                  </div>
-                </div>
-              </div> -->
-              <!-- <div class="map__entry map__entry--active">
-                <img
-                  class="map__entry--img img__display"
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
-                  alt=""
-                />
-
-                <div class="map__entry--details">
-                  <header class="map__entry--header">
-                    <h2 class="map__entry--name">
-                      Bulbasaur<span class="map__entry--id pokemon__id"
-                        >#400</span
-                      >
-                    </h2>
-
-                    <div class="dropdown">
-                      <button class="map__entry--options">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="13"
-                          height="10"
-                          fill="currentColor"
-                          class="bi bi-three-dots-vertical"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
-                          />
-                        </svg>
-                      </button>
-                      <div class="map__dropdown">
-                        <button class="btn map__dropdown--edit btn--grey">
-                          Edit Log Entry
-                        </button>
-                        <button class="btn map__dropdown--delete btn--red">
-                          Delete Log Entry
-                        </button>
-                      </div>
-                    </div>
-                  </header>
-
-                  <div class="map__entry--types">
-                    <p class="profile__stats--type pokemon__type">Grass</p>
-                    <p class="profile__stats--type pokemon__type">Poison</p>
-                  </div>
-
-                  <div class="map__entry--timestamp">
-                    <p>Caught on<span>08/14/25</span>at<span>11:20AM</span></p>
-                  </div>
-                </div>
-              </div> -->
-
+              <!-- This is where Caught Pokémon map entries will be rendered. -->
             </div>
           </section>
 
-          <!-- PROFILE MODULE -->
+          <!-- Profile Module -->
           <section class="screen__1--profile hidden">
-              <div class="profile__header--container">
-                  <img
+            <div class="profile__header--container">
+              <img
                 class="profile__img img__display"
                 src="/imgs/naty-sprite.GIF"
-                  />
-
+              />
               <header class="profile__header"></header>
-              
+            </div>
 
-                
+            <p class="profile__header--bio bio profile__header--short-text">
+              Grew up catching Pokémon in the Bronx, now training my Pokémon and
+              ready for battle in Dyckman.
+            </p>
 
-              </div>
-              
-              <p class="profile__header--bio bio profile__header--short-text">Grew up catching Pokémon in the Bronx, now training my Pokémon and ready for battle in Dyckman.</p>
-
-              <div class="profile__types"></div>
+            <div class="profile__types"></div>
           </section>
 
-          <!-- ABOUT MODULE -->
+          <!-- About Module -->
           <section class="screen__1--about hidden">
             <h2 class="heading--about">Welcome to NATY's Pokédex!</h2>
 
             <div class="about__intro">
               <p class="about--text bio">
-                It looks like you stumbled upon my Pokédex...<br />
+                It looks like you stumbled upon my Pokédex...
+                <br />
                 I’m glad you’re here, make sure you take good care of it while
                 exploring!
                 <br />
@@ -468,15 +323,11 @@
               </div>
             </div>
 
-            <hr class="about--divider">
+            <hr class="about--divider" />
 
             <div class="about__creator">
-              <div>
               <div class="about__creator--intro">
-                <img
-                  class="about__creator--img"
-                  src="/imgs/naty-about.GIF"
-                />
+                <img class="about__creator--img" src="/imgs/naty-about.GIF" />
                 <div class="about__creator--text">
                   <h2 class="heading--2">Meet Naty</h2>
                   <p class="bio about--text">
@@ -487,77 +338,107 @@
                 </div>
               </div>
 
-              <p class="about__creator--section about__heading">Why I Built Naty's Pokédex</p>
-              <p class="bio about--text">
-                This is the first major project in my coding
-                portfolio. I wanted to challenge myself by building a fully functional application using vanilla JavaScript (no frameworks) to strengthen my understanding of core fundamentals. <br/><br/>Growing up playing Pokémon games, this felt like the perfect way to
-                merge a nostalgic passion with technical growth.
+              <p class="about__creator--section about__heading">
+                Why I Built Naty's Pokédex
               </p>
 
-              <p class="about__creator--section about__heading">What I Learned from this Project</p>
+              <p class="bio about--text">
+                This is the first major project in my coding portfolio. I wanted
+                to challenge myself by building a fully functional application
+                using vanilla JavaScript (no frameworks) to strengthen my
+                understanding of core fundamentals.
+                <br />
+                <br />
+                Growing up playing Pokémon games, this felt like the perfect way
+                to merge a nostalgic passion with technical growth.
+              </p>
+
+              <p class="about__creator--section about__heading">
+                What I Learned from this Project
+              </p>
+
               <div class="bio about--text">
                 <p>
-                Version 2.0 of Naty's Pokédex demonstrates significant growth –– both in the original codebase and in my developer journey.
+                  Version 2.0 of Naty's Pokédex demonstrates significant growth
+                  –– both in the original codebase and in my developer journey.
                 </p>
-<br/>
+                <br />
+
                 <p>Refactoring Version 1.0 allowed me to:</p>
-            
                 <ul>
                   <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Strengthen my implementation of MVC architecture</li>
+                    <img
+                      class="about--list-icon"
+                      src="/imgs/pokeball-list-icon.png"
+                    />
+                    <li>Strengthen my implementation of MVC architecture</li>
                   </div>
 
                   <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Improve state management patterns</li>
+                    <img
+                      class="about--list-icon"
+                      src="/imgs/pokeball-list-icon.png"
+                    />
+                    <li>Improve state management patterns</li>
                   </div>
 
                   <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Handle asynchronous programming and race conditions</li>
+                    <img
+                      class="about--list-icon"
+                      src="/imgs/pokeball-list-icon.png"
+                    />
+                    <li>Handle asynchronous programming and race conditions</li>
                   </div>
 
                   <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Build modular, maintable, and scalable code</li>
+                    <img
+                      class="about--list-icon"
+                      src="/imgs/pokeball-list-icon.png"
+                    />
+                    <li>Build modular, maintable, and scalable code</li>
                   </div>
                 </ul>
-                
+
                 <p>
-                This project reflects not just technical ability, but it is the
-                product of discipline, persistence, and continous improvement.</p>
+                  This project reflects not just technical ability, but it is
+                  the product of discipline, persistence, and continous
+                  improvement.
+                </p>
               </div>
             </div>
           </section>
 
-          <!-- PAGENOTFOUND ERROR -->
-           <section class="screen__1--page-not-found hidden">
+          <!-- Page Not Found Error -->
+          <section class="screen__1--page-not-found hidden">
             <h2 class="heading">ERROR: Page Not Found!</h2>
-            
+
             <div class="page-not-found">
               <p>Oops, sorry! The page you were looking for does not exist.</p>
               <div class="page-not-found__error">
-                <img src="/imgs/snorlax.GIF" class="page-not-found__img">
+                <img src="/imgs/snorlax.GIF" class="page-not-found__img" />
                 <div class="bio page-not-found__code">404</div>
-
-                
               </div>
             </div>
-           </section>
-
+          </section>
         </section>
 
         <div class="divider__hinge"></div>
 
+        <!-- Pokédex Right Screen -->
         <section class="screen__2">
-          <!-- SEARCH MODULE -->
-          <section class="screen__2--search hidden"></section>
-
-          <!-- MAP MODULE -->
-          <section class="screen__2--map hidden">
-            <div id="map"></div>
-
-      
+          <!-- Search Module -->
+          <section class="screen__2--search hidden">
+            <!-- This is where Pokémon panel details will be rendered -->
           </section>
 
-          <!-- PROFILE MODULE -->
+          <!-- Map Module -->
+          <section class="screen__2--map hidden">
+            <div id="map">
+              <!-- This is where Google Maps API Map feature will be rendered -->
+            </div>
+          </section>
+
+          <!-- Profile Module -->
           <section class="screen__2--profile hidden">
             <div class="profile__categories">
               <button
@@ -566,6 +447,7 @@
               >
                 Caught
               </button>
+
               <button
                 class="btn profile__btn--favorites btn--red"
                 data-view="favorites"
@@ -586,10 +468,13 @@
 
               <div class="profile__form--sort">
                 <label>Sort</label>
-
-                <button class="btn profile__btn--name btn--blue" data-sort="name">
+                <button
+                  class="btn profile__btn--name btn--blue"
+                  data-sort="name"
+                >
                   Name
                 </button>
+
                 <button class="btn profile__btn--id btn--yellow" data-sort="id">
                   ID
                 </button>
@@ -597,54 +482,75 @@
             </form>
 
             <div class="profile__preview--container">
-              <!-- <div class="profile__preview profile__preview--active">
-                <span class="pokemon__id profile__preview--id">#10</span
-                ><img
-                  class="profile__preview--img"
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                  alt=""
-                />
-                <p class="profile__preview--name">Bulbasaur</p>
-              </div> -->
+              <!-- This is where Caugh/Favorite Pokémon previews will be rendered -->
               <span class="profile__sentinel"></span>
             </div>
           </section>
 
-          <!-- ABOUT MODULE -->
+          <!-- About Module-->
           <section class="screen__2--about hidden">
-
-
             <h2 class="heading--2">How Naty's Pokédex Was Built</h2>
 
-<p class="about__heading">Tech Stack</p>
+            <p class="about__heading">Tech Stack</p>
             <div class="about__tech-stack">
-              
-              <div class="about__tech-stack--item bio about--text"><img src="/imgs/html-logo.png" class="about__tech-stack--img"><p>HTML</p></div>
-              <div class="about__tech-stack--item bio about--text"><img src="/imgs/css-logo.png" class="about__tech-stack--img"><p>CSS</p></div>
-              <div class="about__tech-stack--item bio about--text"><img src="/imgs/js-logo.png" class="about__tech-stack--img"><p>JavaScript</p></div>
-              <div class="about__tech-stack--item bio about--text"><img src="/imgs/webpack-logo.png" class="about__tech-stack--img"><p>Webpack</p></div>
-              <div class="about__tech-stack--item bio about--text"><img src="/imgs/netlify-logo.png" class="about__tech-stack--img"><p>Netlify</p></div>
+              <div class="about__tech-stack--item bio about--text">
+                <img src="/imgs/html-logo.png" class="about__tech-stack--img" />
+                <p>HTML</p>
+              </div>
+
+              <div class="about__tech-stack--item bio about--text">
+                <img src="/imgs/css-logo.png" class="about__tech-stack--img" />
+                <p>CSS</p>
+              </div>
+
+              <div class="about__tech-stack--item bio about--text">
+                <img src="/imgs/js-logo.png" class="about__tech-stack--img" />
+                <p>JavaScript</p>
+              </div>
+
+              <div class="about__tech-stack--item bio about--text">
+                <img
+                  src="/imgs/webpack-logo.png"
+                  class="about__tech-stack--img"
+                />
+                <p>Webpack</p>
+              </div>
+
+              <div class="about__tech-stack--item bio about--text">
+                <img
+                  src="/imgs/netlify-logo.png"
+                  class="about__tech-stack--img"
+                />
+                <p>Netlify</p>
+              </div>
             </div>
 
             <p class="about__heading">Third Party Libraries & Services</p>
-           
             <div class="bio about__third-party">
               <ul>
                 <div class="about--li">
-                   <img class="about--list-icon" src="/imgs/pokeball-list-icon.png">
-                   <li>PokéAPI</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>PokéAPI</li>
                 </div>
 
                 <div class="about--li">
-                   <img class="about--list-icon" src="/imgs/pokeball-list-icon.png">
-                   <li>Font from somewhere</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Font from somewhere</li>
                 </div>
 
                 <div class="about--li">
-                   <img class="about--list-icon" src="/imgs/pokeball-list-icon.png">
-                   <li>Google Maps API</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Google Maps API</li>
                 </div>
-              
               </ul>
             </div>
 
@@ -652,84 +558,175 @@
             <div class="bio about__focus">
               <ul>
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>MVC System Architecture</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>MVC System Architecture</li>
                 </div>
 
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Modular Code Structure</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Modular Code Structure</li>
                 </div>
 
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Async/Await & Promise Handling</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Async/Await & Promise Handling</li>
                 </div>
 
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Stale Request Prevention</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Stale Request Prevention</li>
                 </div>
 
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>Infinite Scroll + Pagination Logic</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>Infinite Scroll + Pagination Logic</li>
                 </div>
 
                 <div class="about--li">
-                  <img class="about--list-icon" src="/imgs/pokeball-list-icon.png"><li>API Data Fetching</li>
+                  <img
+                    class="about--list-icon"
+                    src="/imgs/pokeball-list-icon.png"
+                  />
+                  <li>API Data Fetching</li>
                 </div>
               </ul>
             </div>
 
-            <hr class="about--divider">
+            <hr class="about--divider" />
 
             <h2 class="heading--2">Want to See More?</h2>
             <div class="about__btn-group">
-            <button class="btn about__btn btn--blue about__btn-group--btn" data-action="source-code"><span class="about--full-text">View Source Code on GitHub</span><span class="about--short-text">View Source Code</span></button>
-            <button class="btn about__btn btn--yellow about__btn-group--btn" data-action="github"><span class="about--full-text">Visit My GitHub Protfile</span><span class="about--short-text">Visit GitHub</span></button>
-            <button class="btn about__btn btn--green about__btn-group--btn" data-action="linkedin"><span class="about--full-text">Connect with Me on Linkedin</span><span class="about--short-text">Connect on Linkedin</span></button>
-            <button class="btn about__btn btn--red about__btn-group--btn" data-action="portfolio"><span class="about--full-text">Explore My Full Portfolio</span><span class="about--short-text">Explore Portfolio</span></button>
-          </div>
+              <button
+                class="btn about__btn btn--blue about__btn-group--btn"
+                data-action="source-code"
+              >
+                <span class="about--full-text">View Source Code on GitHub</span>
+                <span class="about--short-text">View Source Code</span>
+              </button>
+
+              <button
+                class="btn about__btn btn--yellow about__btn-group--btn"
+                data-action="github"
+              >
+                <span class="about--full-text">Visit My GitHub Protfile</span>
+                <span class="about--short-text">Visit GitHub</span>
+              </button>
+
+              <button
+                class="btn about__btn btn--green about__btn-group--btn"
+                data-action="linkedin"
+              >
+                <span class="about--full-text"
+                  >Connect with Me on Linkedin</span
+                >
+                <span class="about--short-text">Connect on Linkedin</span>
+              </button>
+
+              <button
+                class="btn about__btn btn--red about__btn-group--btn"
+                data-action="portfolio"
+              >
+                <span class="about--full-text">Explore My Full Portfolio</span>
+                <span class="about--short-text">Explore Portfolio</span>
+              </button>
+            </div>
           </section>
 
-          <!-- General Error Template -->
-           <section class="screen__2--page-not-found hidden">
-            
+          <!-- Page Not Found Error -->
+          <section class="screen__2--page-not-found hidden">
             <div class="error__template">
-
-              <img src="/imgs/pokemon-gang.GIF" class="error__template--img">
-
-
-              <p class="bio error__details">We looked everywhere, but we can't seem to find the page that you're looking for. </p>
+              <img src="/imgs/pokemon-gang.GIF" class="error__template--img" />
+              <p class="bio error__details">
+                We looked everywhere, but we can't seem to find the page that
+                you're looking for.
+              </p>
 
               <button class="btn btn--blue error__btn">Back to Search</button>
-              
             </div>
-           </section>
-
+          </section>
         </section>
       </main>
 
-<div class="divider__footer"></div>
+      <div class="divider__footer"></div>
       <footer class="footer">
-        
-        <p class="footer__byline">Naty's Pokédex Created By <strong>Natalie Falcon</strong> &copy; 2026
+        <p class="footer__byline">
+          Naty's Pokédex Created By <strong>Natalie Falcon</strong> &copy; 2026
         </p>
-        
+
         <div class="footer__links">
-          <a href="https://github.com/natalieflcn" target="_blank" class="footer__links--link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-</svg></a>
+          <a
+            href="https://github.com/natalieflcn"
+            target="_blank"
+            class="footer__links--link"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-github"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"
+              />
+            </svg>
+          </a>
 
+          <a
+            href="https://www.linkedin.com/in/nataliedfalcon/"
+            target="_blank"
+            class="footer__links--link"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-linkedin"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"
+              />
+            </svg>
+          </a>
 
-          <a href="https://www.linkedin.com/in/nataliedfalcon/" target="_blank" class="footer__links--link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
-</svg></a>
-
-
-          <a href="https://www.instagram.com/indyvox/" target="_blank" class="footer__links--link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe2" viewBox="0 0 16 16">
-  <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855q-.215.403-.395.872c.705.157 1.472.257 2.282.287zM4.249 3.539q.214-.577.481-1.078a7 7 0 0 1 .597-.933A7 7 0 0 0 3.051 3.05q.544.277 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9 9 0 0 1-1.565-.667A6.96 6.96 0 0 0 1.018 7.5zm1.4-2.741a12.3 12.3 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.3 12.3 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.6 13.6 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696q.18.469.395.872c.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a7 7 0 0 1-.598-.933 9 9 0 0 1-.481-1.079 8.4 8.4 0 0 0-1.198.49 7 7 0 0 0 2.276 1.522zm-1.383-2.964A13.4 13.4 0 0 1 3.508 8.5h-2.49a6.96 6.96 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667m6.728 2.964a7 7 0 0 0 2.275-1.521 8.4 8.4 0 0 0-1.197-.49 9 9 0 0 1-.481 1.078 7 7 0 0 1-.597.933M8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855q.216-.403.395-.872A12.6 12.6 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.96 6.96 0 0 0 14.982 8.5h-2.49a13.4 13.4 0 0 1-.437 3.008M14.982 7.5a6.96 6.96 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461q.266.502.482 1.078a8.4 8.4 0 0 0 1.196-.49 7 7 0 0 0-2.275-1.52c.218.283.418.597.597.932m-.488 1.343a8 8 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"/>
-</svg></a>
+          <a
+            href="https://www.instagram.com/indyvox/"
+            target="_blank"
+            class="footer__links--link"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-globe2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855q-.215.403-.395.872c.705.157 1.472.257 2.282.287zM4.249 3.539q.214-.577.481-1.078a7 7 0 0 1 .597-.933A7 7 0 0 0 3.051 3.05q.544.277 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9 9 0 0 1-1.565-.667A6.96 6.96 0 0 0 1.018 7.5zm1.4-2.741a12.3 12.3 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.3 12.3 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.6 13.6 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696q.18.469.395.872c.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a7 7 0 0 1-.598-.933 9 9 0 0 1-.481-1.079 8.4 8.4 0 0 0-1.198.49 7 7 0 0 0 2.276 1.522zm-1.383-2.964A13.4 13.4 0 0 1 3.508 8.5h-2.49a6.96 6.96 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667m6.728 2.964a7 7 0 0 0 2.275-1.521 8.4 8.4 0 0 0-1.197-.49 9 9 0 0 1-.481 1.078 7 7 0 0 1-.597.933M8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855q.216-.403.395-.872A12.6 12.6 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.96 6.96 0 0 0 14.982 8.5h-2.49a13.4 13.4 0 0 1-.437 3.008M14.982 7.5a6.96 6.96 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461q.266.502.482 1.078a8.4 8.4 0 0 0 1.196-.49 7 7 0 0 0-2.275-1.52c.218.283.418.597.597.932m-.488 1.343a8 8 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"
+              />
+            </svg>
+          </a>
         </div>
       </footer>
-
-
     </div>
     <script src="/bundle.js"></script>
   </body>
