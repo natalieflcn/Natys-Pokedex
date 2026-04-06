@@ -1,5 +1,5 @@
 // MAIN APPLICATION URL
-export const BASE_POKEDEX_URL = 'http://localhost:8080/';
+export const BASE_POKEDEX_URL = 'http://natys-pokedex.netlify.app/';
 
 // EXTERNAL API URLS
 export const MAIN_API_URL = 'https://pokeapi.co/api/v2/pokemon/';
