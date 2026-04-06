@@ -373,8 +373,8 @@
     - [ ] Reduce unused code
       - [ ] Implement code splitting
       - [ ] Check Coverage tab on Dev Tools
-    - [ ] Image asset optimization
-      - [ ] Compress images with modern formats
+    - [x] Image asset optimization
+      - [x] Compress images with modern formats
     - [ ] Re-renders/DOM work
       - [ ] Full re-renders instead of partial re-renders
     - [~] Large API payloads or blocking fetches
@@ -389,13 +389,13 @@
 
     - [ ] Lighthouse Insights
       - [ ] Use efficient cache lifetimes
-      - [ ] Improve image delivery
+      - [x] Improve image delivery
       - [ ] Render blocking requests
       - [ ] Duplicated JavaScript
       - [ ] Layout shift culprits
       - [ ] Network dependency shifts
       - [ ] Font display
-      - [ ] Images in Pokémon previews do not have explicit width and height
+      - [x] Images in Pokémon previews do not have explicit width and height
       - [ ] Minify JavaScript
       - [ ] Page prevented back/forward cache restoration
       - [ ] Minify CSS

@@ -22,13 +22,18 @@ export const AJAX = async function (url, signal) {
 
     const fetchPromise = fetch(url, signal ? { signal } : {});
 
+    console.log(fetchPromise);
     const res = await Promise.race([fetchPromise, timeout(TIMEOUT_SEC)]);
+
+    console.log(res);
     const data = await res.json();
 
+    console.log(data);
     if (!res.ok) throw new Error(`HTTP_${res.status}`);
 
     return data;
   } catch (err) {
+    console.error(err);
     if (err.name === 'AbortError') return null;
 
     if (err instanceof TypeError) throw new Error('NETWORK_ERROR');

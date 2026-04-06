@@ -9,7 +9,7 @@ export const POKEMON_NAMES_API_URL =
   'https://pokeapi.co/api/v2/pokemon-species/?limit=1025';
 
 // POKEMON QUERY CONSTRAINTS
-export const TIMEOUT_SEC = 20;
+export const TIMEOUT_SEC = 15;
 export const LIMIT = 21;
 
 // GOOGLE MAP STYLE

@@ -66,22 +66,30 @@ export const possiblePokemon = function (substring, pokemonSet) {
 
 // Fetching Pokémon data from https://pokeapi.co/api/v2/pokemon/
 const fetchPokemon = async function (pokemonName, signal) {
-  let data;
-
   if (getPokemonCache()?.[capitalize(pokemonName)])
-    data = getPokemonCache()[capitalize(pokemonName)];
+    return getPokemonCache()[capitalize(pokemonName)];
 
-  if (!data) data = await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
+  console.log(data);
+
+  let data;
+  try {
+    data = await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
+  } catch (err) {
+    if (err.name === 'AbortError') return null;
+    throw err;
+  }
+
+  if (!data) return null;
 
   getPokemonCache()[capitalize(pokemonName)] = data;
-
-  if (!data) controlAppError('Pokemon Not Found', resultsView);
 
   return data;
 };
 
 // Creating a PokemonPreview object after parsing PokéAPI data
 const createPokemonPreviewObject = function (name, details) {
+  if (!details) return null;
+
   const {
     id,
     sprites: { front_default: img },

@@ -422,18 +422,6 @@ const initPokemonData = async function () {
   if (getLoadedReferences()) return;
   try {
     await storeAllPokemonReferences();
-  } catch (err) {
-    controlAppError(err, panelView);
-    throw err;
-  }
-};
-
-/**
- * Initializes Search Controller event handlers and attach them to Search Views
- */
-export const controlSearchInit = async function () {
-  try {
-    await initPokemonData();
 
     setTimeout(function () {
       if (getLoadedReferences().length < 1) {
@@ -450,8 +438,15 @@ export const controlSearchInit = async function () {
       resultsView,
       `Something went wrong! Please refresh the page.`,
     );
-    return;
+    throw err;
   }
+};
+
+/**
+ * Initializes Search Controller event handlers and attach them to Search Views
+ */
+export const controlSearchInit = async function () {
+  await initPokemonData();
 
   queryView.addHandlerQuery(debounce(controlSearchResults, 300));
   queryView.addHandlerChangePlaceholder();
