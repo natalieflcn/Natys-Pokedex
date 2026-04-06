@@ -36,13 +36,13 @@ import {
 } from '../services/navService.js';
 import { controlSearchRedirect } from './searchController.js';
 import { controlAppError } from './appController.js';
-import profileView from '../views/ProfileViews/profileView.js';
-import previewView from '../views/ProfileViews/previewView.js';
-import savedPokemonView from '../views/ProfileViews/savedPokemonView.js';
-import categoryView from '../views/ProfileViews/categoryView.js';
-import sortView from '../views/ProfileViews/sortView.js';
-import queryView from '../views/ProfileViews/queryView.js';
-import typesView from '../views/ProfileViews/typesView.js';
+import profileView from '../Views/ProfileViews/profileView.js';
+import previewView from '../Views/ProfileViews/previewView.js';
+import savedPokemonView from '../Views/ProfileViews/savedPokemonView.js';
+import categoryView from '../Views/ProfileViews/categoryView.js';
+import sortView from '../Views/ProfileViews/sortView.js';
+import queryView from '../Views/ProfileViews/queryView.js';
+import typesView from '../Views/ProfileViews/typesView.js';
 
 // GENERAL PROFILE CONTROLLER FUNCTIONS
 

@@ -39,7 +39,7 @@ import {
 import { sortPokemon } from '../services/pokemonService.js';
 import navView from '../Views/NavViews/navView.js';
 import headerView from '../Views/MapViews/headerView';
-import formView from '../views/MapViews/formView.js';
+import formView from '../Views/MapViews/formView.js';
 import mapEntriesView from '../Views/MapViews/mapEntriesView.js';
 import editEntryView from '../Views/MapViews/editEntryView.js';
 import deleteEntryView from '../Views/MapViews/deleteEntryView.js';
