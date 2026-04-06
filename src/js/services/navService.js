@@ -7,15 +7,15 @@
  * It only interacts with URL and History Browser APIs.
  */
 
-import { getPokemonSortBy, setPokemonSortBy } from '../models/pokemonModel';
+import { getPokemonSortBy, setPokemonSortBy } from '../Models/pokemonModel';
 import {
   getCaughtRender,
   getCaughtSortBy,
   setCaughtSortBy,
-} from '../models/caughtModel';
-import { getFavoriteSortBy, setFavoriteSortBy } from '../models/favoriteModel';
-import { getPokemon } from '../models/panelModel';
-import { getMapSortBy, setMapSortBy } from '../models/mapModel';
+} from '../Models/caughtModel';
+import { getFavoriteSortBy, setFavoriteSortBy } from '../Models/favoriteModel';
+import { getPokemon } from '../Models/panelModel';
+import { getMapSortBy, setMapSortBy } from '../Models/mapModel';
 import { BASE_POKEDEX_URL } from '../config';
 
 /**

@@ -11,14 +11,14 @@ import {
   getLastCaughtPokemon,
   removeCaughtPokemon,
   setCaughtPokemonLocation,
-} from '../models/caughtModel';
+} from '../Models/caughtModel';
 import {
   getQueryResults,
   loadQueryBatch,
   resetQueryState,
   startPokemonQuery,
   storeQueryResults,
-} from '../models/queryModel.js';
+} from '../Models/queryModel.js';
 import {
   addMarkerObject,
   addSavedMarkerReference,
@@ -31,21 +31,21 @@ import {
   removeMarkerObject,
   removeSavedMarkerReference,
   setMapSortBy,
-} from '../models/mapModel.js';
+} from '../Models/mapModel.js';
 import {
   navResolveSortParams,
   navSanitizeSort,
 } from '../services/navService.js';
 import { sortPokemon } from '../services/pokemonService.js';
-import navView from '../views/NavViews/navView.js';
-import headerView from '../views/MapViews/headerView';
+import navView from '../Views/NavViews/navView.js';
+import headerView from '../Views/MapViews/headerView';
 import formView from '../views/MapViews/formView.js';
-import mapEntriesView from '../views/MapViews/mapEntriesView.js';
-import editEntryView from '../views/MapViews/editEntryView.js';
-import deleteEntryView from '../views/MapViews/deleteEntryView.js';
-import queryView from '../views/MapViews/queryView.js';
-import sortView from '../views/MapViews/sortView.js';
-import mapView from '../views/MapViews/mapView.js';
+import mapEntriesView from '../Views/MapViews/mapEntriesView.js';
+import editEntryView from '../Views/MapViews/editEntryView.js';
+import deleteEntryView from '../Views/MapViews/deleteEntryView.js';
+import queryView from '../Views/MapViews/queryView.js';
+import sortView from '../Views/MapViews/sortView.js';
+import mapView from '../Views/MapViews/mapView.js';
 import { controlAppError } from './appController.js';
 import { controlSearchPokemonPanel } from './searchController.js';
 import { MAP_STYLES } from '../config.js';

@@ -10,8 +10,8 @@ import { controlNavInit, controlNavBtn } from './navController';
 import { controlSearchInit } from './searchController';
 import { controlMapInit } from './mapController';
 import { controlProfileInit } from './profileController';
-import AboutView from '../views/AboutView';
-import resultsView from '../views/SearchViews/resultsView';
+import AboutView from '../Views/AboutView';
+import resultsView from '../Views/SearchViews/resultsView';
 import '../../css/style.css';
 
 const controlAboutBtns = function (action) {

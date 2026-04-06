@@ -19,7 +19,7 @@ import {
   startPokemonRequest,
   storeAllPokemonReferences,
   updateHasMorePokemonResults,
-} from '../models/pokemonModel.js';
+} from '../Models/pokemonModel.js';
 import {
   getHasMoreQueryResults,
   getQuery,
@@ -30,29 +30,29 @@ import {
   startPokemonQuery,
   storeQueryResults,
   updateHasMoreQueryResults,
-} from '../models/queryModel.js';
+} from '../Models/queryModel.js';
 import {
   addCaughtPokemon,
   removeCaughtPokemon,
-} from '../models/caughtModel.js';
+} from '../Models/caughtModel.js';
 import {
   addFavoritePokemon,
   removeFavoritePokemon,
-} from '../models/favoriteModel.js';
-import { getPokemon, loadPokemon } from '../models/panelModel.js';
-import pokemonState from '../models/state/pokemonState.js';
+} from '../Models/favoriteModel.js';
+import { getPokemon, loadPokemon } from '../Models/panelModel.js';
+import pokemonState from '../Models/state/pokemonState.js';
 import { navSanitizeSort } from '../services/navService.js';
 import {
   getPokemonPagination,
   loadGuaranteedBatch,
 } from '../services/pokemonService.js';
-import navView from '../views/NavViews/navView.js';
-import queryView from '../views/SearchViews/queryView.js';
-import resultsView from '../views/SearchViews/resultsView.js';
-import previewView from '../views/SearchViews/previewView.js';
-import sortView from '../views/SearchViews/sortView.js';
-import panelView from '../views/SearchViews/panelView.js';
-import paginationView from '../views/SearchViews/paginationView.js';
+import navView from '../Views/NavViews/navView.js';
+import queryView from '../Views/SearchViews/queryView.js';
+import resultsView from '../Views/SearchViews/resultsView.js';
+import previewView from '../Views/SearchViews/previewView.js';
+import sortView from '../Views/SearchViews/sortView.js';
+import panelView from '../Views/SearchViews/panelView.js';
+import paginationView from '../Views/SearchViews/paginationView.js';
 import { capitalize, debounce } from '../helpers.js';
 import { controlAppError } from './appController.js';
 import {

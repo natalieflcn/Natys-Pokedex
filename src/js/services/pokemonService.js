@@ -2,7 +2,7 @@
  * Pokémon Service
  * ---------------------
  * Responsible for filtering for queried Pokémon, fetching Pokémon data from PokéAPI resource, creating Pokémon objects, sorting Pokémon data, loading Pokémon batches, and determining pagination state of a Pokémon panel.
- * Encapsulates domain-level Pokémon operations shared across multiple models.
+ * Encapsulates domain-level Pokémon operations shared across multiple Models.
  *
  * This service does not own state or perform DOM manipulation.
  */
@@ -13,9 +13,9 @@ import {
   getHasMorePokemonResults,
   getPokemonCache,
   loadPokemonBatch,
-} from '../models/pokemonModel.js';
-import { getHasMoreQueryResults } from '../models/queryModel';
-import pokemonState from '../models/state/pokemonState.js';
+} from '../Models/pokemonModel.js';
+import { getHasMoreQueryResults } from '../Models/queryModel';
+import pokemonState from '../Models/state/pokemonState.js';
 
 /**
  * ======================

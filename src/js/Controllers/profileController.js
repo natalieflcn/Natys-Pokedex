@@ -12,7 +12,7 @@ import {
   resetQueryState,
   startPokemonQuery,
   storeQueryResults,
-} from '../models/queryModel.js';
+} from '../Models/queryModel.js';
 import {
   getCaughtPokemon,
   getCaughtRender,
@@ -21,7 +21,7 @@ import {
   setCaughtRender,
   setCaughtSortBy,
   updateTypesPokemonCaught,
-} from '../models/caughtModel.js';
+} from '../Models/caughtModel.js';
 import {
   getFavoritePokemon,
   getTypesPokemonFavorited,
@@ -29,7 +29,7 @@ import {
   setFavoriteRender,
   setFavoriteSortBy,
   updateTypesPokemonFavorited,
-} from '../models/favoriteModel.js';
+} from '../Models/favoriteModel.js';
 import {
   navResolveSortParams,
   navSanitizeSort,

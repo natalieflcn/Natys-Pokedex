@@ -8,7 +8,7 @@
  * This controller does not own state or perform data fetching.
  */
 
-import { getCaughtRender } from '../models/caughtModel';
+import { getCaughtRender } from '../Models/caughtModel';
 import {
   navCheckRoute,
   navHydrateSortParams,
@@ -23,14 +23,14 @@ import {
   controlProfileRenderCategory,
   controlProfileSortLoad,
 } from './profileController';
-import navView from '../views/NavViews/navView';
-import categoryView from '../views/ProfileViews/categoryView';
-import { getFavoriteRender } from '../models/favoriteModel';
-import lightsView from '../views/NavViews/lightsView';
-import resultsView from '../views/SearchViews/resultsView';
+import navView from '../Views/NavViews/navView';
+import categoryView from '../Views/ProfileViews/categoryView';
+import { getFavoriteRender } from '../Models/favoriteModel';
+import lightsView from '../Views/NavViews/lightsView';
+import resultsView from '../Views/SearchViews/resultsView';
 import { capitalize } from '../helpers';
-import aboutView from '../views/AboutView';
-import pageNotFoundView from '../views/pageNotFoundView';
+import aboutView from '../Views/AboutView';
+import pageNotFoundView from '../Views/pageNotFoundView';
 
 /**
  * Renders module with appropriate data (based on the URL path)
