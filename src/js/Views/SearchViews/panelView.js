@@ -64,6 +64,7 @@ class PanelView extends View {
   }
 
   _generateMarkup() {
+    console.log(this._data);
     return `
     <div class="search__panel">
               <img

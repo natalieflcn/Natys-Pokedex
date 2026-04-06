@@ -1458,6 +1458,7 @@ body {
 
 .footer__links--link {
   transition: all ease-in-out 0.25s;
+  color: (var(--screen-color--dark));
   text-decoration: none;
 }
 
@@ -1465,9 +1466,9 @@ body {
   color: var(--text--light);
 }
 
-.footer__links--link:visited {
+.footer__links--link:visited svg {
   text-decoration: none;
-  color: inherit;
+  fill: inherit;
 }
 
 /* Page Not Found Error */

@@ -11,9 +11,11 @@ import { AJAX, capitalize } from '../helpers';
 import { LIMIT, MAIN_API_URL } from '../config';
 import {
   getHasMorePokemonResults,
+  getPokemonCache,
   loadPokemonBatch,
 } from '../models/pokemonModel.js';
 import { getHasMoreQueryResults } from '../models/queryModel';
+import pokemonState from '../models/state/pokemonState.js';
 
 /**
  * ======================
@@ -64,7 +66,17 @@ export const possiblePokemon = function (substring, pokemonSet) {
 
 // Fetching Pokémon data from https://pokeapi.co/api/v2/pokemon/
 const fetchPokemon = async function (pokemonName, signal) {
-  return await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
+  let data;
+
+  if (getPokemonCache()[capitalize(pokemonName)])
+    data = getPokemonCache()[capitalize(pokemonName)];
+
+  console.log(data);
+  if (!data) data = await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
+
+  getPokemonCache()[capitalize(pokemonName)] = data;
+
+  return data;
 };
 
 // Creating a PokemonPreview object after parsing PokéAPI data
@@ -74,6 +86,7 @@ const createPokemonPreviewObject = function (name, details) {
     sprites: { front_default: img },
   } = details;
 
+  console.log(capitalize(name));
   return {
     name: capitalize(name),
     id,
@@ -127,6 +140,8 @@ export const loadGuaranteedBatch = async function (
 export const loadBatchDetails = function (pokemonBatch, signal) {
   const pokemonBatchDetails = pokemonBatch.map(pokemon => {
     const pokemonName = pokemon.name || pokemon;
+
+    if (getPokemonCache()[capitalize(pokemonName)]) console.log('using cache');
 
     return fetchPokemon(pokemonName, signal)
       .then(pokemonDetails =>

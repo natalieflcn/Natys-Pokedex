@@ -399,7 +399,7 @@
       - [ ] Minify JavaScript
       - [ ] Page prevented back/forward cache restoration
       - [ ] Minify CSS
-      - [ ] Reduce unused CSS
+      - [x] Reduce unused CSS
       - [ ] Avoid enormous network payloads
       - [ ] User Timing marks and measures
       - [ ] Avoid non-composited animations
@@ -409,8 +409,8 @@
       - [x] Footer links do not have a discernable name
       - [x] Background and foreground colors of buttons do not have enough contrast
 
-  - [ ] Implement error handling for Map module TODO 2
-    - [ ] Add message to the Map module telling user to enable geolocation features and refresh, if the map doesn't load
+  - [x] Implement error handling for Map module
+    - [x] Add message to the Map module telling user to enable geolocation features and refresh, if the map doesn't load
 
 - [ ] Re-deploy to Netlify
 - [ ] Create README

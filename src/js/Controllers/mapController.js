@@ -118,8 +118,7 @@ export const controlMapLoadEntries = async function () {
       }
     }
   } catch (err) {
-    console.error(err);
-    controlAppError(err, mapEntriesView);
+    controlAppError('Map entries failed to load', mapEntriesView);
   }
 };
 
@@ -412,30 +411,34 @@ export const controlMapDeleteMarker = function (pokemon) {
  * Loads map markers from local storage and adds them onto map.
  */
 const controlMapLoadMarkers = function () {
-  const markers = getSavedMarkerReferences();
+  try {
+    const markers = getSavedMarkerReferences();
 
-  for (let marker of markers) {
-    const image = getCaughtPokemon().find(
-      pokemon => pokemon.name === marker.name,
-    ).img;
+    for (let marker of markers) {
+      const image = getCaughtPokemon().find(
+        pokemon => pokemon.name === marker.name,
+      ).img;
 
-    const currMarker = new google.maps.Marker({
-      position: {
-        lat: marker.coordinates.latitude,
-        lng: marker.coordinates.longitude,
-      },
-      title: marker.name,
-      map,
-      icon: image,
-    });
+      const currMarker = new google.maps.Marker({
+        position: {
+          lat: marker.coordinates.latitude,
+          lng: marker.coordinates.longitude,
+        },
+        title: marker.name,
+        map,
+        icon: image,
+      });
 
-    addMarkerObject(currMarker);
+      addMarkerObject(currMarker);
 
-    mapView.addHandlerMarkerClick(currMarker, controlMapMarkerClick);
+      mapView.addHandlerMarkerClick(currMarker, controlMapMarkerClick);
 
-    const pokemonData = controlMapCreateInfoWindowContent(marker.name);
+      const pokemonData = controlMapCreateInfoWindowContent(marker.name);
 
-    mapView.addHandlerInfoWindow(map, currMarker, infoWindow, pokemonData);
+      mapView.addHandlerInfoWindow(map, currMarker, infoWindow, pokemonData);
+    }
+  } catch (err) {
+    controlAppError(new Error('Map entries failed to load'), mapEntriesView);
   }
 };
 

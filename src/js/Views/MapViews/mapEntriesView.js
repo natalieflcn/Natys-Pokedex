@@ -12,7 +12,8 @@ import mapEntryView from './mapEntryView.js';
 
 class mapEntriesView extends View {
   _parentEl = document.querySelector('.map__entry--container');
-  _errorMessage = 'We could not load your Caught Pokémon. Please try again!';
+  _errorMessage =
+    'We could not load your Caught Pokémon entries. Please try again.';
 
   /**
    * Adds handler to each map entry.

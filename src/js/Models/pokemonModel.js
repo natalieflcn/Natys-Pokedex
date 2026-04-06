@@ -53,6 +53,8 @@ export const getPokemonSortBy = () => pokemonState.sortBy;
 
 export const setPokemonSortBy = sortBy => (pokemonState.sortBy = sortBy);
 
+export const getPokemonCache = () => pokemonState.cache;
+
 // To initiate a new request for general Pokémon
 export const startPokemonRequest = function () {
   const requestId = ++pokemonState.currentRequestId;

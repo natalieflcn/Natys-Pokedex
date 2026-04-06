@@ -11,6 +11,7 @@ const pokemonState = {
   offset: 0,
   limit: LIMIT,
   sortBy: 'id',
+  cache: {},
 };
 
 export default pokemonState;

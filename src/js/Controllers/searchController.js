@@ -62,6 +62,7 @@ import {
   controlMapLoadSummary,
   controlMapRedirect,
 } from './mapController.js';
+import { TIMEOUT_SEC } from '../config.js';
 
 let infiniteScrollLocked = false;
 let initializedSearchResults = false;
@@ -135,6 +136,8 @@ const controlSearchResults = async function () {
     if (pokemonName) resultsView.scrollIntoView(pokemonName);
 
     resultsView.scrollIntoView;
+
+    console.log(pokemonState.cache);
   } catch (err) {
     resultsView.unobserveSentinel();
 
@@ -433,9 +436,19 @@ const initPokemonData = async function () {
 export const controlSearchInit = async function () {
   try {
     await initPokemonData();
+
+    setTimeout(function () {
+      if (getLoadedReferences().length < 1) {
+        controlAppError(
+          new Error('References failed to load'),
+          resultsView,
+          'Something went wrong! Please refresh the page.',
+        );
+      }
+    }, 5000);
   } catch (err) {
     controlAppError(
-      new Error('HTTP_400'),
+      new Error('References failed to load'),
       resultsView,
       `Something went wrong! Please refresh the page.`,
     );

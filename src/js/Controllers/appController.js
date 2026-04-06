@@ -50,8 +50,10 @@ const controlAboutBtns = function (action) {
 
 export const controlAppError = function (err, view, message) {
   switch (err.message) {
+    case 'References failed to load':
     case 'Pokemon Not Found':
     case 'Map failed to load':
+    case 'Map entries failed to load':
       view.renderError(message || view._errorMessage);
       break;
 
@@ -79,6 +81,7 @@ export const controlAppError = function (err, view, message) {
       break;
 
     default:
+      console.error(err);
       view.renderError('Something went wrong!');
       break;
   }
