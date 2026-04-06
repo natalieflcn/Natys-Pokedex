@@ -56,7 +56,6 @@ export const clearPokemon = () => (panelState.pokemon = {});
  * @returns {PokemonPanel} - Structured Pokémon Panel object
  */
 export const createPokemonObject = async function (data) {
-  console.log(data);
   // Data loaded from MAIN_API_URL (data[0])
   const {
     name,
@@ -66,7 +65,6 @@ export const createPokemonObject = async function (data) {
     weight,
   } = data[0];
 
-  console.log(data[0].types);
   const types = data[0].types.map(entry => capitalize(entry.type.name));
   const stats = data[0].stats.map(stat => [stat.stat.name, stat.base_stat]);
   const moves = [];
@@ -127,10 +125,7 @@ export const createPokemonObject = async function (data) {
  */
 export const loadPokemon = async function (pokemonName) {
   try {
-    console.log(getPokemonCache());
     if (getPokemonCache()?.[capitalize(pokemonName)]?.flavor_text_entries) {
-      console.log('using cache');
-
       const {
         name,
         id,
@@ -156,8 +151,6 @@ export const loadPokemon = async function (pokemonName) {
     ]);
 
     panelState.pokemon = await createPokemonObject(data);
-
-    console.log(data[1].flavor_text_entries);
 
     if (getPokemonCache()?.[capitalize(pokemonName)])
       pokemonState.cache[capitalize(pokemonName)].flavor_text_entries =

@@ -136,8 +136,6 @@ const controlSearchResults = async function () {
     if (pokemonName) resultsView.scrollIntoView(pokemonName);
 
     resultsView.scrollIntoView;
-
-    console.log(pokemonState.cache);
   } catch (err) {
     resultsView.unobserveSentinel();
 

@@ -368,7 +368,7 @@
   - [x] Organize CSS styles
   - [~] Optimize performance
     - [ ] Lazy load non-critical components and modules
-      - [ ] Don't initialize modules all at oncee TODO 3
+      - [ ] Don't initialize modules all at oncee
       - [ ] Don't initialize map module until visible
     - [ ] Reduce unused code
       - [ ] Implement code splitting
@@ -377,8 +377,8 @@
       - [ ] Compress images with modern formats
     - [ ] Re-renders/DOM work
       - [ ] Full re-renders instead of partial re-renders
-    - [ ] Large API payloads or blocking fetches
-      - [ ] Cache results in state TODO 4
+    - [~] Large API payloads or blocking fetches
+      - [x] Cache results in state
       - [ ] Don't fetch everything in load
     - [ ] Event listener duplication
       - [ ] Multiple listeners per element

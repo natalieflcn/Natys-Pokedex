@@ -68,13 +68,14 @@ export const possiblePokemon = function (substring, pokemonSet) {
 const fetchPokemon = async function (pokemonName, signal) {
   let data;
 
-  if (getPokemonCache()[capitalize(pokemonName)])
+  if (getPokemonCache()?.[capitalize(pokemonName)])
     data = getPokemonCache()[capitalize(pokemonName)];
 
-  console.log(data);
   if (!data) data = await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
 
   getPokemonCache()[capitalize(pokemonName)] = data;
+
+  if (!data) controlAppError('Pokemon Not Found', resultsView);
 
   return data;
 };
@@ -86,7 +87,6 @@ const createPokemonPreviewObject = function (name, details) {
     sprites: { front_default: img },
   } = details;
 
-  console.log(capitalize(name));
   return {
     name: capitalize(name),
     id,
@@ -141,7 +141,7 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
   const pokemonBatchDetails = pokemonBatch.map(pokemon => {
     const pokemonName = pokemon.name || pokemon;
 
-    if (getPokemonCache()[capitalize(pokemonName)]) console.log('using cache');
+    if (getPokemonCache()[capitalize(pokemonName)]);
 
     return fetchPokemon(pokemonName, signal)
       .then(pokemonDetails =>
