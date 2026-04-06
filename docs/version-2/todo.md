@@ -404,10 +404,10 @@
       - [ ] User Timing marks and measures
       - [ ] Avoid non-composited animations
       - [ ] Avoid long main-thread tasks
-      
-    - [ ] Improve Accesibility TODO 1
-      - [ ] Footer links do not have a discernable name
-      - [ ] Background and foreground colors of buttons do not have enough contrast
+
+    - [x] Improve Accesibility
+      - [x] Footer links do not have a discernable name
+      - [x] Background and foreground colors of buttons do not have enough contrast
 
   - [ ] Implement error handling for Map module TODO 2
     - [ ] Add message to the Map module telling user to enable geolocation features and refresh, if the map doesn't load

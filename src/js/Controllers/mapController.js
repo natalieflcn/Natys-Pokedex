@@ -468,80 +468,88 @@ const controlMapCreateInfoWindowContent = function (pokemonName) {
  * Rendered dynamically to protect the secret from being exposed in client-side code.
  */
 const controlMapLoadScript = function () {
-  if (window._googleMapsPromise) return window._googleMapsPromise;
+  try {
+    if (window._googleMapsPromise) return window._googleMapsPromise;
 
-  window._googleMapsPromise = new Promise((resolve, reject) => {
-    // Already fully loaded
-    if (window.google?.maps?.Map) {
-      return resolve();
-    }
+    window._googleMapsPromise = new Promise((resolve, reject) => {
+      // Already fully loaded
+      if (window.google?.maps?.Map) {
+        return resolve();
+      }
 
-    // Script already in DOM → WAIT, don’t reload
-    const existingScript = document.querySelector(
-      'script[src*="maps.googleapis.com/maps/api/js"]',
-    );
+      // Script already in DOM → WAIT, don’t reload
+      const existingScript = document.querySelector(
+        'script[src*="maps.googleapis.com/maps/api/js"]',
+      );
 
-    if (existingScript) {
-      const waitForMaps = () => {
-        if (window.google?.maps?.Map) resolve();
-        else setTimeout(waitForMaps, 50);
+      if (existingScript) {
+        const waitForMaps = () => {
+          if (window.google?.maps?.Map) resolve();
+          else setTimeout(waitForMaps, 50);
+        };
+        waitForMaps();
+        return;
+      }
+
+      // Load script ONCE
+      const script = document.createElement('script');
+      const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
+      script.async = true;
+      script.defer = true;
+
+      script.onload = () => {
+        const waitForMaps = () => {
+          if (window.google?.maps?.Map) resolve();
+          else setTimeout(waitForMaps, 50);
+        };
+        waitForMaps();
       };
-      waitForMaps();
-      return;
-    }
 
-    // Load script ONCE
-    const script = document.createElement('script');
-    const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
+      script.onerror = reject;
 
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=weekly&loading=async`;
-    script.async = true;
-    script.defer = true;
+      document.head.appendChild(script);
+    });
 
-    script.onload = () => {
-      const waitForMaps = () => {
-        if (window.google?.maps?.Map) resolve();
-        else setTimeout(waitForMaps, 50);
-      };
-      waitForMaps();
-    };
-
-    script.onerror = reject;
-
-    document.head.appendChild(script);
-  });
-
-  return window._googleMapsPromise;
+    return window._googleMapsPromise;
+  } catch (err) {
+    controlAppError(new Error('Map failed to load'), mapView);
+  }
 };
 
 /**
  * Initializes Google Maps API Map.
  */
 const controlMapInitGoogleMaps = async function () {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const { longitude, latitude } = position.coords;
+  try {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const { longitude, latitude } = position.coords;
 
-        map = new google.maps.Map(mapView.getMapElement(), {
-          center: { lat: latitude, lng: longitude },
-          zoom: 14,
-          styles: MAP_STYLES,
-          mapTypeControl: false,
-          clickableIcons: false,
-        });
+          map = new google.maps.Map(mapView.getMapElement(), {
+            center: { lat: latitude, lng: longitude },
+            zoom: 14,
+            styles: MAP_STYLES,
+            mapTypeControl: false,
+            clickableIcons: false,
+          });
 
-        infoWindow = new google.maps.InfoWindow();
+          infoWindow = new google.maps.InfoWindow();
 
-        mapView.addHandlerCreateMapMarker(map, controlMapCreateMapMarker);
-        controlMapLoadMarkers();
-      },
-      function () {
-        alert(
-          'Please enable your browser to access your location to use the Map feature.',
-        );
-      },
-    );
+          mapView.addHandlerCreateMapMarker(map, controlMapCreateMapMarker);
+          controlMapLoadMarkers();
+        },
+        function () {
+          alert(
+            'Please enable your browser to access your location to use the Map feature.',
+          );
+        },
+      );
+    }
+  } catch (err) {
+    controlAppError(new Error('Map failed to load'), mapView);
   }
 };
 

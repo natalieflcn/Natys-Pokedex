@@ -51,6 +51,7 @@ const controlAboutBtns = function (action) {
 export const controlAppError = function (err, view, message) {
   switch (err.message) {
     case 'Pokemon Not Found':
+    case 'Map failed to load':
       view.renderError(message || view._errorMessage);
       break;
 

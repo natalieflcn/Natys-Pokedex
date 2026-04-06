@@ -276,17 +276,6 @@ body {
   --btn-highlight: var(--secondary-color--yellow-gradient--2);
 }
 
-/* .btn--grey {
-  --btn-bg: linear-gradient(
-    -40deg,
-    var(--secondary-color--grey-gradient) 10%,
-    var(--secondary-color--grey) 85%,
-    var(--text--light) 100%
-  );
-  --btn-shadow: var(--secondary-color--grey-gradient);
-  --btn-highlight: var(--text--light);
-} */
-
 .btn--active {
   font-weight: bold;
   background: var(--btn-highlight);

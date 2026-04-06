@@ -11,7 +11,8 @@ import View from '../View.js';
 
 class MapView extends View {
   _parentEl = document.getElementById('map');
-  _errorMessage = 'There was an error rendering the map.';
+  _errorMessage =
+    'There was an error loading the map. Please refresh the page.';
   _currentMarker = {};
 
   // MAP FUNCTIONS
