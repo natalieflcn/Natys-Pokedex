@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
-  entry: path.resolve(__dirname, 'src/js/controllers/appController.js'),
+  entry: path.resolve(__dirname, 'src/js/Controllers/appController.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
