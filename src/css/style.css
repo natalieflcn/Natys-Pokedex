@@ -1,19 +1,8 @@
 /* CSS Reset */
 
 /* prettier-ignore */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html, body, div, span, h1, h2, h3, h4, h5, h6, p,
+a, img, b, u, i, ol, ul, li, form, label, footer, header, nav, section {
   margin: 0;
   padding: 0;
   border: 0;
@@ -25,8 +14,7 @@ time, mark, audio, video {
 /* HTML5 display-role reset for older browsers */
 
 /* prettier-ignore */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+footer, header, nav, section {
   display: block;
 }
 
@@ -40,43 +28,26 @@ ol, ul {
   list-style: none;
 }
 
-/* prettier-ignore */
-blockquote, q {
-  quotes: none;
-}
-
-/* prettier-ignore */
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 /* CSS Custom Properties */
 :root {
   --primary-color: #dd082e;
   --secondary-color--red: #ee1e45;
   --secondary-color--red-gradient--1: #a0092f;
   --secondary-color--red-gradient--2: #ffc3c6;
-  --secondary-color--red-gradient--3: #701422;
+  --secondary-color--red-gradient--3: #5c0b17;
   --secondary-color--blue: #27aaff;
-  --secondary-color--blue-gradient--1: #0d6dad;
+  --secondary-color--blue-gradient--1: #074d7c;
   --secondary-color--blue-gradient--2: #9bdefb;
   --secondary-color--yellow: #ffdd51;
-  --secondary-color--yellow-gradient--1: #958414;
+  --secondary-color--yellow-gradient--1: #605406;
   --secondary-color--yellow-gradient--2: #fdfc91;
   --secondary-color--green: #3a9456;
-  --secondary-color--green-gradient--1: #28662f;
+  --secondary-color--green-gradient--1: #14461a;
   --secondary-color--green-gradient--2: #bff8cd;
   --secondary-color--grey: #d9d5de;
-  --secondary-color--grey-gradient: #8a848a;
+  --secondary-color--grey-gradient: #6a646a;
 
-  --screen-color--dark: #242424;
+  --screen-color--dark: #1d1d1d;
   --text--light: #fff;
 
   /* Gradients */
@@ -305,7 +276,7 @@ body {
   --btn-highlight: var(--secondary-color--yellow-gradient--2);
 }
 
-.btn--grey {
+/* .btn--grey {
   --btn-bg: linear-gradient(
     -40deg,
     var(--secondary-color--grey-gradient) 10%,
@@ -314,7 +285,7 @@ body {
   );
   --btn-shadow: var(--secondary-color--grey-gradient);
   --btn-highlight: var(--text--light);
-}
+} */
 
 .btn--active {
   font-weight: bold;
@@ -1539,16 +1510,16 @@ body {
   font-size: 3.5rem;
 }
 
-.error__template--img {
+.page-not-found-2--img {
   width: 100%;
 }
 
-.error__details {
+.page-not-found-2__details {
   margin: 1rem 0;
   line-height: 1.25rem;
 }
 
-.error__btn {
+.page-not-found-2__btn {
   width: 100%;
 }
 

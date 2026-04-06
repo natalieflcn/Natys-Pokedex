@@ -41,7 +41,6 @@ class PanelView extends View {
    * @param {Function} handler - Search controller callback (controlSearchFavoriteBtn)
    */
   addHandlerFavoriteBtn(handler) {
-    console.log('handler getting added');
     this._parentEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.search__btn--favorite');
 
@@ -59,7 +58,6 @@ class PanelView extends View {
 
   // Visually toggles 'Caught' button on Pokémon panel
   toggleCaughtBtn() {
-    console.log('toggling caught btn');
     this._parentEl
       .querySelector('.search__btn--caught')
       .classList.toggle('btn--active');

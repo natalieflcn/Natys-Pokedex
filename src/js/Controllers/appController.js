@@ -95,7 +95,6 @@ const init = async function () {
     await controlMapInit();
     controlProfileInit();
     AboutView.addHandlerAboutBtn(controlAboutBtns);
-    // window.appInitialized = true;
   } catch (err) {
     controlAppError(
       new Error('HTTP_400'),

@@ -1,0 +1,4 @@
+const cache = {
+  pokemonPreviews: [],
+  pokemonPanels: [],
+};

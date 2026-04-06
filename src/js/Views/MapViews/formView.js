@@ -69,7 +69,6 @@ class FormView extends View {
     const pokemonData = [
       ...new FormData(this._parentEl.querySelector('.map__form')),
     ];
-    console.log(Object.fromEntries(pokemonData));
     return Object.fromEntries(pokemonData);
   }
 

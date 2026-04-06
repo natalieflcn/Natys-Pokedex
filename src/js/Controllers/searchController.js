@@ -277,13 +277,11 @@ export const controlSearchPokemonPanel = async function () {
     // Load Pokémon (data) panel details
     panelView.renderSpinner();
 
-    console.log(pokemonName);
     await loadPokemon(pokemonName);
 
     // Render Pokémon panel
     const pokemon = getPokemon();
 
-    console.log(pokemon);
     // Configuring pagination buttons of Pokémon panel
     let pokemonResults, loadMoreResults;
 

@@ -358,13 +358,60 @@
   - [x] Snorlax (404 Error)
   - [x] Naty with Pokémon (General Error)
 
-## Week: April 4
+## Week: April 4 - April 11
+
+### Goals
 
 - [x] Replace images on platform
-- [ ] Review code
-  - [ ] Clean up HTML template
-  - [ ] Organize CSS styles
-  - [ ] Optimize performance
+- [~] Review code
+  - [x] Clean up HTML template
+  - [x] Organize CSS styles
+  - [~] Optimize performance
+    - [ ] Lazy load non-critical components and modules
+      - [ ] Don't initialize modules all at oncee TODO 3
+      - [ ] Don't initialize map module until visible
+    - [ ] Reduce unused code
+      - [ ] Implement code splitting
+      - [ ] Check Coverage tab on Dev Tools
+    - [ ] Image asset optimization
+      - [ ] Compress images with modern formats
+    - [ ] Re-renders/DOM work
+      - [ ] Full re-renders instead of partial re-renders
+    - [ ] Large API payloads or blocking fetches
+      - [ ] Cache results in state TODO 4
+      - [ ] Don't fetch everything in load
+    - [ ] Event listener duplication
+      - [ ] Multiple listeners per element
+      - [ ] Unecessary listeners on parent elements
+    - [ ] Check bundle size
+      - [ ] JavaScript file sizes
+      - [ ] How many files load initially
+
+    - [ ] Lighthouse Insights
+      - [ ] Use efficient cache lifetimes
+      - [ ] Improve image delivery
+      - [ ] Render blocking requests
+      - [ ] Duplicated JavaScript
+      - [ ] Layout shift culprits
+      - [ ] Network dependency shifts
+      - [ ] Font display
+      - [ ] Images in Pokémon previews do not have explicit width and height
+      - [ ] Minify JavaScript
+      - [ ] Page prevented back/forward cache restoration
+      - [ ] Minify CSS
+      - [ ] Reduce unused CSS
+      - [ ] Avoid enormous network payloads
+      - [ ] User Timing marks and measures
+      - [ ] Avoid non-composited animations
+      - [ ] Avoid long main-thread tasks
+      
+    - [ ] Improve Accesibility TODO 1
+      - [ ] Footer links do not have a discernable name
+      - [ ] Background and foreground colors of buttons do not have enough contrast
+
+  - [ ] Implement error handling for Map module TODO 2
+    - [ ] Add message to the Map module telling user to enable geolocation features and refresh, if the map doesn't load
+
 - [ ] Re-deploy to Netlify
 - [ ] Create README
 - [ ] Gather feedback from other users

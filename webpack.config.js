@@ -17,7 +17,7 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/',
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     static: { directory: path.join(__dirname, 'dist') },
@@ -28,10 +28,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: [
-          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.js$/,
@@ -58,6 +55,9 @@ module.exports = {
       'process.env.GOOGLE_MAPS_API_KEY': JSON.stringify(
         process.env.GOOGLE_MAPS_API_KEY,
       ),
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
     }),
   ],
 };

@@ -400,7 +400,6 @@ export const controlMapDeleteMarker = function (pokemon) {
 
   const removedSavedMarker = removeSavedMarkerReference(pokemon.name);
 
-  console.log(removedSavedMarker);
   const targetLat = removedSavedMarker?.coordinates?.latitude;
   const targetLng = removedSavedMarker?.coordinates?.longitude;
 
