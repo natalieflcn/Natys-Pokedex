@@ -10,7 +10,7 @@ import { controlNavInit, controlNavBtn } from './navController';
 import { controlSearchInit } from './searchController';
 import { controlMapInit } from './mapController';
 import { controlProfileInit } from './profileController';
-import AboutView from '../Views/AboutView';
+import AboutView from '../Views/aboutView';
 import resultsView from '../Views/SearchViews/resultsView';
 import '../../css/style.css';
 

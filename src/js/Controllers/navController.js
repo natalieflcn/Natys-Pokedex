@@ -29,7 +29,7 @@ import { getFavoriteRender } from '../Models/favoriteModel';
 import lightsView from '../Views/NavViews/lightsView';
 import resultsView from '../Views/SearchViews/resultsView';
 import { capitalize } from '../helpers';
-import aboutView from '../Views/AboutView';
+import aboutView from '../Views/aboutView';
 import pageNotFoundView from '../Views/pageNotFoundView';
 
 /**
