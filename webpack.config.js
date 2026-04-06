@@ -10,8 +10,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: 'development',
-  entry: './src/js/controllers/appController.js',
+  mode: isDev ? 'development' : 'production',
+  entry: '/src/js/controllers/appController.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
