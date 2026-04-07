@@ -1183,6 +1183,10 @@ body {
   justify-content: space-between;
 }
 
+.profile__header--short-text {
+  display: none;
+}
+
 .profile__header--labels {
   display: flex;
   flex-wrap: wrap;
