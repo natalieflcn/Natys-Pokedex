@@ -89,9 +89,9 @@ export const controlAppError = function (err, view, message) {
 
 const init = async function () {
   // Prevents app from duplication initialization during development (HMR)
-  // if (window.appInitialized) return;
+  if (window.appInitialized) return;
 
-  // window.appInitialized = true;
+  window.appInitialized = true;
 
   try {
     controlNavInit();
