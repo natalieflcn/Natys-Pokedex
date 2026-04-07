@@ -416,4 +416,5 @@
 - [ ] Create README
 - [ ] Gather feedback from other users
 
-- BUG: After implementing caching, the search results fail (silently) to render search results
+- [x] BUG: After implementing caching, the search results fail (silently) to render search results
+- [ ] BUG: Sorting by Name on Search module no longer works

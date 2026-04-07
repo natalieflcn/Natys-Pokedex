@@ -120,6 +120,7 @@ export const loadPokemonBatch = async function (
       getPokemonSortBy(),
     );
 
+    console.log(sortedPokemon);
     const pokemonBatch = sortedPokemon.slice(
       pokemonState.offset,
       pokemonState.offset + batchSize,

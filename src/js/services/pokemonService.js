@@ -148,11 +148,10 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
     const pokemonName = pokemon.name || pokemon;
 
     if (getPokemonCache()[capitalize(pokemonName)])
-      if (getPokemonCache()[capitalize(pokemonName)])
-        return createPokemonPreviewObject(
-          pokemonName,
-          getPokemonCache()[capitalize(pokemonName)],
-        );
+      return createPokemonPreviewObject(
+        pokemonName,
+        getPokemonCache()[capitalize(pokemonName)],
+      );
 
     return fetchPokemon(pokemonName, signal)
       .then(pokemonDetails =>
@@ -163,7 +162,7 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
           `Failed to load Pokémon: ${pokemonName}. Will attempt to load next Pokémon instead.`,
           err,
         );
-        throw err;
+        // throw err;
       });
   });
 

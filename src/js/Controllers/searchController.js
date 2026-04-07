@@ -425,15 +425,15 @@ const initPokemonData = async function () {
   try {
     await storeAllPokemonReferences();
 
-    setTimeout(function () {
-      if (getLoadedReferences().length < 1) {
-        controlAppError(
-          new Error('References failed to load'),
-          resultsView,
-          'Something went wrong! Please refresh the page.',
-        );
-      }
-    }, 5000);
+    // setTimeout(function () {
+    //   if (getLoadedReferences().length < 1) {
+    //     controlAppError(
+    //       new Error('References failed to load'),
+    //       resultsView,
+    //       'Something went wrong! Please refresh the page.',
+    //     );
+    //   }
+    // }, 5000);
   } catch (err) {
     controlAppError(
       new Error('References failed to load'),
@@ -466,5 +466,7 @@ export const controlSearchInit = async function () {
 
   paginationView.addHandlerPaginationClick(controlSearchPagination);
 
-  controlSearchResults();
+  setTimeout(function () {
+    if (!initializedSearchResults) controlSearchResults();
+  }, 1000);
 };
