@@ -72,8 +72,10 @@ let currentSearchResultsController;
 
 // To coordinate rendering of the Pokémon search results
 const controlSearchResults = async function () {
+  console.log('function start');
   try {
-    if (!window.appInitialized) return;
+    // if (!window.appInitialized) return;
+    console.log('running controlseachresults');
 
     if (initializedSearchResults) panelView._clear();
     else initializedSearchResults = true;
@@ -463,4 +465,6 @@ export const controlSearchInit = async function () {
   panelView.addHandlerFavoriteBtn(controlSearchFavoriteBtn);
 
   paginationView.addHandlerPaginationClick(controlSearchPagination);
+
+  controlSearchResults();
 };

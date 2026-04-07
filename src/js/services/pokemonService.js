@@ -69,8 +69,6 @@ const fetchPokemon = async function (pokemonName, signal) {
   if (getPokemonCache()?.[capitalize(pokemonName)])
     return getPokemonCache()[capitalize(pokemonName)];
 
-  console.log(data);
-
   let data;
   try {
     data = await AJAX(`${MAIN_API_URL}${pokemonName}`, signal);
@@ -136,8 +134,6 @@ export const loadGuaranteedBatch = async function (
     }
   }
 
-  console.log('batch before filter:', pokemonPreviews);
-
   return pokemonPreviews;
 };
 
@@ -152,16 +148,16 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
     const pokemonName = pokemon.name || pokemon;
 
     if (getPokemonCache()[capitalize(pokemonName)])
-      return createPokemonPreviewObject(
-        pokemonName,
-        getPokemonCache(capitalize(pokemonName)),
-      );
+      if (getPokemonCache()[capitalize(pokemonName)])
+        return createPokemonPreviewObject(
+          pokemonName,
+          getPokemonCache()[capitalize(pokemonName)],
+        );
 
     return fetchPokemon(pokemonName, signal)
-      .then(pokemonDetails => {
-        if (!pokemonDetails) return null;
-        createPokemonPreviewObject(pokemonName, pokemonDetails);
-      })
+      .then(pokemonDetails =>
+        createPokemonPreviewObject(pokemonName, pokemonDetails),
+      )
       .catch(err => {
         console.error(
           `Failed to load Pokémon: ${pokemonName}. Will attempt to load next Pokémon instead.`,
