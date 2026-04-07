@@ -27,6 +27,7 @@ import {
   getQueryResults,
   loadQueryBatch,
   resetQueryState,
+  setQuery,
   startPokemonQuery,
   storeQueryResults,
   updateHasMoreQueryResults,
@@ -94,6 +95,10 @@ const controlSearchResults = async function () {
     if (resultsView._observer) resultsView.unobserveSentinel();
 
     const query = queryView.getQuery();
+    setQuery(query);
+    console.log(getQuery());
+
+    console.log(query);
 
     const pokemonName = capitalize(
       window.location.pathname.split('/search/')[1],
@@ -108,7 +113,7 @@ const controlSearchResults = async function () {
 
       const currentURL = new URL('/search', window.location.origin);
 
-      console.log(getPokemonSortBy());
+      console.log(getQuery());
       if (getPokemonSortBy() === 'name') {
         currentURL.searchParams.set('sort', 'name');
       }
@@ -117,6 +122,7 @@ const controlSearchResults = async function () {
 
       storeQueryResults(query, pokemonState.allPokemonReferences);
 
+      console.log(getQuery());
       await loadGuaranteedBatch(requestId, loadQueryBatch, signal);
 
       pokemonResults = getQueryResults();
@@ -131,6 +137,8 @@ const controlSearchResults = async function () {
 
       hasMoreResults = getHasMorePokemonResults();
     }
+
+    console.log(pokemonResults);
 
     if (pokemonResults.length < 1) {
       resultsView._clear();
@@ -268,7 +276,6 @@ const controlSearchClickPreview = function (pokemon) {
   if (getPokemonSortBy() === 'name') {
     currentURL.searchParams.set('sort', 'name');
   }
-  console.log(currentURL);
 
   window.history.replaceState(
     { page: `search/${pokemonName}` },
@@ -276,6 +283,7 @@ const controlSearchClickPreview = function (pokemon) {
     currentURL,
   );
 
+  console.log(getQueryResults());
   controlSearchPokemonPanel();
 };
 
@@ -315,6 +323,9 @@ export const controlSearchPokemonPanel = async function () {
       loadMoreResults = getHasMorePokemonResults();
     }
 
+    console.log(getQueryResults(), query);
+
+    console.log(pokemonResults, loadMoreResults);
     const { prev, next } = getPokemonPagination(
       pokemon.name,
       pokemonResults,
@@ -467,6 +478,12 @@ const initPokemonData = async function () {
 export const controlSearchInit = async function () {
   await initPokemonData();
 
+  // setTimeout(function () {
+  //   if (!initializedSearchResults) controlSearchResults();
+  // }, 1000);
+
+  if (!initializedSearchResults) controlSearchResults();
+
   queryView.addHandlerQuery(debounce(controlSearchResults, 300));
   queryView.addHandlerChangePlaceholder();
 
@@ -482,8 +499,4 @@ export const controlSearchInit = async function () {
   panelView.addHandlerFavoriteBtn(controlSearchFavoriteBtn);
 
   paginationView.addHandlerPaginationClick(controlSearchPagination);
-
-  setTimeout(function () {
-    if (!initializedSearchResults) controlSearchResults();
-  }, 1000);
 };

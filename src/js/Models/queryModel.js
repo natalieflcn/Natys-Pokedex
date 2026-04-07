@@ -101,6 +101,7 @@ export const storeQueryResults = function (query, querySet) {
 
   resetQueryState();
 
+  queryState.query = query;
   queryState.queryReferences = possiblePokemon(query, querySet);
 
   queryState.loading = false;
