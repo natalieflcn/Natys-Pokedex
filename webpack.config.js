@@ -52,7 +52,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
-    new CopyWebpackPlugin({ patterns: [{ from: 'public/imgs', to: 'imgs' }] }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/imgs', to: 'imgs' },
+        { from: 'public/_redirects', to: '' },
+      ],
+    }),
     new webpack.DefinePlugin({
       'process.env.GOOGLE_MAPS_API_KEY': JSON.stringify(
         process.env.GOOGLE_MAPS_API_KEY,
