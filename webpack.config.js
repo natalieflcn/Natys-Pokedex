@@ -49,15 +49,18 @@ module.exports = {
   plugins: [
     new FaviconsWebpackPlugin({ logo: 'public/imgs/logo.svg' }),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
-    ...(isDev ? [] : [new MiniCssExtractPlugin()]),
+    ...(isDev
+      ? []
+      : [
+          new MiniCssExtractPlugin({
+            filename: 'style.css',
+          }),
+        ]),
     new CopyWebpackPlugin({ patterns: [{ from: 'public/imgs', to: 'imgs' }] }),
     new webpack.DefinePlugin({
       'process.env.GOOGLE_MAPS_API_KEY': JSON.stringify(
         process.env.GOOGLE_MAPS_API_KEY,
       ),
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
     }),
   ],
 };
