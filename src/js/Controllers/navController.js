@@ -135,6 +135,7 @@ const controlNavLogo = function () {
 };
 
 const controlNavBackToSearch = function () {
+  console.log('running cnbts');
   controlNavBtn('search');
 };
 

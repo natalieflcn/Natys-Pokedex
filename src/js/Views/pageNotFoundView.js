@@ -5,8 +5,9 @@ class PageNotFoundView extends View {
   _errorMessage = "The page you were looking for doesn't exist.";
 
   addHandlerBackToSearchBtn(handler) {
+    console.log('handler being added');
     this._parentEl.addEventListener('click', function (e) {
-      const btn = e.target.closest('.error__btn');
+      const btn = e.target.closest('.page-not-found-2__btn');
 
       if (!btn) return;
 
