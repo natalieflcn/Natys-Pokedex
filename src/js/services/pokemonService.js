@@ -149,7 +149,11 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
   const pokemonBatchDetails = pokemonBatch.map(pokemon => {
     const pokemonName = pokemon.name || pokemon;
 
-    if (getPokemonCache()[capitalize(pokemonName)]);
+    if (getPokemonCache()[capitalize(pokemonName)])
+      return createPokemonPreviewObject(
+        pokemonName,
+        getPokemonCache(capitalize(pokemonName)),
+      );
 
     return fetchPokemon(pokemonName, signal)
       .then(pokemonDetails =>

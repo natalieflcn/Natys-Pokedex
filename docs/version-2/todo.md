@@ -412,6 +412,8 @@
   - [x] Implement error handling for Map module
     - [x] Add message to the Map module telling user to enable geolocation features and refresh, if the map doesn't load
 
-- [ ] Re-deploy to Netlify
+- [x] Re-deploy to Netlify
 - [ ] Create README
 - [ ] Gather feedback from other users
+
+- BUG: After implementing caching, the search results fail (silently) to render search results

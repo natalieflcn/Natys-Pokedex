@@ -1,4 +1,0 @@
-const cache = {
-  pokemonPreviews: [],
-  pokemonPanels: [],
-};
