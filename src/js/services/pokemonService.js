@@ -79,7 +79,7 @@ const fetchPokemon = async function (pokemonName, signal) {
     throw err;
   }
 
-  if (!data) return null;
+  if (!data) throw new Error('No data returned.');
 
   getPokemonCache()[capitalize(pokemonName)] = data;
 
@@ -136,6 +136,8 @@ export const loadGuaranteedBatch = async function (
     }
   }
 
+  console.log('batch before filter:', pokemonPreviews);
+
   return pokemonPreviews;
 };
 
@@ -156,15 +158,16 @@ export const loadBatchDetails = function (pokemonBatch, signal) {
       );
 
     return fetchPokemon(pokemonName, signal)
-      .then(pokemonDetails =>
-        createPokemonPreviewObject(pokemonName, pokemonDetails),
-      )
+      .then(pokemonDetails => {
+        if (!pokemonDetails) return null;
+        createPokemonPreviewObject(pokemonName, pokemonDetails);
+      })
       .catch(err => {
         console.error(
           `Failed to load Pokémon: ${pokemonName}. Will attempt to load next Pokémon instead.`,
           err,
         );
-        return null;
+        throw err;
       });
   });
 

@@ -34,7 +34,7 @@ export const AJAX = async function (url, signal) {
     return data;
   } catch (err) {
     console.error(err);
-    if (err.name === 'AbortError') return null;
+    if (err.name === 'AbortError') throw err;
 
     if (err instanceof TypeError) throw new Error('NETWORK_ERROR');
 
