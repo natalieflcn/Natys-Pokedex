@@ -25,7 +25,7 @@ class PreviewView extends View {
 
       // If there's already an active Pokémon preview, remove its active class
       const currentlyActive = this._parentEl.querySelector(
-        '.search__preview--active'
+        '.search__preview--active',
       );
       if (currentlyActive && currentlyActive !== preview)
         currentlyActive.classList.remove('search__preview--active');
@@ -34,7 +34,7 @@ class PreviewView extends View {
       preview.classList.add('search__preview--active');
 
       const pokemonName = preview.querySelector(
-        '.search__preview--name'
+        '.search__preview--name',
       ).textContent;
       handler(pokemonName);
     });

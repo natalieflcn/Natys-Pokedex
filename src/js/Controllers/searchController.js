@@ -106,7 +106,14 @@ const controlSearchResults = async function () {
     if (query) {
       requestId = startPokemonQuery();
 
-      window.history.replaceState({ page: `search` }, '', `/search`);
+      const currentURL = new URL('/search', window.location.origin);
+
+      console.log(getPokemonSortBy());
+      if (getPokemonSortBy() === 'name') {
+        currentURL.searchParams.set('sort', 'name');
+      }
+
+      window.history.replaceState({ page: `search` }, '', currentURL);
 
       storeQueryResults(query, pokemonState.allPokemonReferences);
 
@@ -117,6 +124,7 @@ const controlSearchResults = async function () {
     } else {
       requestId = startPokemonRequest();
 
+      console.log(new URL(window.location.href));
       await loadGuaranteedBatch(requestId, loadPokemonBatch, signal);
 
       pokemonResults = getPokemonResults();
@@ -230,7 +238,7 @@ const controlSearchSortBtn = async function (sort) {
   }
 
   setPokemonSortBy(sort);
-
+  console.log(sort);
   controlSearchRenderSort(sort);
   await controlSearchResults();
 };
@@ -253,10 +261,19 @@ export const controlSearchSortLoad = function () {
 const controlSearchClickPreview = function (pokemon) {
   const pokemonName = pokemon.toLowerCase();
 
+  console.log(pokemon);
+  const currentURL = new URL(`/search/${pokemonName}`, window.location.origin);
+
+  console.log(getPokemonSortBy());
+  if (getPokemonSortBy() === 'name') {
+    currentURL.searchParams.set('sort', 'name');
+  }
+  console.log(currentURL);
+
   window.history.replaceState(
     { page: `search/${pokemonName}` },
     '',
-    `/search/${pokemonName}`,
+    currentURL,
   );
 
   controlSearchPokemonPanel();
@@ -453,7 +470,7 @@ export const controlSearchInit = async function () {
   queryView.addHandlerQuery(debounce(controlSearchResults, 300));
   queryView.addHandlerChangePlaceholder();
 
-  resultsView.addHandlerLoadResults(controlSearchResults);
+  // resultsView.addHandlerLoadResults(controlSearchResults);
 
   sortView.addHandlerSortBtn(controlSearchSortBtn);
   sortView.addHandlerSortLoad(controlSearchSortLoad);

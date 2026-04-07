@@ -120,7 +120,6 @@ export const loadPokemonBatch = async function (
       getPokemonSortBy(),
     );
 
-    console.log(sortedPokemon);
     const pokemonBatch = sortedPokemon.slice(
       pokemonState.offset,
       pokemonState.offset + batchSize,
@@ -129,13 +128,11 @@ export const loadPokemonBatch = async function (
     // Fetch Pokémon name, ID, and img to later create Pokémon previews (this stores an array of promises)
     const pokemonBatchDetails = loadBatchDetails(pokemonBatch, signal);
 
-    console.log(pokemonBatchDetails);
     if (isStalePokemonRequest(requestId)) return;
 
     // Resolves the aforementioned array of promises and creates Pokémon preview objects
     const pokemonPreviews = await loadPokemonPreviews(pokemonBatchDetails);
 
-    console.log(pokemonPreviews);
     if (isStalePokemonRequest(requestId)) return;
 
     // Removes the invalid (null, non-existent) entries from the array of Pokémon preview obejcts

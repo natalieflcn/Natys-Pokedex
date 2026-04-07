@@ -417,4 +417,5 @@
 - [ ] Gather feedback from other users
 
 - [x] BUG: After implementing caching, the search results fail (silently) to render search results
-- [ ] BUG: Sorting by Name on Search module no longer works
+- [x] BUG: Sorting by Name on Search module no longer works
+- [ ] BUG: Sorting by Name on Search module doesn't work for queries
