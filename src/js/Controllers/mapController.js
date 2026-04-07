@@ -190,9 +190,9 @@ const controlMapEditEntry = function (pokemonName) {
   const id = getCaughtPokemon().find(
     pokemon => pokemon.name === pokemonName,
   ).id;
-  const location = getCaughtPokemon().find(
-    pokemon => pokemon.name === pokemonName,
-  ).location;
+  const location =
+    getCaughtPokemon().find(pokemon => pokemon.name === pokemonName).location ||
+    'Unknown Location';
 
   formView.showMapForm();
   formView.updateFormNameAndId(pokemonName, id);
