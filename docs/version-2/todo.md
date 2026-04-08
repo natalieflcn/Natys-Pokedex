@@ -414,8 +414,8 @@
 
 - [x] Re-deploy to Netlify
 - [ ] Create README
-- [ ] Gather feedback from other users
+- [~] Gather feedback from other users
 
 - [x] BUG: After implementing caching, the search results fail (silently) to render search results
 - [x] BUG: Sorting by Name on Search module no longer works
-- [ ] BUG: Sorting by Name on Search module doesn't work for queries
+- [x] BUG: Sorting by Name on Search module doesn't work for queries

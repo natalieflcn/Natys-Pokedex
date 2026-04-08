@@ -73,10 +73,8 @@ let currentSearchResultsController;
 
 // To coordinate rendering of the Pokémon search results
 const controlSearchResults = async function () {
-  console.log('function start');
   try {
     // if (!window.appInitialized) return;
-    console.log('running controlseachresults');
 
     if (initializedSearchResults) panelView._clear();
     else initializedSearchResults = true;
@@ -96,9 +94,6 @@ const controlSearchResults = async function () {
 
     const query = queryView.getQuery();
     setQuery(query);
-    console.log(getQuery());
-
-    console.log(query);
 
     const pokemonName = capitalize(
       window.location.pathname.split('/search/')[1],
@@ -113,7 +108,6 @@ const controlSearchResults = async function () {
 
       const currentURL = new URL('/search', window.location.origin);
 
-      console.log(getQuery());
       if (getPokemonSortBy() === 'name') {
         currentURL.searchParams.set('sort', 'name');
       }
@@ -122,7 +116,6 @@ const controlSearchResults = async function () {
 
       storeQueryResults(query, pokemonState.allPokemonReferences);
 
-      console.log(getQuery());
       await loadGuaranteedBatch(requestId, loadQueryBatch, signal);
 
       pokemonResults = getQueryResults();
@@ -130,15 +123,12 @@ const controlSearchResults = async function () {
     } else {
       requestId = startPokemonRequest();
 
-      console.log(new URL(window.location.href));
       await loadGuaranteedBatch(requestId, loadPokemonBatch, signal);
 
       pokemonResults = getPokemonResults();
 
       hasMoreResults = getHasMorePokemonResults();
     }
-
-    console.log(pokemonResults);
 
     if (pokemonResults.length < 1) {
       resultsView._clear();
@@ -246,7 +236,6 @@ const controlSearchSortBtn = async function (sort) {
   }
 
   setPokemonSortBy(sort);
-  console.log(sort);
   controlSearchRenderSort(sort);
   await controlSearchResults();
 };
@@ -269,10 +258,8 @@ export const controlSearchSortLoad = function () {
 const controlSearchClickPreview = function (pokemon) {
   const pokemonName = pokemon.toLowerCase();
 
-  console.log(pokemon);
   const currentURL = new URL(`/search/${pokemonName}`, window.location.origin);
 
-  console.log(getPokemonSortBy());
   if (getPokemonSortBy() === 'name') {
     currentURL.searchParams.set('sort', 'name');
   }
@@ -283,7 +270,6 @@ const controlSearchClickPreview = function (pokemon) {
     currentURL,
   );
 
-  console.log(getQueryResults());
   controlSearchPokemonPanel();
 };
 
@@ -323,9 +309,6 @@ export const controlSearchPokemonPanel = async function () {
       loadMoreResults = getHasMorePokemonResults();
     }
 
-    console.log(getQueryResults(), query);
-
-    console.log(pokemonResults, loadMoreResults);
     const { prev, next } = getPokemonPagination(
       pokemon.name,
       pokemonResults,
