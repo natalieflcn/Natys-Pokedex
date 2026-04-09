@@ -39,7 +39,7 @@ const controlAboutBtns = function (action) {
       break;
 
     case 'linkedin':
-      window.open('https://www.linkedin.com/in/nataliedfalcon/', '_blank');
+      window.open('https://www.linkedin.com/in/natalieflcn/', '_blank');
       break;
 
     case 'portfolio':
