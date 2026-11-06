@@ -43,7 +43,7 @@ const controlAboutBtns = function (action) {
       break;
 
     case 'portfolio':
-      alert('Portfolio coming soon... Stay tuned!');
+      window.open('https://www.natalieflcn.com/', '_blank');
       break;
   }
 };
